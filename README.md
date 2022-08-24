@@ -12,7 +12,7 @@
 | Stash Performer Audit Task Button  | WIP  |
 | Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |
 | Stash Performer YAML Details Linkify  | WIP  |
-| Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry |
+| Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry. Also displays studio stashids on studio page without having to click edit to view |
 | Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |
 | Stash Studio Image And Parent On Create | In Scene Tagger, sets studio image and parent studio from StashDB when a studio is created  |
 
@@ -27,6 +27,14 @@ Stats page
 Scenes page tagger view
 
 ![Scenes page tagger view](images/scenes-tagger.png?raw=true "Scenes page tagger view")
+
+Studio page
+
+![Studio page](images/studio-page.png?raw=true "Studio page")
+
+Performer page
+
+![Performer page](images/performer-page.png?raw=true "Performer page")
 
 ## Installation
 
