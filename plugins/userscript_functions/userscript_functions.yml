@@ -24,3 +24,7 @@ tasks:
       studio_id: null
       endpoint: null
       remote_site_id: null
+  - name: Audit performer urls
+    description: Audit performer IAFD urls for dupes
+    defaultArgs:
+      name: audit_performer_urls

@@ -25,7 +25,7 @@
                 auditButton.classList.add('btn', 'btn-secondary', 'mr-2');
                 auditButton.innerHTML = 'Audit URLs';
                 auditButton.onclick = () => {
-                    stash.runPluginTask("my_stash_manager", "Audit performer urls");
+                    stash.runPluginTask("userscript_functions", "Audit performer urls");
                 };
                 newGroup.appendChild(auditButton);
             }

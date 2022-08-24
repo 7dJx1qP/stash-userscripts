@@ -8,7 +8,7 @@ import log
 try:
     import requests
 except ModuleNotFoundError:
-    print("If you have pip (normally installed with python), run this command in a terminal (cmd): pip install requests python-dateutil)", file=sys.stderr)
+    print("If you have pip (normally installed with python), run this command in a terminal (cmd): pip install requests)", file=sys.stderr)
     sys.exit()
 
 def call_graphql(query, variables=None):

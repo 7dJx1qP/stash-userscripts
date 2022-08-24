@@ -13,7 +13,7 @@ Installation requires a browser extension such as [Violentmonkey](https://violen
 | Stash Match Metadata Highlight  | In Scene Tagger, adds button to compare local scene metadata with stashdb matches. Highlights stashdb match results matching fields green and mismatching fields red  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Match%20Metadata%20Highlight.user.js)  |
 | Stash New Performer Filter Button  | Adds button to performers page to switch to a filter by new performers tagger view  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20New%20Performer%20Filter%20Button.user.js)  |
 | Stash Open VLC  | Open filepath link on scene page 'File Info' tab in VLC when clicked  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Open%20VLC.user.js)  |
-| Stash Performer Audit Task Button  | WIP  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Audit%20Task%20Button.user.js)  |
+| Stash Performer Audit Task Button  |  Adds a button to the performers page to check for duplicate performer urls. Task output shown in stash logs  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Audit%20Task%20Button.user.js)  |
 | Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20URL%20Searchbox.user.js)  |
 | Stash Performer YAML Details Linkify  | WIP  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20YAML%20Details%20Linkify.user.js)  |
 | Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry. Also displays studio stashids on studio page without having to click edit to view |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20StashID%20Input.user.js)  |
@@ -46,6 +46,17 @@ Download raw userscript files from `dist\public` or install from raw github urls
 
 Pick and choose which userscript to install or install just `Stash Userscripts Bundle.user.js` to get all of them
 
+### Userscript Functions Plugin
+
+THe following userscripts require the `userscript_functions` stash plugin in the `plugins` folder:
+* Stash Open VLC
+  * Set `VLC_PATH` to your vlc.exe path in the file `userscript_functions\config.py`
+* Stash Studio Image And Parent On Create
+* Stash Performer Audit Task Button
+* Stash Performer YAML Details Linkify
+
+Copy the `userscript_functions` folder in `plugins` to your stash `plugins` folder. Update `userscript_functions\config.py` with your stash URL.
+
 ## Settings
 
 ### Server URL
@@ -54,19 +65,11 @@ If you access stash over a network or use a different localhost port, you can se
 
 ![Settings page system tab](images/system-settings.png?raw=true "Settings page system tab")
 
-## Requirements
-
-These userscripts require the `userscript_functions` stash plugin in the `plugins` folder:
-* Stash Open VLC
-  * Set `VLC_PATH` to your vlc.exe path in the file `userscript_functions\config.py`
-* Stash Studio Image And Parent On Create
-* Stash Performer YAML Details Linkify
+## WIP
 
 These userscripts rely on unreleased plugins not yet ready for public use and should be ignored for now. I only include them now for source control purposes:
 * Stash Performer YAML Details Linkify
   * This assumes performer details contain a YAML document with urls and paths which is how I track my performer folders and multiple performer urls. There's an accompanying unreleased plugin for initializing all performer details this way as a standalone task and on performer creation.
-* Stash Performer Audit Task Button
-  * This runs an unreleased plugin task that checks for performers with duplicate IAFD urls
 
 ## Developing
 
