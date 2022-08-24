@@ -6,6 +6,7 @@
 // @match       *localhost:9999/*
 // @grant       none
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/blob/master/src\StashUserscriptLibrary.js
+// ==/UserScript==
 
 (function() {
     'use strict';

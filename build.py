@@ -17,7 +17,7 @@ def build():
         localbodyfiles.append("file://" + os.path.join(config.ROOTDIR, 'src/body', file))
         distbodyfiles.append(os.path.join(config.GITHUB_ROOT_URL, 'src/body', file))
         
-        distscript = header.replace("%LIBRARYPATH%", distlibfile).replace("// @require     %FILEPATH%\n// ==/UserScript==", '\n' + body)
+        distscript = header.replace("%LIBRARYPATH%", distlibfile).replace("// @require     %FILEPATH%\n", "") + "\n\n" + body
         with open(distpublicpath, 'w') as f:
             f.write(distscript)
             print(distpublicpath)

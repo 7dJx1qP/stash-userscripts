@@ -7,6 +7,7 @@
 // @grant       none
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/blob/master/src\StashUserscriptLibrary.js
 // @require     https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
+// ==/UserScript==
 
 /* global jsyaml */
 
