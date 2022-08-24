@@ -1,0 +1,26 @@
+name: Userscript Functions
+description: Tasks for userscripts
+url: ''
+version: 0.1
+exec:
+  - python
+  - "{pluginDir}/userscript_functions.py"
+interface: raw
+tasks:
+  - name: Open in File Explorer
+    description: Open folder
+    defaultArgs:
+      name: explorer
+      path: null
+  - name: Open in VLC
+    description: Open video
+    defaultArgs:
+      name: vlc
+      path: null
+  - name: Update Studio
+    description: Update studio
+    defaultArgs:
+      name: update_studio
+      studio_id: null
+      endpoint: null
+      remote_site_id: null
