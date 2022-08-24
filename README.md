@@ -16,6 +16,12 @@
 | Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |
 | Stash Studio Image And Parent On Create | In Scene Tagger, sets studio image and parent studio from StashDB when a studio is created  |
 
+![Performers page](images/performers-page.png?raw=true "Performers page")
+
+![Stats page](images/stats-page.png?raw=true "Stats page")
+
+![Scenes Tagger page](images/scenes-tagger.png?raw=true "Scenes Tagger page")
+
 ## Installation
 
 Download raw userscript files from `dist\public` or install from raw github urls
