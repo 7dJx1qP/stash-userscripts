@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name        Stash Performer URL Searchbox
 // @description Adds a search by performer url textbox to the performers page
-// @version     0.1
+// @version     0.1.1
 // @author      7dJx1qP
-// @match       *localhost:9999/*
+// @match       http://localhost:9999/*
 // @grant       none
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
 // ==/UserScript==

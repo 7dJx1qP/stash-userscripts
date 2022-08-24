@@ -30,7 +30,7 @@ def build():
 // @description Stash Userscripts Development Bundle
 // @version     {config.BUNDLE_VERSION}
 // @author      7dJx1qP
-// @match       *localhost:9999/*
+// @match       http://localhost:9999/*
 // @grant       none
 // @require     {locallibfile}\n""")
         for localbodyfile in localbodyfiles:
@@ -45,7 +45,7 @@ def build():
 // @description Stash Userscripts Bundle
 // @version     {config.BUNDLE_VERSION}
 // @author      7dJx1qP
-// @match       *localhost:9999/*
+// @match       http://localhost:9999/*
 // @grant       none
 // @require     {distlibfile}\n""")
         for distbodyfile in distbodyfiles:

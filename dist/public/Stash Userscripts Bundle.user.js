@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name        Stash Userscripts Bundle
 // @description Stash Userscripts Bundle
-// @version     0.2
+// @version     0.2.1
 // @author      7dJx1qP
-// @match       *localhost:9999/*
+// @match       http://localhost:9999/*
 // @grant       none
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Batch Query Edit.user.js

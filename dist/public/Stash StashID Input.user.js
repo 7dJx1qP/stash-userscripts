@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name        Stash StashID Input
 // @description Adds input for entering new stash id to performer details page and studio page
-// @version     0.1
+// @version     0.1.1
 // @author      7dJx1qP
-// @match       *localhost:9999/*
+// @match       http://localhost:9999/*
 // @grant       none
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
 // ==/UserScript==
@@ -162,7 +162,7 @@ fragment StudioData on Studio {
                 console.log('studio', studioId, el);
 
                 const stashIdInput = document.createElement('input');
-                stashIdInput.classList.add('query-text-field', 'bg-secondary', 'text-white', 'border-secondary', 'form-control');
+                stashIdInput.classList.add('query-text-field', 'bg-secondary', 'text-white', 'border-secondary', 'form-control', 'mt-2');
                 stashIdInput.setAttribute('id', 'update-stashids');
                 stashIdInput.setAttribute('placeholder', 'Add StashID…');
                 stashIdInput.addEventListener('change', () => {
