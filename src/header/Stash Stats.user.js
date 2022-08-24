@@ -3,7 +3,7 @@
 // @description Add stats to stats page
 // @version     0.1.1
 // @author      7dJx1qP
-// @match       http://localhost:9999/*
+// @match       %MATCHURL%
 // @grant       none
 // @require     %LIBRARYPATH%
 // @require     %FILEPATH%

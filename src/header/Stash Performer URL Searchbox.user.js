@@ -3,7 +3,7 @@
 // @description Adds a search by performer url textbox to the performers page
 // @version     0.1.1
 // @author      7dJx1qP
-// @match       http://localhost:9999/*
+// @match       %MATCHURL%
 // @grant       none
 // @require     %LIBRARYPATH%
 // @require     %FILEPATH%

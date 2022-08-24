@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Userscripts Bundle
 // @description Stash Userscripts Bundle
-// @version     0.2.1
+// @version     0.2.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none
