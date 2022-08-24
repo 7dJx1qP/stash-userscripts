@@ -10,6 +10,7 @@ Pick and choose which userscript to install or install just `Stash Userscripts B
 
 These userscripts require the `userscript_functions` stash plugin in the `plugins` folder:
 * Stash Open VLC
+  * Set `VLC_PATH` to your vlc.exe path in the file `userscript_functions\config.py`
 * Stash Studio Image And Parent On Create
 * Stash Performer YAML Details Linkify
 
@@ -20,6 +21,8 @@ These userscripts rely on unreleased plugins not yet ready for public use and sh
   * This runs an unreleased plugin task that checks for performers with duplicate IAFD urls
 
 ## Developing
+
+Update `config.py` and set `ROOTDIR` to your `stash-userscripts` path
 
 Each userscript source is split into two files:
 * `src/header` - Folder with userscript metadata blocks

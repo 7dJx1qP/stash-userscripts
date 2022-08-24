@@ -1,5 +1,5 @@
 // Stash Userscript Library
-// For notifications and utility functions
+// Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
 // version 0.7.0
 
 (function () {
