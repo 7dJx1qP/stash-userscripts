@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.7.0
+// version 0.8.0
 
 (function () {
     'use strict';
@@ -135,6 +135,10 @@
                 stashListener.addEventListener('response', (evt) => {
                     this.dispatchEvent(new CustomEvent('stash:response', { 'detail': evt.detail }));
                 });
+                stashListener.addEventListener('serverUrl', (evt) => {
+                    this.serverUrl = evt.detail;
+                    console.log('updating serverUrl', this.serverUrl);
+                });
             }
             async runPluginTask(pluginId, taskName, args = []) {
                 const reqData = {
@@ -170,6 +174,46 @@
                 const regexp = concatRegexp(new RegExp(location.origin), fragment);
                 this.log.debug(regexp, location.href.match(regexp));
                 return location.href.match(regexp) != null;
+            }
+            createSettings() {
+                console.log('create settings');
+                const settingsId = 'userscript-settings';
+                waitForElementId('configuration-tabs-tabpane-system', (elementId, el) => {
+                    if (!document.getElementById(settingsId)) {
+                        console.log(el);
+                        const section = document.createElement("div");
+                        section.setAttribute('id', settingsId);
+                        section.classList.add('setting-section');
+                        section.innerHTML = `<h1>Userscript</h1>
+<div class="card">
+  <div class="setting">
+    <div>
+      <h3>Server URL</h3>
+    </div>
+    <div>
+      <div class="flex-grow-1 query-text-field-group">
+        <input id="userscript-server-url" class="bg-secondary text-white border-secondary form-control" placeholder="Server URL…">
+      </div>
+    </div>
+  </div>
+</div>`;
+                        el.appendChild(section);
+                        const serverUrlInput = document.getElementById('userscript-server-url');
+                        serverUrlInput.addEventListener('change', () => {
+                            this.serverUrl = serverUrlInput.value;
+                            console.log('value changed', this.serverUrl);
+                            stashListener.dispatchEvent(new CustomEvent('serverUrl', { 'detail': this.serverUrl }));
+                            alert(`Server URL set to ${this.serverUrl}`);
+                        });
+                        serverUrlInput.value = this.serverUrl;
+                    };
+                });
+            }
+            get serverUrl() {
+                return localStorage.getItem('userscriptServerUrl') || 'http://localhost:9999';
+            }
+            set serverUrl(url) {
+                localStorage.setItem('userscriptServerUrl', url);
             }
             gmMain() {
                 const location = window.location;
@@ -327,8 +371,13 @@
                     this.dispatchEvent(new Event('page:tags'));
                 }
 
-                // settings page
-                if (this.matchUrl(location, /\/settings/)) {
+                // settings page system tab
+                if (this.matchUrl(location, /\/settings\?tab=system/)) {
+                    this.log.debug('[Navigation] Settings Page System Tab');
+                    this.createSettings();
+                    this.dispatchEvent(new Event('page:settings:system'));
+                }
+                else if (this.matchUrl(location, /\/settings/)) {
                     this.log.debug('[Navigation] Settings Page');
                     this.dispatchEvent(new Event('page:settings'));
                 }

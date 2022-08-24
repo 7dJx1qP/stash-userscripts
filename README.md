@@ -42,6 +42,14 @@ Download raw userscript files from `dist\public` or install from raw github urls
 
 Pick and choose which userscript to install or install just `Stash Userscripts Bundle.user.js` to get all of them
 
+## Settings
+
+### Server URL
+
+If you access stash over a network or use a different localhost port, you can set your server url from the Settings -> System tab.
+
+![Settings page system tab](images/system-settings.png?raw=true "Settings page system tab")
+
 ## Requirements
 
 These userscripts require the `userscript_functions` stash plugin in the `plugins` folder:

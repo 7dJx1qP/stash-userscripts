@@ -24,7 +24,7 @@
                 newButton.setAttribute("id", "new-performer-filter");
                 newButton.classList.add('btn', 'btn-secondary', 'mr-2');
                 newButton.innerHTML = 'New Performers';
-                newButton.href = 'http://localhost:9999/performers?disp=3&sortby=created_at&sortdir=desc';
+                newButton.href = `${stash.serverUrl}/performers?disp=3&sortby=created_at&sortdir=desc`;
                 newGroup.appendChild(newButton);
             }
         });
