@@ -152,7 +152,7 @@ fragment StudioData on Studio {
                 console.log('studio', studioId, el);
 
                 const stashIdInput = document.createElement('input');
-                stashIdInput.classList.add('query-text-field', 'bg-secondary', 'text-white', 'border-secondary', 'form-control');
+                stashIdInput.classList.add('query-text-field', 'bg-secondary', 'text-white', 'border-secondary', 'form-control', 'mt-2');
                 stashIdInput.setAttribute('id', 'update-stashids');
                 stashIdInput.setAttribute('placeholder', 'Add StashID…');
                 stashIdInput.addEventListener('change', () => {
