@@ -1,5 +1,21 @@
 # Stash Userscripts
 
+| Script Name  | Description |
+| ------------- | ------------- |
+| Stash Batch Query Edit | In Scene Tagger, adds button to batch update all query fields with just Date + Studio + Performers. TODO: More configuration options  |
+| Stash Batch Result Toggle  | In Scene Tagger, adds button to toggle all stashdb scene match result fields. Saves clicks when you only want to save a few metadata fields. Instead of turning off every field, you batch toggle them off, then toggle on the ones you want  |
+| Stash Batch Save  | In Scene Tagger, adds button to batch save all scenes. Opens a confirmation popup with clicked  |
+| Stash Batch Search  | In Scene Tagger, adds button to batch search all scenes  |
+| Stash Match Metadata Highlight  | In Scene Tagger, adds button to compare local scene metadata with stashdb matches. Highlights stashdb match results matching fields green and mismatching fields red  |
+| Stash New Performer Filter Button  | Adds button to performers page to switch to a filter by new performers tagger view  |
+| Stash Open VLC  | Open filepath link on scene page 'File Info' tab in VLC when clicked  |
+| Stash Performer Audit Task Button  | WIP  |
+| Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |
+| Stash Performer YAML Details Linkify  | WIP  |
+| Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry |
+| Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |
+| Stash Studio Image And Parent On Create | In Scene Tagger, sets studio image and parent studio from StashDB when a studio is created  |
+
 ## Installation
 
 Download raw userscript files from `dist\public` or install from raw github urls
