@@ -5,7 +5,7 @@
 // @author      7dJx1qP
 // @match       *localhost:9999/*
 // @grant       none
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/blob/master/src/src\StashUserscriptLibrary.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/blob/master/src\StashUserscriptLibrary.js
 
 (function () {
     'use strict';
