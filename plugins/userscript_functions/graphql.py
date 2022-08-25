@@ -1,5 +1,7 @@
-import config
+import config_manager
 import log
+import pathlib
+import os
 import sys
 
 try:
@@ -9,16 +11,16 @@ except ModuleNotFoundError:
     print("If you have pip (normally installed with python), run this command in a terminal (cmd): pip install requests", file=sys.stderr)
     sys.exit()
 
-def callGraphQL(query, variables=None):
-    api_key = ""
-    if config.STASH.get("api_key"):
-        api_key = config.STASH["api_key"]
+configpath = os.path.join(pathlib.Path(__file__).parent.resolve(), 'config.ini')
 
-    if config.STASH.get("url") is None:
-        log.error("You need to set the URL in 'config.py'")
+def callGraphQL(query, variables=None):
+    api_key = config_manager.get_config_value(configpath, 'STASH', 'api_key')
+
+    if not config_manager.get_config_value(configpath, 'STASH', 'url'):
+        log.error("You need to set the URL in 'config.ini'")
         return None
 
-    stash_url = config.STASH["url"] + "/graphql"
+    stash_url = config_manager.get_config_value(configpath, 'STASH', 'url') + "/graphql"
     headers = {
         "Accept-Encoding": "gzip, deflate, br",
         "Content-Type": "application/json",
@@ -42,7 +44,7 @@ def callGraphQL(query, variables=None):
             if result.get("data"):
                 return result.get("data")
         elif response.status_code == 401:
-            log.error("[ERROR][GraphQL] HTTP Error 401, Unauthorised. You can add a API Key in 'config.py' in the 'py_common' folder")
+            log.error("[ERROR][GraphQL] HTTP Error 401, Unauthorised. You can add a API Key in 'config.ini' in the 'py_common' folder")
             return None
         else:
             raise ConnectionError(

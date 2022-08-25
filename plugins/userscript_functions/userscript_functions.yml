@@ -1,7 +1,7 @@
 name: Userscript Functions
 description: Tasks for userscripts
 url: ''
-version: 0.1
+version: 0.2
 exec:
   - python
   - "{pluginDir}/userscript_functions.py"
@@ -28,3 +28,16 @@ tasks:
     description: Audit performer IAFD urls for dupes
     defaultArgs:
       name: audit_performer_urls
+  - name: Update Config Value
+    description: Update value in config.ini
+    defaultArgs:
+      name: update_config_value
+      section_key: null
+      prop_name: null
+      value: null
+  - name: Get Config Value
+    description: Get value in config.ini
+    defaultArgs:
+      name: get_config_value
+      section_key: null
+      prop_name: null

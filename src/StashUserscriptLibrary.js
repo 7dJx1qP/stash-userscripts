@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.9.0
+// version 0.10.0
 
 (function () {
     'use strict';
@@ -11,16 +11,13 @@
         const stashListener = new EventTarget();
 
         window.fetch = async (...args) => {
-            // console.log('fetch request', args);
             let [resource, config ] = args;
             // request interceptor here
             const response = await originalFetch(resource, config);
             // response interceptor here
             const contentType = response.headers.get("content-type");
-            // console.log('fetch response', response, contentType);
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 const data = await response.clone().json();
-                // console.log('fetch data', data);
                 stashListener.dispatchEvent(new CustomEvent('response', { 'detail': data }));
             }
             return response;
@@ -146,12 +143,19 @@
                     }
                 }, this._pageUrlCheckInterval);
                 stashListener.addEventListener('response', (evt) => {
+                    if (evt.detail.data?.plugins) {
+                        this.checkPluginInstalledState(evt.detail);
+                    }
                     this.dispatchEvent(new CustomEvent('stash:response', { 'detail': evt.detail }));
                 });
-                stashListener.addEventListener('serverUrl', (evt) => {
-                    this.serverUrl = evt.detail;
-                    console.log('updating serverUrl', this.serverUrl);
+                stashListener.addEventListener('pluginInstalled', (evt) => {
+                    if (this.pluginInstalled !== evt.detail) {
+                        this.pluginInstalled = evt.detail;
+                        this.dispatchEvent(new CustomEvent('stash:plugin', { 'detail': evt.detail }));
+                    }
                 });
+                this.pluginInstalled = false;
+                this.getPlugins().then(plugins => this.checkPluginInstalledState(plugins));
             }
             async runPluginTask(pluginId, taskName, args = []) {
                 const reqData = {
@@ -183,22 +187,56 @@
                     console.error(err);
                 }
             }
+            async getPlugins() {
+                const reqData = {
+                    "operationName": "Plugins",
+                    "variables": {},
+                    "query": `query Plugins {
+  plugins {
+    id
+    name
+    description
+    url
+    version
+    tasks {
+      name
+      description
+      __typename
+    }
+    hooks {
+      name
+      description
+      hooks
+    }
+  }
+}
+`
+                };
+                return this.callGQL(reqData);
+            }
+            async checkPluginInstalledState(plugins) {
+                let state = false;
+                for (const plugin of plugins.data.plugins) {
+                    if (plugin.id === 'userscript_functions') {
+                        state = true;
+                    }
+                }
+                stashListener.dispatchEvent(new CustomEvent('pluginInstalled', { 'detail': state }));
+            }
             matchUrl(location, fragment) {
                 const regexp = concatRegexp(new RegExp(location.origin), fragment);
                 this.log.debug(regexp, location.href.match(regexp));
                 return location.href.match(regexp) != null;
             }
             createSettings() {
-                console.log('create settings');
                 const settingsId = 'userscript-settings';
                 waitForElementId('configuration-tabs-tabpane-system', (elementId, el) => {
                     if (!document.getElementById(settingsId)) {
-                        console.log(el);
                         const section = document.createElement("div");
                         section.setAttribute('id', settingsId);
                         section.classList.add('setting-section');
-                        section.innerHTML = `<h1>Userscript</h1>
-<div class="card">
+                        section.innerHTML = `<h1>Userscript Plugin Config</h1>
+<div class="card" id="userscript-section-server-url">
   <div class="setting">
     <div>
       <h3>Server URL</h3>
@@ -209,24 +247,59 @@
       </div>
     </div>
   </div>
+</div>
+<div class="card" id="userscript-section-server-apikey">
+  <div class="setting">
+    <div>
+      <h3>API Key</h3>
+    </div>
+    <div>
+      <div class="flex-grow-1 query-text-field-group">
+        <input id="userscript-server-apikey" class="bg-secondary text-white border-secondary form-control" placeholder="API Key…">
+      </div>
+    </div>
+  </div>
 </div>`;
                         el.appendChild(section);
+
                         const serverUrlInput = document.getElementById('userscript-server-url');
                         serverUrlInput.addEventListener('change', () => {
-                            this.serverUrl = serverUrlInput.value;
-                            console.log('value changed', this.serverUrl);
-                            stashListener.dispatchEvent(new CustomEvent('serverUrl', { 'detail': this.serverUrl }));
-                            alert(`Server URL set to ${this.serverUrl}`);
+                            const value = serverUrlInput.value || '';
+                            if (value) {
+                                this.updateConfigValueTask('STASH', 'url', value);
+                                alert(`Userscripts plugin server URL set to ${value}`);
+                            }
+                            else {
+                                this.getConfigValueTask('STASH', 'url').then(value => {
+                                    serverUrlInput.value = value;
+                                });
+                            }
                         });
-                        serverUrlInput.value = this.serverUrl;
+                        serverUrlInput.disabled = true;
+                        this.getConfigValueTask('STASH', 'url').then(value => {
+                            serverUrlInput.value = value || '';
+                        });
+
+                        const apiKeyInput = document.getElementById('userscript-server-apikey');
+                        apiKeyInput.addEventListener('change', () => {
+                            const value = apiKeyInput.value || '';
+                            this.updateConfigValueTask('STASH', 'api_key', value);
+                            if (value) {
+                                alert(`Userscripts plugin server api key set to ${value}`);
+                            }
+                            else {
+                                alert(`Userscripts plugin server api key value cleared`);
+                            }
+                        });
+                        apiKeyInput.disabled = true;
+                        this.getConfigValueTask('STASH', 'api_key').then(value => {
+                            apiKeyInput.value = value || '';
+                        });
                     };
                 });
             }
             get serverUrl() {
-                return localStorage.getItem('userscriptServerUrl') || 'http://localhost:9999';
-            }
-            set serverUrl(url) {
-                localStorage.setItem('userscriptServerUrl', url);
+                return window.location.origin;
             }
             gmMain() {
                 const location = window.location;
@@ -399,6 +472,47 @@
                 if (this.matchUrl(location, /\/stats/)) {
                     this.log.debug('[Navigation] Stats Page');
                     this.dispatchEvent(new Event('page:stats'));
+                }
+            }
+            async updateConfigValueTask(sectionKey, propName, value) {
+                return this.runPluginTask("userscript_functions", "Update Config Value", [{"key":"section_key", "value":{"str": sectionKey}}, {"key":"prop_name", "value":{"str": propName}}, {"key":"value", "value":{"str": value}}]);
+            }
+            async getConfigValueTask(sectionKey, propName) {
+                const reqTime = Date.now();
+
+                await this.runPluginTask("userscript_functions", "Get Config Value", [{"key":"section_key", "value":{"str": sectionKey}}, {"key":"prop_name", "value":{"str": propName}}]);
+
+                const reqData = {
+                    "variables": {},
+                    "query": `query Logs {
+          logs {
+            time
+            level
+            message
+          }
+        }`
+                };
+
+                // poll logs until plugin task output appears
+                await new Promise(r => setTimeout(r, 500));
+                let retries = 0;
+                while (true) {
+                    const delay = 2 ** retries * 100;
+                    await new Promise(r => setTimeout(r, delay));
+                    retries++;
+        
+                    const prefix = `[Plugin / Userscript Functions] get_config_value: [${sectionKey}][${propName}] =`
+                    const logs = await this.callGQL(reqData);
+                    for (const log of logs.data.logs) {
+                        const logTime = Date.parse(log.time);
+                        if (logTime > reqTime && log.message.startsWith(prefix)) {
+                            return log.message.replace(prefix, '').trim();
+                        }
+                    }
+
+                    if (retries >= 5) {
+                        throw 'Get config value failed.';
+                    }
                 }
             }
         }

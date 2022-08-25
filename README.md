@@ -61,7 +61,7 @@ This additional stash plugin is required by some userscripts for their functiona
 
 Copy the whole folder [`userscript_functions`](https://github.com/7dJx1qP/stash-userscripts/tree/master/plugins/userscript_functions) to your stash `plugins` folder.
 
-Update `config.py` in the `userscript_functions` folder with your stash URL.
+Update `config.ini` in the `userscript_functions` folder with your stash URL.
 
 `pip install requests pystashlib`
 
