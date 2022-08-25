@@ -53,7 +53,7 @@ This additional stash plugin is required by some userscripts for their functiona
 
 ### Requirements
 
-* Python 3+
+* Python 3.9+
 * Requests (https://pypi.org/project/requests/)
 * PyStashLib (https://pypi.org/project/pystashlib/)
 
