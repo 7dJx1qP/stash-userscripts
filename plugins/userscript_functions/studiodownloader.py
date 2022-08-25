@@ -183,6 +183,8 @@ query FindStudios($studio_filter: StudioFilterType) {
         }
     }
     result = call_graphql(query, variables)
+    if not result['findStudios']['studios']:
+        return None
     return result['findStudios']['studios'][0]
 
 def update_studio_from_stashbox(studio_id, endpoint, remote_site_id):
