@@ -27,12 +27,12 @@ if name == 'explorer':
     path = json_input['args']['path']
     log.debug(f"{name}: {path}\n")
     subprocess.Popen(f'explorer "{path}"')
-elif name == 'vlc':
-    vlc_path = config_manager.get_config_value(configpath, 'VLC', 'path')
+elif name == 'mediaplayer':
+    mediaplayer_path = config_manager.get_config_value(configpath, 'MEDIAPLAYER', 'path')
     path = json_input['args']['path']
-    log.debug(f"vlc_path: {vlc_path}\n")
+    log.debug(f"mediaplayer_path: {mediaplayer_path}\n")
     log.debug(f"{name}: {path}\n")
-    subprocess.Popen([vlc_path, path])
+    subprocess.Popen([mediaplayer_path, path])
 elif name == 'update_studio':
     studio_id = json_input['args']['studio_id']
     endpoint = json_input['args']['endpoint']

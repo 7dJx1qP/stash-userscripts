@@ -144,18 +144,28 @@
                 }, this._pageUrlCheckInterval);
                 stashListener.addEventListener('response', (evt) => {
                     if (evt.detail.data?.plugins) {
-                        this.checkPluginInstalledState(evt.detail);
+                        this.getPluginVersion(evt.detail);
                     }
                     this.dispatchEvent(new CustomEvent('stash:response', { 'detail': evt.detail }));
                 });
-                stashListener.addEventListener('pluginInstalled', (evt) => {
-                    if (this.pluginInstalled !== evt.detail) {
-                        this.pluginInstalled = evt.detail;
-                        this.dispatchEvent(new CustomEvent('stash:plugin', { 'detail': evt.detail }));
+                stashListener.addEventListener('pluginVersion', (evt) => {
+                    if (this.pluginVersion !== evt.detail) {
+                        this.pluginVersion = evt.detail;
+                        this.dispatchEvent(new CustomEvent('stash:pluginVersion', { 'detail': evt.detail }));
                     }
                 });
-                this.pluginInstalled = false;
-                this.getPlugins().then(plugins => this.checkPluginInstalledState(plugins));
+                this.pluginVersion = null;
+                this.getPlugins().then(plugins => this.getPluginVersion(plugins));
+            }
+            comparePluginVersion(minPluginVersion) {
+                let [currMajor, currMinor, currPatch = 0] = this.pluginVersion.split('.').map(i => parseInt(i));
+                let [minMajor, minMinor, minPatch = 0] = minPluginVersion.split('.').map(i => parseInt(i));
+                if (currMajor > minMajor) return 1;
+                if (currMajor < minMajor) return -1;
+                if (currMinor > minMinor) return 1;
+                if (currMinor < minMinor) return -1;
+                return 0;
+
             }
             async runPluginTask(pluginId, taskName, args = []) {
                 const reqData = {
@@ -214,14 +224,14 @@
                 };
                 return this.callGQL(reqData);
             }
-            async checkPluginInstalledState(plugins) {
-                let state = false;
+            async getPluginVersion(plugins) {
+                let version = null;
                 for (const plugin of plugins.data.plugins) {
                     if (plugin.id === 'userscript_functions') {
-                        state = true;
+                        version = plugin.version;
                     }
                 }
-                stashListener.dispatchEvent(new CustomEvent('pluginInstalled', { 'detail': state }));
+                stashListener.dispatchEvent(new CustomEvent('pluginVersion', { 'detail': version }));
             }
             matchUrl(location, fragment) {
                 const regexp = concatRegexp(new RegExp(location.origin), fragment);

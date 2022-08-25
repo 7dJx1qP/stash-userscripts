@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Userscripts Bundle
 // @description Stash Userscripts Bundle
-// @version     0.4.0
+// @version     0.5.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none
@@ -12,7 +12,7 @@
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Batch Search.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Match Metadata Highlight.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash New Performer Filter Button.user.js
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Open VLC.user.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Open Media Player.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Performer Audit Task Button.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Performer Tagger Additions.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Performer URL Searchbox.user.js

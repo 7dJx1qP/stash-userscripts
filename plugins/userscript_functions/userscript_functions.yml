@@ -1,7 +1,7 @@
 name: Userscript Functions
 description: Tasks for userscripts
 url: ''
-version: 0.2
+version: 0.4
 exec:
   - python
   - "{pluginDir}/userscript_functions.py"
@@ -12,10 +12,10 @@ tasks:
     defaultArgs:
       name: explorer
       path: null
-  - name: Open in VLC
+  - name: Open in Media Player
     description: Open video
     defaultArgs:
-      name: vlc
+      name: mediaplayer
       path: null
   - name: Update Studio
     description: Update studio

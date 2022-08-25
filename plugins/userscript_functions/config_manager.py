@@ -10,7 +10,7 @@ def init_config(configpath):
         "api_key": ""
     }
 
-    config_object["VLC"] = {
+    config_object["MEDIAPLAYER"] = {
         "path": "C:/Program Files/VideoLAN/VLC/vlc.exe"
     }
 
