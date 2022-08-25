@@ -3,8 +3,6 @@
 
     console.log('Stash Batch Query Edit');
 
-    const responseDatas = [];
-
     const scenes = {};
 
     const processScenes = function (data) {

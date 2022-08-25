@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.8.0
+// version 0.9.0
 
 (function () {
     'use strict';
@@ -93,6 +93,19 @@
             }
             return retval;
         }
+
+        function insertAfter(newNode, existingNode) {
+            existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+        }
+
+        function createElementFromHTML(htmlString) {
+            const div = document.createElement('div');
+            div.innerHTML = htmlString.trim();
+
+            // Change this to div.childNodes to support multiple top-level nodes.
+            return div.firstChild;
+        }
+
 
         function setNativeValue(element, value) {
             const valueSetter = Object.getOwnPropertyDescriptor(element, 'value').set;
@@ -398,6 +411,8 @@
             getElementByXpath,
             getElementsByXpath,
             getClosestAncestor,
+            insertAfter,
+            createElementFromHTML,
             setNativeValue,
             updateTextInput,
             Logger,

@@ -14,6 +14,7 @@ Installation requires a browser extension such as [Violentmonkey](https://violen
 | Stash New Performer Filter Button  | Adds button to performers page to switch to a filter by new performers tagger view  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20New%20Performer%20Filter%20Button.user.js)  |
 | Stash Open VLC  | Open filepath link on scene page 'File Info' tab in VLC when clicked  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Open%20VLC.user.js)  |
 | Stash Performer Audit Task Button  |  Adds a button to the performers page to check for duplicate performer urls. Task output shown in stash logs  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Audit%20Task%20Button.user.js)  |
+| Stash Performer Tagger Additions  |  Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Tagger%20Additions.user.js)  |
 | Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20URL%20Searchbox.user.js)  |
 | Stash Performer YAML Details Linkify  | WIP  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20YAML%20Details%20Linkify.user.js)  |
 | Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry. Also displays studio stashids on studio page without having to click edit to view |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20StashID%20Input.user.js)  |
@@ -39,6 +40,10 @@ Studio page
 Performer page
 
 ![Performer page](images/performer-page.png?raw=true "Performer page")
+
+Performer page tagger view
+
+![Performer page tagger view](images/performer-tagger.png?raw=true "Performer page tagger view")
 
 ## Installation
 
