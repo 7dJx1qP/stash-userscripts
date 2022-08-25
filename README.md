@@ -65,11 +65,7 @@ Update `config.ini` in the `userscript_functions` folder with your stash URL.
 
 `pip install requests pystashlib`
 
-## Settings
-
-### Server URL
-
-If you access stash over a network or use a different localhost port, you can set your server url from the Settings -> System tab.
+Plugin settings aside from the server URL and server api key can be updated from within the Stash settings under the System tab:
 
 ![Settings page system tab](images/system-settings.png?raw=true "Settings page system tab")
 
