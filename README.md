@@ -4,22 +4,24 @@
 
 Installation requires a browser extension such as [Violentmonkey](https://violentmonkey.github.io/) / [Tampermonkey](https://www.tampermonkey.net/) / [Greasemonkey](https://www.greasespot.net/).
 
-| Script Name  | Description | Install |
-| ------------- | ------------- | ------------- |
-| Stash Batch Query Edit | In Scene Tagger, adds button to batch update all query fields with just Date + Studio + Performers. TODO: More configuration options  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Query%20Edit.user.js)  |
-| Stash Batch Result Toggle  | In Scene Tagger, adds button to toggle all stashdb scene match result fields. Saves clicks when you only want to save a few metadata fields. Instead of turning off every field, you batch toggle them off, then toggle on the ones you want  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Result%20Toggle.user.js)  |
-| Stash Batch Save  | In Scene Tagger, adds button to batch save all scenes. Opens a confirmation popup with clicked  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Save.user.js)  |
-| Stash Batch Search  | In Scene Tagger, adds button to batch search all scenes  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Search.user.js)  |
-| Stash Match Metadata Highlight  | In Scene Tagger, adds button to compare local scene metadata with stashdb matches. Highlights stashdb match results matching fields green and mismatching fields red  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Match%20Metadata%20Highlight.user.js)  |
-| Stash New Performer Filter Button  | Adds button to performers page to switch to a filter by new performers tagger view  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20New%20Performer%20Filter%20Button.user.js)  |
-| Stash Open VLC  | Open filepath link on scene page 'File Info' tab in VLC when clicked  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Open%20VLC.user.js)  |
-| Stash Performer Audit Task Button  |  Adds a button to the performers page to check for duplicate performer urls. Task output shown in stash logs  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Audit%20Task%20Button.user.js)  |
-| Stash Performer Tagger Additions  |  Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Tagger%20Additions.user.js)  |
-| Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20URL%20Searchbox.user.js)  |
-| Stash Performer YAML Details Linkify  | WIP  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20YAML%20Details%20Linkify.user.js)  |
-| Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry. Also displays studio stashids on studio page without having to click edit to view |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20StashID%20Input.user.js)  |
-| Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Stats.user.js)  |
-| Stash Studio Image And Parent On Create | In Scene Tagger, sets studio image and parent studio from StashDB when a studio is created  |  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Studio%20Image%20And%20Parent%20On%20Create.user.js)  |
+Pick and choose which userscript to install or install just `Stash Userscripts Bundle.user.js` to get all of them
+
+| Script Name  | Description | [Plugin Required](#userscript-functions-plugin) | Install |
+| ------------- | ------------- | ------------- | ------------- |
+| Stash Batch Query Edit | In Scene Tagger, adds button to batch update all query fields with just Date + Studio + Performers. TODO: More configuration options  |:X:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Query%20Edit.user.js)  |
+| Stash Batch Result Toggle  | In Scene Tagger, adds button to toggle all stashdb scene match result fields. Saves clicks when you only want to save a few metadata fields. Instead of turning off every field, you batch toggle them off, then toggle on the ones you want  |:X:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Result%20Toggle.user.js)  |
+| Stash Batch Save  | In Scene Tagger, adds button to batch save all scenes. Opens a confirmation popup with clicked  |:X:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Save.user.js)  |
+| Stash Batch Search  | In Scene Tagger, adds button to batch search all scenes  |:X:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Search.user.js)  |
+| Stash Match Metadata Highlight  | In Scene Tagger, adds button to compare local scene metadata with stashdb matches. Highlights stashdb match results matching fields green and mismatching fields red  |:X:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Match%20Metadata%20Highlight.user.js)  |
+| Stash New Performer Filter Button  | Adds button to performers page to switch to a filter by new performers tagger view  |:X:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20New%20Performer%20Filter%20Button.user.js)  |
+| Stash Open VLC  | Open filepath link on scene page 'File Info' tab in VLC when clicked  |:heavy_check_mark:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Open%20VLC.user.js)  |
+| Stash Performer Audit Task Button  |  Adds a button to the performers page to check for duplicate performer urls. Task output shown in stash logs  |:heavy_check_mark:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Audit%20Task%20Button.user.js)  |
+| Stash Performer Tagger Additions  |  Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab  |:X:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Tagger%20Additions.user.js)  |
+| Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |:X:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20URL%20Searchbox.user.js)  |
+| Stash Performer YAML Details Linkify  | WIP  |:heavy_check_mark:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20YAML%20Details%20Linkify.user.js)  |
+| Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry. Also displays studio stashids on studio page without having to click edit to view |:X:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20StashID%20Input.user.js)  |
+| Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |:X:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Stats.user.js)  |
+| Stash Studio Image And Parent On Create | In Scene Tagger, sets studio image and parent studio from StashDB when a studio is created  |:heavy_check_mark:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Studio%20Image%20And%20Parent%20On%20Create.user.js)  |
 
 Performers page
 
@@ -45,22 +47,23 @@ Performer page tagger view
 
 ![Performer page tagger view](images/performer-tagger.png?raw=true "Performer page tagger view")
 
-## Installation
+## Userscript Functions Plugin
 
-Download raw userscript files from `dist\public` or install from raw github urls
+This additional stash plugin is required by some userscripts for their functionality
 
-Pick and choose which userscript to install or install just `Stash Userscripts Bundle.user.js` to get all of them
+### Requirements
 
-### Userscript Functions Plugin
+* Python 3+
+* Requests (https://pypi.org/project/requests/)
+* PyStashLib (https://pypi.org/project/pystashlib/)
 
-THe following userscripts require the `userscript_functions` stash plugin in the `plugins` folder:
-* Stash Open VLC
-  * Set `VLC_PATH` to your vlc.exe path in the file `userscript_functions\config.py`
-* Stash Studio Image And Parent On Create
-* Stash Performer Audit Task Button
-* Stash Performer YAML Details Linkify
+### Installation
 
-Copy the `userscript_functions` folder in `plugins` to your stash `plugins` folder. Update `userscript_functions\config.py` with your stash URL.
+Copy the whole folder [`userscript_functions`](https://github.com/7dJx1qP/stash-userscripts/tree/master/plugins/userscript_functions) to your stash `plugins` folder.
+
+Update `config.py` in the `userscript_functions` folder with your stash URL.
+
+`pip install requests pystashlib`
 
 ## Settings
 
