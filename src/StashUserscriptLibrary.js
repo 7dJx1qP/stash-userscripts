@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.10.0
+// version 0.11.0
 
 (function () {
     'use strict';
@@ -125,6 +125,26 @@
             let flags = reg.flags + exp.flags;
             flags = Array.from(new Set(flags.split(''))).join();
             return new RegExp(reg.source + exp.source, flags);
+        }
+
+        function sortElementChildren(node) {
+            const items = node.childNodes;
+            const itemsArr = [];
+            for (const i in items) {
+                if (items[i].nodeType == Node.ELEMENT_NODE) { // get rid of the whitespace text nodes
+                    itemsArr.push(items[i]);
+                }
+            }
+
+            itemsArr.sort((a, b) => {
+                return a.innerHTML == b.innerHTML
+                    ? 0
+                    : (a.innerHTML > b.innerHTML ? 1 : -1);
+            });
+
+            for (let i = 0; i < itemsArr.length; i++) {
+                node.appendChild(itemsArr[i]);
+            }
         }
 
         class Stash extends EventTarget {
@@ -539,6 +559,7 @@
             createElementFromHTML,
             setNativeValue,
             updateTextInput,
+            sortElementChildren,
             Logger,
         };
     };

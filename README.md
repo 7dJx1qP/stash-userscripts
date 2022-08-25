@@ -35,6 +35,10 @@ Scenes page tagger view
 
 ![Scenes page tagger view](images/scenes-tagger.png?raw=true "Scenes page tagger view")
 
+Scenes page tagger view configuration settings
+
+![Scenes page tagger view configuration settings](images/query-edit-config.png?raw=true "Scenes page tagger view configuration settings")
+
 Studio page
 
 ![Studio page](images/studio-page.png?raw=true "Studio page")

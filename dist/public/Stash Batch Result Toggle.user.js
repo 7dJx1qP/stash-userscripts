@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Batch Result Toggle
 // @description Batch toggle scene tagger search result fields
-// @version     0.1.2
+// @version     0.2.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none
@@ -23,6 +23,7 @@
         getElementByXpath,
         getClosestAncestor,
         updateTextInput,
+        sortElementChildren,
     } = window.stash;
 
     const stash = new Stash();
@@ -94,8 +95,9 @@
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
                 const container = el.parentElement;
-
                 container.appendChild(btn);
+                sortElementChildren(container);
+                el.classList.add('ml-3');
             }
         });
     });

@@ -13,6 +13,7 @@
         getElementByXpath,
         getClosestAncestor,
         updateTextInput,
+        sortElementChildren,
     } = window.stash;
 
     const stash = new Stash();
@@ -84,8 +85,9 @@
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
                 const container = el.parentElement;
-
                 container.appendChild(btn);
+                sortElementChildren(container);
+                el.classList.add('ml-3');
             }
         });
     });
