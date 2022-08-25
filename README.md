@@ -8,7 +8,7 @@ Pick and choose which userscript to install or install just `Stash Userscripts B
 
 | Script Name  | Description | [Plugin Required](#userscript-functions-plugin) | Install |
 | ------------- | ------------- | ------------- | ------------- |
-| Stash Batch Query Edit | In Scene Tagger, adds button to batch update all query fields with just Date + Studio + Performers. TODO: More configuration options  |:x:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Query%20Edit.user.js)  |
+| Stash Batch Query Edit | In Scene Tagger, adds button to batch update all query fields with a configurable combination of Date, Studio, Performers, and Title  |:x:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Query%20Edit.user.js)  |
 | Stash Batch Result Toggle  | In Scene Tagger, adds button to toggle all stashdb scene match result fields. Saves clicks when you only want to save a few metadata fields. Instead of turning off every field, you batch toggle them off, then toggle on the ones you want  |:x:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Result%20Toggle.user.js)  |
 | Stash Batch Save  | In Scene Tagger, adds button to batch save all scenes. Opens a confirmation popup with clicked  |:x:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Save.user.js)  |
 | Stash Batch Search  | In Scene Tagger, adds button to batch search all scenes  |:x:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Batch%20Search.user.js)  |
