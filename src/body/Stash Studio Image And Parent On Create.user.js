@@ -21,12 +21,10 @@
 
     stash.addEventListener('stash:response', function (evt) {
         const data = evt.detail;
-        console.log('data', data);
         if (data.data?.studioCreate) {
             const studioId = data.data?.studioCreate.id;
             const endpoint = data.data?.studioCreate.stash_ids[0].endpoint;
             const remoteSiteId = data.data?.studioCreate.stash_ids[0].stash_id;
-            console.log('create studio', studioId);
             runStudioUpdateTask(studioId, endpoint, remoteSiteId);
         }
     });

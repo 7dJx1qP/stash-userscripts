@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash New Performer Filter Button
 // @description Adds a button to the performers page to switch to a new performers filter
-// @version     0.2.0
+// @version     0.2.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none

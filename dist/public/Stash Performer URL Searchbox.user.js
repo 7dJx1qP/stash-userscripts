@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Performer URL Searchbox
 // @description Adds a search by performer url textbox to the performers page
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none
@@ -40,7 +40,6 @@
                 perfUrlTextbox.setAttribute('placeholder', 'URL…');
                 perfUrlTextbox.addEventListener('change', () => {
                     const url = `${window.location.origin}/performers?c={"type":"url","value":"${perfUrlTextbox.value}","modifier":"EQUALS"}`
-                    console.log(perfUrlTextbox.value, url);
                     window.location = url;
                 });
                 perfUrlGroup.appendChild(perfUrlTextbox);

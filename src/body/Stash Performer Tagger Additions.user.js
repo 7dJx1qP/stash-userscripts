@@ -17,11 +17,9 @@
 
     const processPerformers = function (data) {
         if (data.data.findPerformers?.performers) {
-            console.log('findPerformers', data);
             for (const performer of data.data.findPerformers.performers) {
                 performers[performer.id] = performer;
             }
-            console.log('performers', performers);
         }
     }
 

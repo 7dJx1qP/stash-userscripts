@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Batch Query Edit
 // @description Batch modify scene tagger search query
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none
@@ -17,11 +17,9 @@
 
     const processScenes = function (data) {
         if (data.data.findScenes?.scenes) {
-            console.log('findScenes', data);
             for (const scene of data.data.findScenes.scenes) {
                 scenes[scene.id] = scene;
             }
-            console.log('scenes', scenes);
         }
     }
 
@@ -51,11 +49,9 @@
             const sceneURL = new URL(sceneLink.href);
             const sceneId = sceneURL.pathname.replace('/scenes/', '');
             const sceneData = scenes[sceneId];
-            console.log('sceneId', sceneId, sceneData);
             const sceneName = scene.querySelector('a.scene-link > div.TruncatedText');
 
             const queryInput = scene.querySelector('input.text-input');
-            console.log(scene, sceneName.innerText, queryInput, queryInput.value);
 
             const queryData = [];
             if (sceneData.date) queryData.push(sceneData.date);
@@ -122,9 +118,7 @@
     stash.addEventListener('page:scenes', function () {
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
-                console.log('ready', el);
                 const container = el.parentElement;
-                console.log(container);
 
                 container.appendChild(btn);
             }

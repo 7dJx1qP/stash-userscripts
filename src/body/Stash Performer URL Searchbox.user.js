@@ -30,7 +30,6 @@
                 perfUrlTextbox.setAttribute('placeholder', 'URL…');
                 perfUrlTextbox.addEventListener('change', () => {
                     const url = `${window.location.origin}/performers?c={"type":"url","value":"${perfUrlTextbox.value}","modifier":"EQUALS"}`
-                    console.log(perfUrlTextbox.value, url);
                     window.location = url;
                 });
                 perfUrlGroup.appendChild(perfUrlTextbox);

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash StashID Input
 // @description Adds input for entering new stash id to performer details page and studio page
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none
@@ -141,7 +141,6 @@ fragment StudioData on Studio {
                         if (stashIds.indexOf(newStashId) !== -1) return;
                         if (!confirm(`Add StashID ${newStashId}?`)) return;
                         stashIds.push(newStashId);
-                        console.log('stashIds', stashIds, performerId, newStashId, stashIds.indexOf(newStashId) !== -1);
                         updatePerformerStashIDs(performerId, stashIds);
                         window.location.reload();
                     });
@@ -156,10 +155,8 @@ fragment StudioData on Studio {
             if (!document.getElementById('studio-stashids')) {
                 const container = document.createElement('div');
                 container.setAttribute('id', 'studio-stashids');
-                console.log(xpath, el);
                 el.appendChild(container);
                 const studioId = window.location.pathname.replace('/studios/', '');
-                console.log('studio', studioId, el);
 
                 const stashIdInput = document.createElement('input');
                 stashIdInput.classList.add('query-text-field', 'bg-secondary', 'text-white', 'border-secondary', 'form-control', 'mt-2');
@@ -175,7 +172,6 @@ fragment StudioData on Studio {
                         if (stashIds.indexOf(newStashId) !== -1) return;
                         if (!confirm(`Add StashID ${newStashId}?`)) return;
                         stashIds.push(newStashId);
-                        console.log('stashIds', stashIds, studioId, newStashId, stashIds.indexOf(newStashId) !== -1);
                         updateStudioStashIDs(studioId, stashIds);
                         window.location.reload();
                     });
@@ -183,10 +179,8 @@ fragment StudioData on Studio {
                 container.appendChild(stashIdInput);
 
                 getStudioStashIDs(studioId).then(data => {
-                    console.log(data.data.findStudio.stash_ids);
                     for (const { endpoint, stash_id } of data.data.findStudio.stash_ids) {
                         const url = endpoint.replace(/graphql$/, 'studios/') + stash_id
-                        console.log(endpoint, stash_id, url);
                         const row = document.createElement('div');
                         row.classList.add('col-9');
                         row.innerHTML = `<ul class="pl-0">

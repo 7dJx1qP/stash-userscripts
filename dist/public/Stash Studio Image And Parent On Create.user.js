@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Studio Image And Parent On Create
 // @description Set studio image and parent when creating from StashDB. Requires userscript_functions stash plugin
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none
@@ -31,12 +31,10 @@
 
     stash.addEventListener('stash:response', function (evt) {
         const data = evt.detail;
-        console.log('data', data);
         if (data.data?.studioCreate) {
             const studioId = data.data?.studioCreate.id;
             const endpoint = data.data?.studioCreate.stash_ids[0].endpoint;
             const remoteSiteId = data.data?.studioCreate.stash_ids[0].stash_id;
-            console.log('create studio', studioId);
             runStudioUpdateTask(studioId, endpoint, remoteSiteId);
         }
     });

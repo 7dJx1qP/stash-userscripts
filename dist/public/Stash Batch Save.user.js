@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Batch Save
 // @description Adds a batch save button to scenes tagger
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none
@@ -88,9 +88,7 @@
     stash.addEventListener('page:scenes', function () {
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
-                console.log('ready', el);
                 const container = el.parentElement;
-                console.log(container);
 
                 container.appendChild(btn);
             }

@@ -29,7 +29,6 @@
         if (button) {
             const scene = getClosestAncestor(button, '.search-item');
             const myTitle = scene.querySelector('a.scene-link > div.TruncatedText');
-            console.log('myTitle', myTitle);
             let myDate = '';
 
             const queryInput = scene.querySelector('input.text-input');
@@ -39,12 +38,9 @@
             if (dateIndex !== -1) {
                 myDate = queryInput.value.substring(dateIndex, dateIndex+10);
             }
-            console.log('myDate', myDate, newQuery);
 
             const resultMetadata = scene.querySelector('li.search-result.selected-result.active div.scene-metadata');
-            console.log(resultMetadata, 'resultMetadata');
             const resultTitle = resultMetadata.querySelector('h4 > div.optional-field > div.optional-field-content > a > div.TruncatedText');
-            console.log('result title', resultTitle);
             if (resultTitle) {
                 if (queryInput.value.indexOf(resultTitle.innerText) === -1) {
                     resultTitle.style.color = 'red';
@@ -55,7 +51,6 @@
                 }
             }
             const resultDate = resultMetadata.querySelector('h5 > div.optional-field > div.optional-field-content');
-            console.log('result date', resultDate);
             if (resultDate) {
                 if (queryInput.value.indexOf(resultDate.innerText) === -1) {
                     resultDate.style.color = 'red';
@@ -67,7 +62,6 @@
             }
 
             const resultStudio = getElementByXpath('.//div[@class="entity-name" and text()="Studio"]/following-sibling::span[@class="ml-auto"]//b', scene);
-            console.log('studio', resultStudio, resultStudio.innerText);
             if (queryInput.value.indexOf(resultStudio.innerText) === -1) {
                 resultStudio.style.color = 'red';
             }
@@ -79,7 +73,6 @@
             const resultPerformers = getElementsByXpath('.//div[@class="entity-name" and text()="Performer"]/following-sibling::span[@class="ml-auto"]//b', scene);
             let node = null;
             while (node = resultPerformers.iterateNext()) {
-                console.log('performer', node, node.innerText);
                 if (queryInput.value.indexOf(node.innerText) === -1) {
                     node.style.color = 'red';
                 }
@@ -141,9 +134,7 @@
     stash.addEventListener('page:scenes', function () {
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
-                console.log('ready', el);
                 const container = el.parentElement;
-                console.log(container);
 
                 container.appendChild(btn);
             }

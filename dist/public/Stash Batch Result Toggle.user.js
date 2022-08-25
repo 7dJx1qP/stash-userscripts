@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Batch Result Toggle
 // @description Batch toggle scene tagger search result fields
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none
@@ -94,7 +94,6 @@
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
                 const container = el.parentElement;
-                console.log(container);
 
                 container.appendChild(btn);
             }

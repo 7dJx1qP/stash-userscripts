@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Performer Tagger Additions
 // @description Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab.
-// @version     0.1.0
+// @version     0.1.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       none
@@ -27,11 +27,9 @@
 
     const processPerformers = function (data) {
         if (data.data.findPerformers?.performers) {
-            console.log('findPerformers', data);
             for (const performer of data.data.findPerformers.performers) {
                 performers[performer.id] = performer;
             }
-            console.log('performers', performers);
         }
     }
 

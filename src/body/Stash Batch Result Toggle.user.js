@@ -84,7 +84,6 @@
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
                 const container = el.parentElement;
-                console.log(container);
 
                 container.appendChild(btn);
             }

@@ -77,9 +77,7 @@
     stash.addEventListener('page:performers', function () {
         waitForElementByXpath("//button[text()='Batch Update Performers']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
-                console.log('ready', el);
                 const container = el.parentElement;
-                console.log(container);
 
                 container.appendChild(btn);
             }
@@ -89,9 +87,7 @@
     stash.addEventListener('page:scenes', function () {
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
-                console.log('ready', el);
                 const container = el.parentElement;
-                console.log(container);
 
                 container.appendChild(btn);
             }
