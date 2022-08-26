@@ -37,6 +37,8 @@ def build():
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
 // @grant       GM_getResourceText
 // @grant       GM_addStyle
+// @grant       GM.getValue
+// @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.js
 // @require     https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
 // @require     {locallibfile}\n""")
@@ -56,6 +58,8 @@ def build():
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
 // @grant       GM_getResourceText
 // @grant       GM_addStyle
+// @grant       GM.getValue
+// @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.js
 // @require     https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
 // @require     {distlibfile}\n""")
