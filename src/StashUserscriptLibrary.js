@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.11.0
+// version 0.11.1
 
 (function () {
     'use strict';
@@ -10,7 +10,7 @@
         const { fetch: originalFetch } = window;
         const stashListener = new EventTarget();
 
-        window.fetch = async (...args) => {
+        unsafeWindow.fetch = async (...args) => {
             let [resource, config ] = args;
             // request interceptor here
             const response = await originalFetch(resource, config);
