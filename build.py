@@ -54,10 +54,15 @@ def build():
 // @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.js
 // @require     https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
-// @require     {locallibfile}\n""")
+// @require     {locallibfile}
+//
+// **************************************************************************************************
+// *            YOU MAY REMOVE ANY OF THE @require LINES BELOW FOR SCRIPTS YOU DO NOT WANT          *
+// **************************************************************************************************
+//\n""")
         for localbodyfile in localbodyfiles:
             f.write(f"// @require     {localbodyfile}\n")
-        f.write("// ==/UserScript==\n")
+        f.write("\n// ==/UserScript==\n")
         print(localpath)
 
     distpath = 'dist/public/Stash Userscripts Bundle.user.js'
@@ -76,10 +81,15 @@ def build():
 // @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.js
 // @require     https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
-// @require     {distlibfile}\n""")
+// @require     {distlibfile}
+//
+// **************************************************************************************************
+// *            YOU MAY REMOVE ANY OF THE @require LINES BELOW FOR SCRIPTS YOU DO NOT WANT          *
+// **************************************************************************************************
+//\n""")
         for distbodyfile in distbodyfiles:
             f.write(f"// @require     {distbodyfile}\n")
-        f.write("// ==/UserScript==\n")
+        f.write("\n// ==/UserScript==\n")
         print(distpath)
 
 build()

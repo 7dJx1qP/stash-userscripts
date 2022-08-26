@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Userscripts Bundle
 // @description Stash Userscripts Bundle
-// @version     0.8.2
+// @version     0.8.3
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
@@ -13,6 +13,11 @@
 // @require     https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.js
 // @require     https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
+//
+// **************************************************************************************************
+// *            YOU MAY REMOVE ANY OF THE @require LINES BELOW FOR SCRIPTS YOU DO NOT WANT          *
+// **************************************************************************************************
+//
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Batch Query Edit.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Batch Result Toggle.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Batch Save.user.js
@@ -28,4 +33,5 @@
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash StashID Input.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Stats.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Studio Image And Parent On Create.user.js
+
 // ==/UserScript==
