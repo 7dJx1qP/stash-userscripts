@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Performer YAML Details Linkify
 // @description Turns urls/filepaths in YAML formatted performer details into links that open in browser/file explorer. Requires userscript_functions stash plugin
-// @version     0.1.4
+// @version     0.1.5
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -28,7 +28,7 @@
     }
 
     // parse performer details yaml turn paths and urls into links
-    stash.addEventListener('page:performer', function () {
+    stash.addEventListener('page:performer:details', function () {
         waitForElementId('performer-details-tab-details', function () {
             const detailsEl = getElementByXpath("//dt[text()='Details']/following-sibling::dd");
             if (detailsEl) {
@@ -37,7 +37,6 @@
                     doc.urls = doc.urls.map(url => `<a href="${url}" target="_blank">${url}</a>`);
                 }
                 if (doc.paths) {
-                    console.log('paths', doc.paths);
                     doc.paths = doc.paths.map(path => `<a class="filepath">${path}</a>`);
                 }
                 detailsEl.innerHTML = jsyaml.dump(doc, {lineWidth: -1});

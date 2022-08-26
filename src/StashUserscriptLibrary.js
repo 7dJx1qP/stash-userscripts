@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.14.0
+// version 0.15.0
 
 (function () {
     'use strict';
@@ -403,6 +403,30 @@
                 else if (this.matchUrl(location, /\/performers\/\d+/)) {
                     this.log.debug('[Navigation] Performers Page');
                     this.dispatchEvent(new Event('page:performer'));
+                    this.dispatchEvent(new Event('page:performer:details'));
+
+                    waitForElementClass('performer-tabs', (className, targetNode) => {
+                        const observerOptions = {
+                            childList: true
+                        }
+                        const observer = new MutationObserver(mutations => {
+                            let isPerformerEdit = false;
+                            mutations.forEach(mutation => {
+                                mutation.addedNodes.forEach(node => {
+                                    if (node.id === 'performer-edit') {
+                                        isPerformerEdit = true;
+                                    }
+                                });
+                            });
+                            if (isPerformerEdit) {
+                                this.dispatchEvent(new Event('page:performer:edit'));
+                            }
+                            else {
+                                this.dispatchEvent(new Event('page:performer:details'));
+                            }
+                        });
+                        observer.observe(targetNode[0], observerOptions);
+                    });
                 }
                 // performers wall
                 else if (this.matchUrl(location, /\/performers\?/)) {

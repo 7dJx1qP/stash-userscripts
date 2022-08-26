@@ -17,7 +17,7 @@
     }
 
     // parse performer details yaml turn paths and urls into links
-    stash.addEventListener('page:performer', function () {
+    stash.addEventListener('page:performer:details', function () {
         waitForElementId('performer-details-tab-details', function () {
             const detailsEl = getElementByXpath("//dt[text()='Details']/following-sibling::dd");
             if (detailsEl) {
@@ -26,7 +26,6 @@
                     doc.urls = doc.urls.map(url => `<a href="${url}" target="_blank">${url}</a>`);
                 }
                 if (doc.paths) {
-                    console.log('paths', doc.paths);
                     doc.paths = doc.paths.map(path => `<a class="filepath">${path}</a>`);
                 }
                 detailsEl.innerHTML = jsyaml.dump(doc, {lineWidth: -1});
