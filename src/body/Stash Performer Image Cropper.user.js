@@ -10,6 +10,7 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
+        reloadImg,
     } = window.stash;
 
     const css = GM_getResourceText("IMPORTED_CSS");
@@ -84,9 +85,7 @@
                           }`
                     }
                     await stash.callGQL(reqData);
-                    const src = image.src;
-                    image.src = '';
-                    image.src = src;
+                    reloadImg(image.src);
                     cropper.destroy();
                 });
                 cropBtnContainer.appendChild(cropAccept);

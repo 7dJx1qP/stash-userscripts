@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.15.0
+// version 0.16.0
 
 (function () {
     'use strict';
@@ -146,6 +146,11 @@
                 node.appendChild(itemsArr[i]);
             }
         }
+
+        const reloadImg = url =>
+            fetch(url, { cache: 'reload', mode: 'no-cors' })
+            .then(() => document.body.querySelectorAll(`img[src='${url}']`)
+            .forEach(img => img.src = url));
 
         class Stash extends EventTarget {
             constructor({ pageUrlCheckInterval = 50, logging = false } = {}) {
@@ -599,6 +604,7 @@
             setNativeValue,
             updateTextInput,
             sortElementChildren,
+            reloadImg,
             Logger,
         };
     };
