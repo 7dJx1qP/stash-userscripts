@@ -56,7 +56,6 @@
             const blacklist = [];
             if (applyBlacklist) {
                 const blacklistTags = getElementsByXpath("//div[@class='tagger-container-header']//h5[text()='Blacklist']/following-sibling::span/text()")
-                console.log(blacklistTags);
                 let node = null;
                 while (node = blacklistTags.iterateNext()) {
                     blacklist.push([new RegExp(node.nodeValue, "gi"), '']);
@@ -157,7 +156,6 @@
             }
         });
         waitForElementByXpath("//div[@class='tagger-container-header']/div/div[@class='row']/h4[text()='Configuration']", function (xpath, el) {
-            console.log(el.parentElement.parentElement);
             const queryEditConfigId = 'query-edit-config';
             if (!document.getElementById(queryEditConfigId)) {
                 const configContainer = el.parentElement.parentElement;

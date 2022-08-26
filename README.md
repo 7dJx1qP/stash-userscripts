@@ -16,6 +16,7 @@ Pick and choose which userscript to install or install just `Stash Userscripts B
 | Stash New Performer Filter Button  | Adds button to performers page to switch to a filter by new performers tagger view  |:x:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20New%20Performer%20Filter%20Button.user.js)  |
 | Stash Open Media Player  | Open filepath link on scene page 'File Info' tab in an external media player when clicked  |:heavy_check_mark:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Open%20Media%20Player.user.js)  |
 | Stash Performer Audit Task Button  |  Adds a button to the performers page to check for duplicate performer urls. Task output shown in stash logs  |:heavy_check_mark:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Audit%20Task%20Button.user.js)  |
+| Stash Performer Image Cropper  |  Adds ability to crop performer image from performer page  |:x:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Image%20Cropper.user.js)  |
 | Stash Performer Tagger Additions  |  Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab  |:x:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20Tagger%20Additions.user.js)  |
 | Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |:x:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20URL%20Searchbox.user.js)  |
 | Stash Performer YAML Details Linkify  | WIP  |:heavy_check_mark:|  [INSTALL USERSCRIPT](https://github.com/7dJx1qP/stash-userscripts/raw/master/dist/public/Stash%20Performer%20YAML%20Details%20Linkify.user.js)  |
@@ -47,9 +48,13 @@ Performer page
 
 ![Performer page](images/performer-page.png?raw=true "Performer page")
 
-Performer page tagger view
+Performer page, performer image cropper
 
-![Performer page tagger view](images/performer-tagger.png?raw=true "Performer page tagger view")
+![Performer page, performer image cropper](images/performer-image-cropper.png?raw=true "Performer page, performer image cropper")
+
+Performers page tagger view
+
+![Performers page tagger view](images/performer-tagger.png?raw=true "Performers page tagger view")
 
 ## Userscript Functions Plugin
 

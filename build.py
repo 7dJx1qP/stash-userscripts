@@ -34,7 +34,11 @@ def build():
 // @version     {config.BUNDLE_VERSION}
 // @author      7dJx1qP
 // @match       {config.SERVER_URL}/*
-// @grant       none
+// @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
+// @grant       GM_getResourceText
+// @grant       GM_addStyle
+// @require     https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.js
+// @require     https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
 // @require     {locallibfile}\n""")
         for localbodyfile in localbodyfiles:
             f.write(f"// @require     {localbodyfile}\n")
@@ -49,7 +53,11 @@ def build():
 // @version     {config.BUNDLE_VERSION}
 // @author      7dJx1qP
 // @match       {config.SERVER_URL}/*
-// @grant       none
+// @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
+// @grant       GM_getResourceText
+// @grant       GM_addStyle
+// @require     https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.js
+// @require     https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
 // @require     {distlibfile}\n""")
         for distbodyfile in distbodyfiles:
             f.write(f"// @require     {distbodyfile}\n")
