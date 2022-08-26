@@ -19,7 +19,6 @@ Pick and choose which userscript to install or install just `Stash Userscripts B
 | Stash Performer Image Cropper  |  Adds ability to crop performer image from performer page  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20Image%20Cropper.user.js?raw=1)  |
 | Stash Performer Tagger Additions  |  Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20Tagger%20Additions.user.js?raw=1)  |
 | Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20URL%20Searchbox.user.js?raw=1)  |
-| Stash Performer YAML Details Linkify  | WIP  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20YAML%20Details%20Linkify.user.js?raw=1)  |
 | Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry. Also displays studio stashids on studio page without having to click edit to view |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20StashID%20Input.user.js?raw=1)  |
 | Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Stats.user.js?raw=1)  |
 | Stash Studio Image And Parent On Create | In Scene Tagger, sets studio image and parent studio from StashDB when a studio is created  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Studio%20Image%20And%20Parent%20On%20Create.user.js?raw=1)  |
@@ -77,12 +76,6 @@ Update `config.ini` in the `userscript_functions` folder with your stash URL.
 Plugin settings aside from the server URL and server api key can be updated from within the Stash settings under the System tab:
 
 ![Settings page system tab](images/system-settings.png?raw=true "Settings page system tab")
-
-## WIP
-
-These userscripts rely on unreleased plugins not yet ready for public use and should be ignored for now. I only include them now for source control purposes:
-* Stash Performer YAML Details Linkify
-  * This assumes performer details contain a YAML document with urls and paths which is how I track my performer folders and multiple performer urls. There's an accompanying unreleased plugin for initializing all performer details this way as a standalone task and on performer creation.
 
 ## Developing
 
