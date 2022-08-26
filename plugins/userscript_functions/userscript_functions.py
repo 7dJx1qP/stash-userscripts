@@ -14,11 +14,7 @@ except ModuleNotFoundError:
     print("If you have pip (normally installed with python), run this command in a terminal (cmd): pip install pystashlib)", file=sys.stderr)
     sys.exit()
 
-def read_json_input():
-    json_input = sys.stdin.read()
-    return json.loads(json_input)
-
-json_input = read_json_input()
+json_input = json.loads(sys.stdin.read())
 name = json_input['args']['name']
 
 configpath = os.path.join(pathlib.Path(__file__).parent.resolve(), 'config.ini')
@@ -41,13 +37,7 @@ elif name == 'update_studio':
     update_studio_from_stashbox(studio_id, endpoint, remote_site_id)
 elif name == 'audit_performer_urls':
     client = StashInterface(json_input["server_connection"])
-    result = client.callGraphQL("""query Configuration {
-  configuration {
-    general {
-      databasePath
-    }
-  }
-}""")
+    result = client.callGraphQL("""query Configuration { configuration { general { databasePath } } }""")
     database_path = result["configuration"]["general"]["databasePath"]
     log.debug(f"databasePath: {database_path}\n")
     try:
