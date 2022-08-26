@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name        Stash Performer Image Cropper
 // @description Adds an image cropper to performer page
-// @version     0.1.0
+// @version     0.1.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
+// @grant       unsafeWindow
 // @grant       GM_getResourceText
 // @grant       GM_addStyle
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js

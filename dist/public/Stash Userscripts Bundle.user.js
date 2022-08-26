@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name        Stash Userscripts Bundle
 // @description Stash Userscripts Bundle
-// @version     0.8.1
+// @version     0.8.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
+// @grant       unsafeWindow
 // @grant       GM_getResourceText
 // @grant       GM_addStyle
 // @grant       GM.getValue
