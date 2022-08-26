@@ -21,25 +21,25 @@ configpath = os.path.join(pathlib.Path(__file__).parent.resolve(), 'config.ini')
 
 if name == 'explorer':
     path = json_input['args']['path']
-    log.debug(f"{name}: {path}\n")
+    log.debug(f"{name}: {path}")
     subprocess.Popen(f'explorer "{path}"')
 elif name == 'mediaplayer':
     mediaplayer_path = config_manager.get_config_value(configpath, 'MEDIAPLAYER', 'path')
     path = json_input['args']['path']
-    log.debug(f"mediaplayer_path: {mediaplayer_path}\n")
-    log.debug(f"{name}: {path}\n")
+    log.debug(f"mediaplayer_path: {mediaplayer_path}")
+    log.debug(f"{name}: {path}")
     subprocess.Popen([mediaplayer_path, path])
 elif name == 'update_studio':
     studio_id = json_input['args']['studio_id']
     endpoint = json_input['args']['endpoint']
     remote_site_id = json_input['args']['remote_site_id']
-    log.debug(f"{name}: {studio_id} {endpoint} {remote_site_id}\n")
+    log.debug(f"{name}: {studio_id} {endpoint} {remote_site_id}")
     update_studio_from_stashbox(studio_id, endpoint, remote_site_id)
 elif name == 'audit_performer_urls':
     client = StashInterface(json_input["server_connection"])
     result = client.callGraphQL("""query Configuration { configuration { general { databasePath } } }""")
     database_path = result["configuration"]["general"]["databasePath"]
-    log.debug(f"databasePath: {database_path}\n")
+    log.debug(f"databasePath: {database_path}")
     try:
         db = StashDatabase(database_path)
     except Exception as e:
@@ -47,21 +47,21 @@ elif name == 'audit_performer_urls':
         sys.exit(0)
     audit_performer_urls(db)
 elif name == 'update_config_value':
-    log.debug(f"configpath: {configpath}\n")
+    log.debug(f"configpath: {configpath}")
     section_key = json_input['args']['section_key']
     prop_name = json_input['args']['prop_name']
     value = json_input['args']['value']
     if not section_key or not prop_name:
-        log.error(f"{name}: Missing args\n")
+        log.error(f"{name}: Missing args")
         sys.exit(0)
-    log.debug(f"{name}: [{section_key}][{prop_name}] = {value}\n")
+    log.debug(f"{name}: [{section_key}][{prop_name}] = {value}")
     config_manager.update_config_value(configpath, section_key, prop_name, value)
 elif name == 'get_config_value':
-    log.debug(f"configpath: {configpath}\n")
+    log.debug(f"configpath: {configpath}")
     section_key = json_input['args']['section_key']
     prop_name = json_input['args']['prop_name']
     if not section_key or not prop_name:
-        log.error(f"{name}: Missing args\n")
+        log.error(f"{name}: Missing args")
         sys.exit(0)
     value = config_manager.get_config_value(configpath, section_key, prop_name)
-    log.debug(f"{name}: [{section_key}][{prop_name}] = {value}\n")
+    log.debug(f"{name}: [{section_key}][{prop_name}] = {value}")
