@@ -491,11 +491,7 @@
                 if (this.matchUrl(location, /\/settings\?tab=tasks/)) {
                     this.log.debug('[Navigation] Settings Page Tasks Tab');
                     this.dispatchEvent(new Event('page:settings:tasks'));
-
-                    // hide userscript functions plugin tasks
-                    waitForElementByXpath("//div[@id='tasks-panel']//h3[text()='Userscript Functions']/ancestor::div[contains(@class, 'setting-group')]", function (elementId, el) {
-                        el.style.display = 'none';
-                    });
+                    this.hidePluginTasks();
                 }
                 // settings page system tab
                 else if (this.matchUrl(location, /\/settings\?tab=system/)) {
@@ -503,9 +499,11 @@
                     this.createSettings();
                     this.dispatchEvent(new Event('page:settings:system'));
                 }
+                // settings page (defaults to tasks tab)
                 else if (this.matchUrl(location, /\/settings/)) {
-                    this.log.debug('[Navigation] Settings Page');
-                    this.dispatchEvent(new Event('page:settings'));
+                    this.log.debug('[Navigation] Settings Page Tasks Tab');
+                    this.dispatchEvent(new Event('page:settings:tasks'));
+                    this.hidePluginTasks();
                 }
 
                 // stats page
@@ -513,6 +511,12 @@
                     this.log.debug('[Navigation] Stats Page');
                     this.dispatchEvent(new Event('page:stats'));
                 }
+            }
+            hidePluginTasks () {
+                // hide userscript functions plugin tasks
+                waitForElementByXpath("//div[@id='tasks-panel']//h3[text()='Userscript Functions']/ancestor::div[contains(@class, 'setting-group')]", function (elementId, el) {
+                    el.style.display = 'none';
+                });
             }
             async updateConfigValueTask(sectionKey, propName, value) {
                 return this.runPluginTask("userscript_functions", "Update Config Value", [{"key":"section_key", "value":{"str": sectionKey}}, {"key":"prop_name", "value":{"str": propName}}, {"key":"value", "value":{"str": value}}]);
