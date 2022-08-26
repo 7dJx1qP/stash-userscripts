@@ -1,12 +1,24 @@
 import os
 import config
+from pathlib import Path
+
+def get_active_branch_name():
+    head_dir = Path(".") / ".git" / "HEAD"
+    with head_dir.open("r") as f: content = f.read().splitlines()
+
+    for line in content:
+        if line[0:4] == "ref:":
+            return line.partition("refs/heads/")[2]
 
 def build():
     LIBFILE = "StashUserscriptLibrary.js"
+    GIT_BRANCH = get_active_branch_name()
+    GITHUB_ROOT_URL = config.GITHUB_ROOT_URL.replace('%%BRANCH%%', GIT_BRANCH)
+    print('git branch', GIT_BRANCH)
 
     localbodyfiles = []
     distbodyfiles = []
-    distlibfile = os.path.join(config.GITHUB_ROOT_URL, 'src', LIBFILE)
+    distlibfile = os.path.join(GITHUB_ROOT_URL, 'src', LIBFILE)
     for file in os.listdir('src/header'):
         headerpath = os.path.join('src/header', file)
         bodypath = os.path.join('src/body', file)
@@ -15,7 +27,7 @@ def build():
         body = open(bodypath, 'r').read()
 
         localbodyfiles.append("file://" + os.path.join(config.ROOTDIR, 'src/body', file))
-        distbodyfiles.append(os.path.join(config.GITHUB_ROOT_URL, 'src/body', file))
+        distbodyfiles.append(os.path.join(GITHUB_ROOT_URL, 'src/body', file))
         
         header = header.replace("%LIBRARYPATH%", distlibfile) \
                        .replace("%MATCHURL%", f"{config.SERVER_URL}/*") \
