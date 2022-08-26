@@ -86,12 +86,14 @@ These userscripts rely on unreleased plugins not yet ready for public use and sh
 
 ## Developing
 
-Update `config.py` and set `ROOTDIR` to your `stash-userscripts` path
-
 Each userscript source is split into two files:
 * `src/header` - Folder with userscript metadata blocks
 * `src/body` - Folder with main script code
 
-`py build.py` - Combines source files and generates a userscript bundle to `dist\local` for local development and individual userscripts and a bundle to `dist\public` for release.
+Execute `py build.py` to combine source files and generate:
+* a userscript bundle to `dist\local` for local development
+* individual userscripts and a bundle to `dist\public` for release
+
+Build output directories:
 * `dist\local` - A userscript bundle with `@require` headers that load the script code from local files (`src/body`)
 * `dist\public` - Userscripts with `@require` headers that load the script code from this github repo

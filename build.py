@@ -11,6 +11,7 @@ def get_active_branch_name():
             return line.partition("refs/heads/")[2]
 
 def build():
+    ROOTDIR = Path(__file__).parent.resolve()
     LIBFILE = "StashUserscriptLibrary.js"
     GIT_BRANCH = get_active_branch_name()
     GITHUB_ROOT_URL = config.GITHUB_ROOT_URL.replace('%%BRANCH%%', GIT_BRANCH)
@@ -26,7 +27,7 @@ def build():
         header = open(headerpath, 'r').read()
         body = open(bodypath, 'r').read()
 
-        localbodyfiles.append("file://" + os.path.join(config.ROOTDIR, 'src/body', file))
+        localbodyfiles.append("file://" + os.path.join(ROOTDIR, 'src/body', file))
         distbodyfiles.append(os.path.join(GITHUB_ROOT_URL, 'src/body', file))
         
         header = header.replace("%LIBRARYPATH%", distlibfile) \
@@ -38,7 +39,7 @@ def build():
             print(distpublicpath)
 
     localpath = 'dist/local/Stash Userscripts Development Bundle.user.js'
-    locallibfile = "file://" + os.path.join(config.ROOTDIR, 'src', LIBFILE)
+    locallibfile = "file://" + os.path.join(ROOTDIR, 'src', LIBFILE)
     with open(localpath, 'w') as f:
         f.write(f"""// ==UserScript==
 // @name        Stash Userscripts Development Bundle
