@@ -1,7 +1,7 @@
 name: Userscript Functions
 description: Tasks for userscripts
 url: ''
-version: 0.4
+version: 0.4.1
 exec:
   - python
   - "{pluginDir}/userscript_functions.py"
