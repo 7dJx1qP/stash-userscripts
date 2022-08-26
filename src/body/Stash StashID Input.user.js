@@ -111,7 +111,7 @@ fragment StudioData on Studio {
         await stash.callGQL(reqData);
     }
 
-    stash.addEventListener('page:performer', function () {
+    stash.addEventListener('page:performer:details', function () {
         waitForElementId('performer-details-tabpane-details', function (elementId, el) {
             if (!document.getElementById('update-stashids')) {
                 const performerId = window.location.pathname.replace('/performers/', '');
