@@ -1,7 +1,7 @@
 name: Userscript Functions
 description: Tasks for userscripts
-url: ''
-version: 0.4.1
+url: https://github.com/7dJx1qP/stash-userscripts
+version: 0.4.2
 exec:
   - python
   - "{pluginDir}/userscript_functions.py"
