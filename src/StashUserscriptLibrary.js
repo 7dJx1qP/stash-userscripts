@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.11.1
+// version 0.13.0
 
 (function () {
     'use strict';
@@ -487,8 +487,18 @@
                     this.dispatchEvent(new Event('page:tags'));
                 }
 
+                // settings page tasks tab
+                if (this.matchUrl(location, /\/settings\?tab=tasks/)) {
+                    this.log.debug('[Navigation] Settings Page Tasks Tab');
+                    this.dispatchEvent(new Event('page:settings:tasks'));
+
+                    // hide userscript functions plugin tasks
+                    waitForElementByXpath("//div[@id='tasks-panel']//h3[text()='Userscript Functions']/ancestor::div[contains(@class, 'setting-group')]", function (elementId, el) {
+                        el.style.display = 'none';
+                    });
+                }
                 // settings page system tab
-                if (this.matchUrl(location, /\/settings\?tab=system/)) {
+                else if (this.matchUrl(location, /\/settings\?tab=system/)) {
                     this.log.debug('[Navigation] Settings Page System Tab');
                     this.createSettings();
                     this.dispatchEvent(new Event('page:settings:system'));
