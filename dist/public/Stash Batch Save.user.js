@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name        Stash Batch Save
 // @description Adds a batch save button to scenes tagger
-// @version     0.2.0
+// @version     0.2.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
-// @grant       none
+// @grant       unsafeWindow
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 

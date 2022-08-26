@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name        Stash StashID Input
 // @description Adds input for entering new stash id to performer details page and studio page
-// @version     0.1.2
+// @version     0.1.3
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
-// @grant       none
+// @grant       unsafeWindow
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
