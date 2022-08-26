@@ -2,6 +2,7 @@
     'use strict';
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -10,8 +11,6 @@
         insertAfter,
         createElementFromHTML,
     } = window.stash;
-
-    const stash = new Stash();
 
     const performers = {};
 

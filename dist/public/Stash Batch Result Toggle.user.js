@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Batch Result Toggle
 // @description Batch toggle scene tagger search result fields
-// @version     0.2.1
+// @version     0.2.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -16,6 +16,7 @@
     const DELAY = 200;
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -25,8 +26,6 @@
         updateTextInput,
         sortElementChildren,
     } = window.stash;
-
-    const stash = new Stash();
 
     let running = false;
     const buttons = [];

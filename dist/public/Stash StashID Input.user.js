@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash StashID Input
 // @description Adds input for entering new stash id to performer details page and studio page
-// @version     0.1.3
+// @version     0.1.4
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -12,6 +12,7 @@
     'use strict';
 
     const {
+      stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -19,8 +20,6 @@
         getElementByXpath,
         getElementsByXpath,
     } = window.stash;
-
-    const stash = new Stash();
 
     async function updatePerformerStashIDs(performerId, stashIds) {
         const reqData = {

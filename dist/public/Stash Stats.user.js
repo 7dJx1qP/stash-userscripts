@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Stats
 // @description Add stats to stats page
-// @version     0.1.3
+// @version     0.1.4
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -14,6 +14,7 @@
     console.log('Stash Stats');
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -22,8 +23,6 @@
         getClosestAncestor,
         updateTextInput,
     } = window.stash;
-
-    const stash = new Stash();
 
     function createStatElement(container, title, heading) {
         const statEl = document.createElement('div');

@@ -2,14 +2,13 @@
     'use strict';
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
     } = window.stash;
-
-    const stash = new Stash();
 
     stash.addEventListener('page:performers', function () {
         waitForElementClass("btn-toolbar", function () {

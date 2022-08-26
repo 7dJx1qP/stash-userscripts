@@ -4,14 +4,13 @@
     'use strict';
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
     } = window.stash;
-
-    const stash = new Stash();
 
     function openExplorerTask(path) {
         stash.runPluginTask("userscript_functions", "Open in File Explorer", {"key":"path", "value":{"str": path}});

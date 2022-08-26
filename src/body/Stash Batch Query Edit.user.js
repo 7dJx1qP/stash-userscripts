@@ -16,6 +16,7 @@
     const DELAY = 200;
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -27,8 +28,6 @@
         updateTextInput,
         sortElementChildren,
     } = window.stash;
-
-    const stash = new Stash();
 
     let running = false;
     const buttons = [];

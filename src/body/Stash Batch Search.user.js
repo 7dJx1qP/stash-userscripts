@@ -6,6 +6,7 @@
     const DELAY = 200;
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -13,8 +14,6 @@
         getElementByXpath,
         sortElementChildren,
     } = window.stash;
-
-    const stash = new Stash();
 
     let running = false;
     const buttons = [];

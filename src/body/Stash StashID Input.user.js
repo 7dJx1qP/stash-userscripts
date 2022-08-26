@@ -2,6 +2,7 @@
     'use strict';
 
     const {
+      stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -9,8 +10,6 @@
         getElementByXpath,
         getElementsByXpath,
     } = window.stash;
-
-    const stash = new Stash();
 
     async function updatePerformerStashIDs(performerId, stashIds) {
         const reqData = {

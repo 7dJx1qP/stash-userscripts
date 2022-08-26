@@ -4,6 +4,7 @@
     console.log('Stash Studio Create');
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -12,8 +13,6 @@
         getClosestAncestor,
         updateTextInput,
     } = window.stash;
-
-    const stash = new Stash();
 
     function runStudioUpdateTask(studioId, endpoint, remoteSiteId) {
         stash.runPluginTask("userscript_functions", "Update Studio", [{"key":"studio_id", "value":{"str": studioId}}, {"key":"endpoint", "value":{"str": endpoint}}, {"key":"remote_site_id", "value":{"str": remoteSiteId}}]);

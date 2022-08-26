@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Batch Save
 // @description Adds a batch save button to scenes tagger
-// @version     0.2.1
+// @version     0.2.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -16,6 +16,7 @@
     const DELAY = 3000;
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -23,8 +24,6 @@
         getElementByXpath,
         sortElementChildren,
     } = window.stash;
-
-    const stash = new Stash();
 
     let running = false;
     const buttons = [];

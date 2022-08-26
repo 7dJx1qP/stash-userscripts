@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Batch Search
 // @description Adds a batch search button to scenes and performers tagger
-// @version     0.2.1
+// @version     0.2.2
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

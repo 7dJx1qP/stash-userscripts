@@ -2,14 +2,13 @@
     'use strict';
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
     } = window.stash;
-
-    const stash = new Stash();
 
     const MIN_REQUIRED_PLUGIN_VERSION = '0.4.0';
 

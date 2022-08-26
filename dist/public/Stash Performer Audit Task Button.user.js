@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Performer Audit Task Button
 // @description Adds a button to the performers page to run the audit plugin task
-// @version     0.2.2
+// @version     0.2.3
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -12,14 +12,13 @@
     'use strict';
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
     } = window.stash;
-
-    const stash = new Stash();
 
     stash.addEventListener('page:performers', function () {
         waitForElementClass("btn-toolbar", function () {

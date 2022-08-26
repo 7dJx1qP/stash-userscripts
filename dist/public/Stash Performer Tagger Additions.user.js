@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Performer Tagger Additions
 // @description Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab.
-// @version     0.1.2
+// @version     0.1.3
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -12,6 +12,7 @@
     'use strict';
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -20,8 +21,6 @@
         insertAfter,
         createElementFromHTML,
     } = window.stash;
-
-    const stash = new Stash();
 
     const performers = {};
 

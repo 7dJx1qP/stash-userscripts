@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Batch Query Edit
 // @description Batch modify scene tagger search query
-// @version     0.3.1
+// @version     0.3.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -28,6 +28,7 @@
     const DELAY = 200;
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -39,8 +40,6 @@
         updateTextInput,
         sortElementChildren,
     } = window.stash;
-
-    const stash = new Stash();
 
     let running = false;
     const buttons = [];

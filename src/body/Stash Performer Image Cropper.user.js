@@ -4,14 +4,13 @@
     'use strict';
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
     } = window.stash;
-
-    const stash = new Stash();
 
     const css = GM_getResourceText("IMPORTED_CSS");
     GM_addStyle(css);

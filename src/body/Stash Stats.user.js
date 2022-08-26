@@ -4,6 +4,7 @@
     console.log('Stash Stats');
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
@@ -12,8 +13,6 @@
         getClosestAncestor,
         updateTextInput,
     } = window.stash;
-
-    const stash = new Stash();
 
     function createStatElement(container, title, heading) {
         const statEl = document.createElement('div');

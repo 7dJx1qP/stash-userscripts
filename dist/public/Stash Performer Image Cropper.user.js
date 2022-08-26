@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Performer Image Cropper
 // @description Adds an image cropper to performer page
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
@@ -18,14 +18,13 @@
     'use strict';
 
     const {
+        stash,
         Stash,
         waitForElementId,
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
     } = window.stash;
-
-    const stash = new Stash();
 
     const css = GM_getResourceText("IMPORTED_CSS");
     GM_addStyle(css);
