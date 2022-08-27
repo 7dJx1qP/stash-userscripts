@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Open Media Player
 // @description Open scene filepath links in an external media player. Requires userscript_functions stash plugin
-// @version     0.1.5
+// @version     0.1.6
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -42,46 +42,31 @@
     
     const settingsId = 'userscript-settings-mediaplayer';
 
-    stash.addEventListener('page:settings:system', function () {
-        waitForElementId('userscript-settings', (elementId, el) => {
-            const inputId = 'userscript-settings-mediaplayer-input';
-            if (!document.getElementById(settingsId)) {
-                const section = document.createElement("div");
-                section.setAttribute('id', settingsId);
-                section.classList.add('card');
-                section.style.display = 'none';
-                section.innerHTML = `<div class="setting">
-<div>
-<h3>Media Player Path</h3>
-</div>
-<div>
-<div class="flex-grow-1 query-text-field-group">
-<input id="${inputId}" class="bg-secondary text-white border-secondary form-control" placeholder="Media Player Path…">
-</div>
-</div>
-</div>`;
-                el.appendChild(section);
-                const mediaplayerPathInput = document.getElementById(inputId);
-                mediaplayerPathInput.addEventListener('change', () => {
-                    const value = mediaplayerPathInput.value;
-                    if (value) {
-                        stash.updateConfigValueTask('MEDIAPLAYER', 'path', value);
-                        alert(`Media player path set to ${value}`);
-                    }
-                    else {
-                        stash.getConfigValueTask('MEDIAPLAYER', 'path').then(value => {
-                            mediaplayerPathInput.value = value;
-                        });
-                    }
-                });
-                mediaplayerPathInput.disabled = true;
+    stash.addSystemSetting(async (elementId, el) => {
+        const inputId = 'userscript-settings-mediaplayer-input';
+        const settingsHeader = 'Media Player Path';
+        const settingsSubheader = 'Path to external media player.';
+        const placeholder = 'Media Player Path…';
+        const textbox = await stash.createSystemSettingTextbox(el, settingsId, inputId, settingsHeader, settingsSubheader, placeholder, false);
+        textbox.addEventListener('change', () => {
+            const value = textbox.value;
+            if (value) {
+                stash.updateConfigValueTask('MEDIAPLAYER', 'path', value);
+                alert(`Media player path set to ${value}`);
+            }
+            else {
                 stash.getConfigValueTask('MEDIAPLAYER', 'path').then(value => {
-                    mediaplayerPathInput.value = value;
-                    mediaplayerPathInput.disabled = false;
+                    textbox.value = value;
                 });
-            };
+            }
+        });
+        textbox.disabled = true;
+        stash.getConfigValueTask('MEDIAPLAYER', 'path').then(value => {
+            textbox.value = value;
+            textbox.disabled = false;
         });
     });
+
     stash.addEventListener('stash:pluginVersion', async function () {
         waitForElementId(settingsId, async (elementId, el) => {
             el.style.display = stash.pluginVersion != null ? 'flex' : 'none';

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Set Stashbox Favorite Performers
 // @description Set Stashbox favorite performers according to stash favorites. Requires userscript_functions stash plugin
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -26,6 +26,11 @@
 
     const MIN_REQUIRED_PLUGIN_VERSION = '0.5.0';
 
+    stash.visiblePluginTasks.push('Set Stashbox Favorite Performers');
+
+    const settingsId = 'userscript-settings-set-stashbox-favorites-task';
+    const inputId = 'userscript-settings-set-stashbox-favorites-button-visible';
+
     async function runSetStashBoxFavoritePerformersTask() {
         const data = await stash.getStashBoxes();
         if (!data.data.configuration.general.stashBoxes.length) {
@@ -41,17 +46,17 @@
     }
 
     stash.addEventListener('page:performers', function () {
-        waitForElementClass("btn-toolbar", function () {
+        waitForElementClass("btn-toolbar", async function () {
             if (!document.getElementById('stashbox-favorite-task')) {
                 const toolbar = document.querySelector(".btn-toolbar");
 
                 const newGroup = document.createElement('div');
-                newGroup.classList.add('mx-2', 'mb-2', 'd-flex');
+                newGroup.classList.add('mx-2', 'mb-2', await GM.getValue(inputId, false) ? 'd-flex' : 'd-none');
                 toolbar.appendChild(newGroup);
 
                 const button = document.createElement("button");
                 button.setAttribute("id", "stashbox-favorite-task");
-                button.classList.add('btn', 'btn-secondary', 'mr-2');
+                button.classList.add('btn', 'btn-secondary');
                 button.innerHTML = 'Set Stashbox Favorites';
                 button.onclick = () => {
                     runSetStashBoxFavoritePerformersTask();
@@ -79,7 +84,21 @@
         }
     });
 
+    stash.addSystemSetting(async (elementId, el) => {
+        const settingsHeader = 'Show Set Stashbox Favorites Button';
+        const settingsSubheader = 'Display set stashbox favorites button on performers page.';
+        const checkbox = await stash.createSystemSettingCheckbox(el, settingsId, inputId, settingsHeader, settingsSubheader);
+        checkbox.checked = await GM.getValue(inputId, false);
+        checkbox.addEventListener('change', async () => {
+            const value = checkbox.checked;
+            await GM.setValue(inputId, value);
+        });
+    });
+
     stash.addEventListener('stash:pluginVersion', async function () {
+        waitForElementId(settingsId, async (elementId, el) => {
+            el.style.display = stash.pluginVersion != null ? 'flex' : 'none';
+        });
         if (stash.comparePluginVersion(MIN_REQUIRED_PLUGIN_VERSION) < 0) {
             const alertedPluginVersion = await GM.getValue('alerted_plugin_version');
             if (alertedPluginVersion !== stash.pluginVersion) {

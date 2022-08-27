@@ -21,7 +21,7 @@
 
                 const newButton = document.createElement("a");
                 newButton.setAttribute("id", "new-performer-filter");
-                newButton.classList.add('btn', 'btn-secondary', 'mr-2');
+                newButton.classList.add('btn', 'btn-secondary');
                 newButton.innerHTML = 'New Performers';
                 newButton.href = `${stash.serverUrl}/performers?disp=3&sortby=created_at&sortdir=desc`;
                 newGroup.appendChild(newButton);

@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.17.0
+// version 0.18.0
 
 (function () {
     'use strict';
@@ -181,6 +181,9 @@
                 });
                 this.pluginVersion = null;
                 this.getPlugins().then(plugins => this.getPluginVersion(plugins));
+                this.visiblePluginTasks = ['Userscript Functions'];
+                this.settingsCallbacks = [];
+                this.settingsId = 'userscript-settings';
             }
             comparePluginVersion(minPluginVersion) {
                 let [currMajor, currMinor, currPatch = 0] = this.pluginVersion.split('.').map(i => parseInt(i));
@@ -282,40 +285,15 @@
                 return location.href.match(regexp) != null;
             }
             createSettings() {
-                const settingsId = 'userscript-settings';
-                waitForElementId('configuration-tabs-tabpane-system', (elementId, el) => {
-                    if (!document.getElementById(settingsId)) {
+                waitForElementId('configuration-tabs-tabpane-system', async (elementId, el) => {
+                    if (!document.getElementById(this.settingsId)) {
                         const section = document.createElement("div");
-                        section.setAttribute('id', settingsId);
+                        section.setAttribute('id', this.settingsId);
                         section.classList.add('setting-section');
-                        section.innerHTML = `<h1>Userscript Plugin Config</h1>
-<div class="card" id="userscript-section-server-url">
-  <div class="setting">
-    <div>
-      <h3>Server URL</h3>
-    </div>
-    <div>
-      <div class="flex-grow-1 query-text-field-group">
-        <input id="userscript-server-url" class="bg-secondary text-white border-secondary form-control" placeholder="Server URL…">
-      </div>
-    </div>
-  </div>
-</div>
-<div class="card" id="userscript-section-server-apikey">
-  <div class="setting">
-    <div>
-      <h3>API Key</h3>
-    </div>
-    <div>
-      <div class="flex-grow-1 query-text-field-group">
-        <input id="userscript-server-apikey" class="bg-secondary text-white border-secondary form-control" placeholder="API Key…">
-      </div>
-    </div>
-  </div>
-</div>`;
+                        section.innerHTML = `<h1>Userscript Settings</h1>`;
                         el.appendChild(section);
 
-                        const serverUrlInput = document.getElementById('userscript-server-url');
+                        const serverUrlInput = await this.createSystemSettingTextbox(section, 'userscript-section-server-url', 'userscript-server-url', 'Stash Server URL', '', 'Server URL…', true);
                         serverUrlInput.addEventListener('change', () => {
                             const value = serverUrlInput.value || '';
                             if (value) {
@@ -333,7 +311,7 @@
                             serverUrlInput.value = value || '';
                         });
 
-                        const apiKeyInput = document.getElementById('userscript-server-apikey');
+                        const apiKeyInput = await this.createSystemSettingTextbox(section, 'userscript-section-server-apikey', 'userscript-server-apikey', 'Stash API Key', '', 'API Key…', true);
                         apiKeyInput.addEventListener('change', () => {
                             const value = apiKeyInput.value || '';
                             this.updateConfigValueTask('STASH', 'api_key', value);
@@ -348,8 +326,62 @@
                         this.getConfigValueTask('STASH', 'api_key').then(value => {
                             apiKeyInput.value = value || '';
                         });
+
+                        for (const callback of this.settingsCallbacks) {
+                            callback(this.settingsId, section);
+                        }
+
+                        if (this.pluginVersion) {
+                            this.dispatchEvent(new CustomEvent('stash:pluginVersion', { 'detail': this.pluginVersion }));
+                        }
                     };
                 });
+            }
+            addSystemSetting(callback) {
+                const section = document.getElementById(this.settingsId);
+                if (section) {
+                    callback(this.settingsId, section);
+                }
+                this.settingsCallbacks.push(callback);
+            }
+            async createSystemSettingCheckbox(containerEl, settingsId, inputId, settingsHeader, settingsSubheader) {
+                const section = document.createElement("div");
+                section.setAttribute('id', settingsId);
+                section.classList.add('card');
+                section.style.display = 'none';
+                section.innerHTML = `<div class="setting">
+        <div>
+        <h3>${settingsHeader}</h3>
+        <div class="sub-heading">${settingsSubheader}</div>
+        </div>
+        <div>
+        <div class="custom-control custom-switch">
+        <input type="checkbox" id="${inputId}" class="custom-control-input">
+        <label title="" for="${inputId}" class="custom-control-label"></label>
+        </div>
+        </div>
+        </div>`;
+                containerEl.appendChild(section);
+                return document.getElementById(inputId);
+            }
+            async createSystemSettingTextbox(containerEl, settingsId, inputId, settingsHeader, settingsSubheader, placeholder, visible) {
+                const section = document.createElement("div");
+                section.setAttribute('id', settingsId);
+                section.classList.add('card');
+                section.style.display = visible ? 'flex' : 'none';
+                section.innerHTML = `<div class="setting">
+        <div>
+        <h3>${settingsHeader}</h3>
+        <div class="sub-heading">${settingsSubheader}</div>
+        </div>
+        <div>
+        <div class="flex-grow-1 query-text-field-group">
+        <input id="${inputId}" class="bg-secondary text-white border-secondary form-control" placeholder="${placeholder}">
+        </div>
+        </div>
+        </div>`;
+                containerEl.appendChild(section);
+                return document.getElementById(inputId);
             }
             get serverUrl() {
                 return window.location.origin;
@@ -561,8 +593,14 @@
             }
             hidePluginTasks () {
                 // hide userscript functions plugin tasks
-                waitForElementByXpath("//div[@id='tasks-panel']//h3[text()='Userscript Functions']/ancestor::div[contains(@class, 'setting-group')]", function (elementId, el) {
-                    el.style.display = 'none';
+                waitForElementByXpath("//div[@id='tasks-panel']//h3[text()='Userscript Functions']/ancestor::div[contains(@class, 'setting-group')]", (elementId, el) => {
+                    const tasks = el.querySelectorAll('.setting');
+                    for (const task of tasks) {
+                        const taskName = task.querySelector('h3').innerText;
+                        if (this.visiblePluginTasks.indexOf(taskName) === -1) {
+                            task.style.display = 'none';
+                        }
+                    }
                 });
             }
             async updateConfigValueTask(sectionKey, propName, value) {
