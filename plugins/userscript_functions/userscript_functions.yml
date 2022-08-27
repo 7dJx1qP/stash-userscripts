@@ -1,7 +1,7 @@
 name: Userscript Functions
 description: Tasks for userscripts
 url: https://github.com/7dJx1qP/stash-userscripts
-version: 0.4.2
+version: 0.5.0
 exec:
   - python
   - "{pluginDir}/userscript_functions.py"
@@ -41,3 +41,15 @@ tasks:
       name: get_config_value
       section_key: null
       prop_name: null
+  - name: Set Stashbox Favorite Performers
+    description: Set Stashbox favorite performers according to stash favorites
+    defaultArgs:
+      name: favorite_performers_sync
+      endpoint: null
+  - name: Set Stashbox Favorite Performer
+    description: Update Stashbox performer favorite status
+    defaultArgs:
+      name: favorite_performer_sync
+      endpoint: null
+      stash_id: null
+      favorite: null

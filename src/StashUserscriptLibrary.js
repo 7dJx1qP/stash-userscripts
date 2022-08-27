@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.16.0
+// version 0.17.0
 
 (function () {
     'use strict';
@@ -257,6 +257,24 @@
                     }
                 }
                 stashListener.dispatchEvent(new CustomEvent('pluginVersion', { 'detail': version }));
+            }
+            async getStashBoxes() {
+                const reqData = {
+                    "operationName": "Configuration",
+                    "variables": {},
+                    "query": `query Configuration {
+                        configuration {
+                          general {
+                            stashBoxes {
+                              endpoint
+                              api_key
+                              name
+                            }
+                          }
+                        }
+                      }`
+                };
+                return this.callGQL(reqData);
             }
             matchUrl(location, fragment) {
                 const regexp = concatRegexp(new RegExp(location.origin), fragment);
