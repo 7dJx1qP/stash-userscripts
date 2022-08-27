@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Batch Save
 // @description Adds a batch save button to scenes tagger
-// @version     0.2.2
+// @version     0.3.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -13,8 +13,6 @@
 
     console.log('Stash Batch Save');
 
-    const DELAY = 3000;
-
     const {
         stash,
         Stash,
@@ -22,26 +20,37 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
+        getClosestAncestor,
         sortElementChildren,
     } = window.stash;
 
     let running = false;
     const buttons = [];
+    let sceneId = null;
 
     function run() {
         if (!running) return;
         const button = buttons.pop();
         if (button) {
+            const scene = getClosestAncestor(button, '.search-item');
+            const sceneLink = scene.querySelector('a.scene-link');
+            const sceneURL = new URL(sceneLink.href);
+            sceneId = sceneURL.pathname.replace('/scenes/', '');
             if (!button.disabled) {
                 button.click();
             }
             else {
                 buttons.push(button);
             }
-            setTimeout(run, DELAY);
         }
         else {
             stop();
+        }
+    }
+
+    function processSceneUpdate(evt) {
+        if (running && evt.detail.data?.sceneUpdate?.id === sceneId) {
+            run();
         }
     }
 
@@ -74,6 +83,7 @@
                 buttons.push(button);
             }
         }
+        stash.addEventListener('stash:response', processSceneUpdate);
         run();
     }
 
@@ -82,6 +92,8 @@
         btn.classList.remove('btn-danger');
         btn.classList.add('btn-primary');
         running = false;
+        sceneId = null;
+        stash.removeEventListener('stash:response', processSceneUpdate);
         console.log('Save Stopped');
     }
 
