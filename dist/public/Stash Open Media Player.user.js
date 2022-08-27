@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name        Stash Open Media Player
 // @description Open scene filepath links in an external media player. Requires userscript_functions stash plugin
-// @version     0.1.4
+// @version     0.1.5
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
+// @grant       GM.getValue
+// @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
@@ -80,12 +82,16 @@
             };
         });
     });
-    stash.addEventListener('stash:pluginVersion', function () {
-        waitForElementId(settingsId, (elementId, el) => {
+    stash.addEventListener('stash:pluginVersion', async function () {
+        waitForElementId(settingsId, async (elementId, el) => {
             el.style.display = stash.pluginVersion != null ? 'flex' : 'none';
         });
         if (stash.comparePluginVersion(MIN_REQUIRED_PLUGIN_VERSION) < 0) {
-            alert(`User functions plugin version is ${stash.pluginVersion}. Stash Open Media Player userscript requires version ${MIN_REQUIRED_PLUGIN_VERSION} or higher.`);
+            const alertedPluginVersion = await GM.getValue('alerted_plugin_version');
+            if (alertedPluginVersion !== stash.pluginVersion) {
+                await GM.setValue('alerted_plugin_version', stash.pluginVersion);
+                alert(`User functions plugin version is ${stash.pluginVersion}. Stash Open Media Player userscript requires version ${MIN_REQUIRED_PLUGIN_VERSION} or higher.`);
+            }
         }
     });
 })();

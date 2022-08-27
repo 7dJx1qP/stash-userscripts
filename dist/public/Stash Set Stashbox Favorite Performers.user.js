@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name        Stash Set Stashbox Favorite Performers
 // @description Set Stashbox favorite performers according to stash favorites. Requires userscript_functions stash plugin
-// @version     0.1.0
+// @version     0.1.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
+// @grant       GM.getValue
+// @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
@@ -21,6 +23,8 @@
         getClosestAncestor,
         updateTextInput,
     } = window.stash;
+
+    const MIN_REQUIRED_PLUGIN_VERSION = '0.5.0';
 
     async function runSetStashBoxFavoritePerformersTask() {
         const data = await stash.getStashBoxes();
@@ -71,6 +75,16 @@
                 for (const { endpoint, stash_id } of performer.stash_ids) {
                     runSetStashBoxFavoritePerformerTask(endpoint, stash_id, performer.favorite);
                 }
+            }
+        }
+    });
+
+    stash.addEventListener('stash:pluginVersion', async function () {
+        if (stash.comparePluginVersion(MIN_REQUIRED_PLUGIN_VERSION) < 0) {
+            const alertedPluginVersion = await GM.getValue('alerted_plugin_version');
+            if (alertedPluginVersion !== stash.pluginVersion) {
+                await GM.setValue('alerted_plugin_version', stash.pluginVersion);
+                alert(`User functions plugin version is ${stash.pluginVersion}. Set Stashbox Favorite Performers userscript requires version ${MIN_REQUIRED_PLUGIN_VERSION} or higher.`);
             }
         }
     });

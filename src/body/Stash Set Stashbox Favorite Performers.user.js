@@ -12,6 +12,8 @@
         updateTextInput,
     } = window.stash;
 
+    const MIN_REQUIRED_PLUGIN_VERSION = '0.5.0';
+
     async function runSetStashBoxFavoritePerformersTask() {
         const data = await stash.getStashBoxes();
         if (!data.data.configuration.general.stashBoxes.length) {
@@ -61,6 +63,16 @@
                 for (const { endpoint, stash_id } of performer.stash_ids) {
                     runSetStashBoxFavoritePerformerTask(endpoint, stash_id, performer.favorite);
                 }
+            }
+        }
+    });
+
+    stash.addEventListener('stash:pluginVersion', async function () {
+        if (stash.comparePluginVersion(MIN_REQUIRED_PLUGIN_VERSION) < 0) {
+            const alertedPluginVersion = await GM.getValue('alerted_plugin_version');
+            if (alertedPluginVersion !== stash.pluginVersion) {
+                await GM.setValue('alerted_plugin_version', stash.pluginVersion);
+                alert(`User functions plugin version is ${stash.pluginVersion}. Set Stashbox Favorite Performers userscript requires version ${MIN_REQUIRED_PLUGIN_VERSION} or higher.`);
             }
         }
     });
