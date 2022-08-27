@@ -36,10 +36,14 @@ query getstashbox {
 
     result = call_graphql(query)
     # log.debug(result)
+    boxapi_key = None
     for x in result["configuration"]["general"]["stashBoxes"]:
         # log.debug(x)
         if x["endpoint"] == endpoint:
             boxapi_key = x["api_key"]
+    if not boxapi_key:
+        log.error(f"Stashbox apikey for {endpoint} not found.")
+        sys.exit(0)
     return boxapi_key
 
 def stashbox_call_graphql(endpoint, query, variables=None):
