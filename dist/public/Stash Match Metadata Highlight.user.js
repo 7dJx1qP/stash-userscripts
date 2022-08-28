@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name        Stash Match Metadata Highlight
+// @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Highlight mismatching data in scene tagger matches
-// @version     0.2.3
+// @version     0.2.4
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow

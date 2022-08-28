@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name        Stash Batch Query Edit
+// @namespace   %NAMESPACE%
 // @description Batch modify scene tagger search query
-// @version     0.3.2
+// @version     0.3.3
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

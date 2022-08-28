@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name        Stash Open Media Player
+// @namespace   %NAMESPACE%
 // @description Open scene filepath links in an external media player. Requires userscript_functions stash plugin
-// @version     0.1.7
+// @version     0.1.8
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

@@ -30,7 +30,8 @@ def build():
         localbodyfiles.append("file://" + os.path.join(ROOTDIR, 'src/body', file))
         distbodyfiles.append(os.path.join(GITHUB_ROOT_URL, 'src/body', file))
         
-        header = header.replace("%LIBRARYPATH%", distlibfile) \
+        header = header.replace("%NAMESPACE%", config.NAMESPACE) \
+                       .replace("%LIBRARYPATH%", distlibfile) \
                        .replace("%MATCHURL%", f"{config.SERVER_URL}/*") \
                        .replace("// @require     %FILEPATH%\n", "")
         distscript = header + "\n\n" + body
@@ -43,6 +44,7 @@ def build():
     with open(localpath, 'w') as f:
         f.write(f"""// ==UserScript==
 // @name        Stash Userscripts Development Bundle
+// @namespace     {config.NAMESPACE}
 // @description Stash Userscripts Development Bundle
 // @version     {config.BUNDLE_VERSION}
 // @author      7dJx1qP
@@ -71,6 +73,7 @@ def build():
     with open(distpath, 'w') as f:
         f.write(f"""// ==UserScript==
 // @name        Stash Userscripts Bundle
+// @namespace     {config.NAMESPACE}
 // @description Stash Userscripts Bundle
 // @version     {config.BUNDLE_VERSION}
 // @author      7dJx1qP

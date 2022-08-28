@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name        Stash Performer Audit Task Button
+// @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a button to the performers page to run the audit plugin task
-// @version     0.2.5
+// @version     0.2.6
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
