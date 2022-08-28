@@ -7,7 +7,7 @@
 // @grant       unsafeWindow
 // @grant       GM.getValue
 // @grant       GM.setValue
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
 (function () {
