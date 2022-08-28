@@ -49,6 +49,7 @@ def build():
 // @match       {config.SERVER_URL}/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
 // @grant       unsafeWindow
+// @grant       GM_setClipboard
 // @grant       GM_getResourceText
 // @grant       GM_addStyle
 // @grant       GM.getValue
@@ -76,6 +77,7 @@ def build():
 // @match       {config.SERVER_URL}/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
 // @grant       unsafeWindow
+// @grant       GM_setClipboard
 // @grant       GM_getResourceText
 // @grant       GM_addStyle
 // @grant       GM.getValue

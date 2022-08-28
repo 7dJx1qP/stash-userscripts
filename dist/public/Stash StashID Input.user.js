@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name        Stash StashID Input
 // @description Adds input for entering new stash id to performer details page and studio page
-// @version     0.2.1
+// @version     0.2.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
+// @grant       GM_setClipboard
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
@@ -129,6 +130,48 @@ fragment StudioData on Studio {
         return null;
     }
 
+    function createTooltipElement() {
+        const copyTooltip = document.createElement('span');
+        copyTooltip.setAttribute('id', 'copy-tooltip');
+        copyTooltip.innerText = 'Copied!';
+        copyTooltip.classList.add('fade', 'hide');
+        copyTooltip.style.position = "absolute";
+        copyTooltip.style.left = '0px';
+        copyTooltip.style.top = '0px';
+        copyTooltip.style.marginLeft = '40px';
+        copyTooltip.style.padding = '5px 12px';
+        copyTooltip.style.backgroundColor = '#000000df';
+        copyTooltip.style.borderRadius = '4px';
+        copyTooltip.style.color = '#fff';
+        document.body.appendChild(copyTooltip);
+        return copyTooltip;
+    }
+
+    function createCopyButton(copyTooltip, copyText) {
+        const copyBtn = document.createElement('button');
+        copyBtn.title = 'Copy to clipboard';
+        copyBtn.innerHTML = `<svg class="svg-inline--fa" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="#FFFFFF" d="M384 96L384 0h-112c-26.51 0-48 21.49-48 48v288c0 26.51 21.49 48 48 48H464c26.51 0 48-21.49 48-48V128h-95.1C398.4 128 384 113.6 384 96zM416 0v96h96L416 0zM192 352V128h-144c-26.51 0-48 21.49-48 48v288c0 26.51 21.49 48 48 48h192c26.51 0 48-21.49 48-48L288 416h-32C220.7 416 192 387.3 192 352z"/></svg>`;
+        copyBtn.classList.add('btn', 'btn-secondary', 'btn-sm', 'minimal', 'ml-1');
+        copyBtn.addEventListener('click', copyHandler(copyTooltip, copyText));
+        return copyBtn;
+    }
+
+    function copyHandler(copyTooltip, copyText) {
+        return evt => {
+            GM_setClipboard(copyText);
+            const rect = document.body.getBoundingClientRect();
+            const rect2 = evt.currentTarget.getBoundingClientRect();
+            const x = rect2.left - rect.left;
+            const y = rect2.top - rect.top;
+            copyTooltip.classList.add('show');
+            copyTooltip.style.left = `${x}px`;
+            copyTooltip.style.top = `${y}px`;
+            setTimeout(() => {
+                copyTooltip.classList.remove('show');
+            }, 500);
+        }
+    }
+
     stash.addEventListener('page:performer:details', function () {
         waitForElementId('performer-details-tabpane-details', async function (elementId, el) {
             if (!document.getElementById('update-stashids-endpoint')) {
@@ -190,6 +233,20 @@ fragment StudioData on Studio {
                 });
                 stashIdInputContainer.appendChild(stashIdInput);
                 detailsList.appendChild(stashIdInputContainer);
+
+                const copyTooltip = createTooltipElement();
+
+                const stashIdsResult = getElementsByXpath("//dl[@class='details-list']//dt[text()='StashIDs']/following-sibling::dd/ul/li/a")
+                const stashIds = [];
+                let node = null;
+                while (node = stashIdsResult.iterateNext()) {
+                    stashIds.push(node);
+                }
+                for (const stashId of stashIds) {
+                    const copyBtn = createCopyButton(copyTooltip, stashId.innerText);
+                    stashId.parentElement.appendChild(copyBtn);
+                }
+
             }
         });
     });
@@ -256,13 +313,18 @@ fragment StudioData on Studio {
                 container.appendChild(stashIdInput);
                 container.appendChild(stashboxInput);
 
+                const copyTooltip = createTooltipElement();
+
                 getStudioStashIDs(studioId).then(data => {
                     for (const { endpoint, stash_id } of data.data.findStudio.stash_ids) {
                         const url = endpoint.replace(/graphql$/, 'studios/') + stash_id
                         const row = document.createElement('div');
-                        row.classList.add('col-md-12', 'pl-1');
+                        row.classList.add('col-md-12', 'pl-1', 'mt-1');
                         row.innerHTML = `<a href="${url}" target="_blank" rel="noopener noreferrer">${stash_id}</a>`;
                         container.appendChild(row);
+
+                        const copyBtn = createCopyButton(copyTooltip, stash_id);
+                        row.appendChild(copyBtn);
                     }
                 });
             }

@@ -6,6 +6,7 @@
 // @match       http://localhost:9999/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
 // @grant       unsafeWindow
+// @grant       GM_setClipboard
 // @grant       GM_getResourceText
 // @grant       GM_addStyle
 // @grant       GM.getValue
