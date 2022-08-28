@@ -131,7 +131,7 @@ fragment StudioData on Studio {
 
     stash.addEventListener('page:performer:details', function () {
         waitForElementId('performer-details-tabpane-details', async function (elementId, el) {
-            if (!document.getElementById('update-stashids')) {
+            if (!document.getElementById('update-stashids-endpoint')) {
                 const detailsList = el.querySelector('.details-list');
                 const stashboxInputContainer = document.createElement('dt');
                 const stashboxInput = document.createElement('select');
