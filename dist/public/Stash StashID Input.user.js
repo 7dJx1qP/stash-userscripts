@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash StashID Input
 // @description Adds input for entering new stash id to performer details page and studio page
-// @version     0.2.0
+// @version     0.2.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -131,7 +131,7 @@ fragment StudioData on Studio {
 
     stash.addEventListener('page:performer:details', function () {
         waitForElementId('performer-details-tabpane-details', async function (elementId, el) {
-            if (!document.getElementById('update-stashids')) {
+            if (!document.getElementById('update-stashids-endpoint')) {
                 const detailsList = el.querySelector('.details-list');
                 const stashboxInputContainer = document.createElement('dt');
                 const stashboxInput = document.createElement('select');
