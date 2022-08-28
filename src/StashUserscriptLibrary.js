@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.18.1
+// version 0.19.0
 
 (function () {
     'use strict';
@@ -145,6 +145,15 @@
             for (let i = 0; i < itemsArr.length; i++) {
                 node.appendChild(itemsArr[i]);
             }
+        }
+
+        function xPathResultToArray(result) {
+            let node = null;
+            const nodes = [];
+            while (node = result.iterateNext()) {
+                nodes.push(node);
+            }
+            return nodes;
         }
 
         const reloadImg = url =>
@@ -665,6 +674,7 @@
             setNativeValue,
             updateTextInput,
             sortElementChildren,
+            xPathResultToArray,
             reloadImg,
             Logger,
         };

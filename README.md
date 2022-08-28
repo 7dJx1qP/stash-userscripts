@@ -19,6 +19,7 @@ Pick and choose which userscript to install or install just `Stash Userscripts B
 | Stash Performer Image Cropper  |  Adds ability to crop performer image from performer page  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20Image%20Cropper.user.js?raw=1)  |
 | Stash Performer Tagger Additions  |  Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20Tagger%20Additions.user.js?raw=1)  |
 | Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20URL%20Searchbox.user.js?raw=1)  |
+| Stash Scene Tagger Linkify  | Turn all scene tagger result text referencing stash or stashbox studio and performer names into clickable links |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Linkify.user.js?raw=1)  |
 | Stash Set Stashbox Favorite Performers  | Sync Stashbox favorite performers whenever a stash performer is favorited or unfavorited. Also adds button to performers page to sync all |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Set%20Stashbox%20Favorite%20Performers.user.js?raw=1)  |
 | Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry. Also displays studio stashids on studio page without having to click edit to view |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20StashID%20Input.user.js?raw=1)  |
 | Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Stats.user.js?raw=1)  |
@@ -35,6 +36,10 @@ Stats page
 Scenes page tagger view
 
 ![Scenes page tagger view](images/scenes-tagger.png?raw=true "Scenes page tagger view")
+
+Scenes page scene tagger linkify
+
+![Scenes page scene tagger linkify](images/scene-tagger-linkify.png?raw=true "Scenes page scene tagger linkify")
 
 Scenes page tagger view configuration settings
 
