@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name        Stash Open Media Player
 // @description Open scene filepath links in an external media player. Requires userscript_functions stash plugin
-// @version     0.1.6
+// @version     0.1.7
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
 // @grant       GM.getValue
 // @grant       GM.setValue
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
 (function () {
@@ -44,6 +44,7 @@
 
     stash.addSystemSetting(async (elementId, el) => {
         const inputId = 'userscript-settings-mediaplayer-input';
+        if (document.getElementById(inputId)) return;
         const settingsHeader = 'Media Player Path';
         const settingsSubheader = 'Path to external media player.';
         const placeholder = 'Media Player Path…';

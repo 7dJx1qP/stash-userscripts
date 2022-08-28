@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.18.0
+// version 0.18.1
 
 (function () {
     'use strict';
@@ -286,8 +286,9 @@
             }
             createSettings() {
                 waitForElementId('configuration-tabs-tabpane-system', async (elementId, el) => {
+                    let section;
                     if (!document.getElementById(this.settingsId)) {
-                        const section = document.createElement("div");
+                        section = document.createElement("div");
                         section.setAttribute('id', this.settingsId);
                         section.classList.add('setting-section');
                         section.innerHTML = `<h1>Userscript Settings</h1>`;
@@ -326,15 +327,19 @@
                         this.getConfigValueTask('STASH', 'api_key').then(value => {
                             apiKeyInput.value = value || '';
                         });
+                    }
+                    else {
+                        section = document.getElementById(this.settingsId);
+                    }
 
-                        for (const callback of this.settingsCallbacks) {
-                            callback(this.settingsId, section);
-                        }
+                    for (const callback of this.settingsCallbacks) {
+                        callback(this.settingsId, section);
+                    }
 
-                        if (this.pluginVersion) {
-                            this.dispatchEvent(new CustomEvent('stash:pluginVersion', { 'detail': this.pluginVersion }));
-                        }
-                    };
+                    if (this.pluginVersion) {
+                        this.dispatchEvent(new CustomEvent('stash:pluginVersion', { 'detail': this.pluginVersion }));
+                    }
+
                 });
             }
             addSystemSetting(callback) {

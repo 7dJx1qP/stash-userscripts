@@ -32,6 +32,7 @@
 
     stash.addSystemSetting(async (elementId, el) => {
         const inputId = 'userscript-settings-mediaplayer-input';
+        if (document.getElementById(inputId)) return;
         const settingsHeader = 'Media Player Path';
         const settingsSubheader = 'Path to external media player.';
         const placeholder = 'Media Player Path…';

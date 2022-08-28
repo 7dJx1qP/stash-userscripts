@@ -73,6 +73,7 @@
     });
 
     stash.addSystemSetting(async (elementId, el) => {
+        if (document.getElementById(inputId)) return;
         const settingsHeader = 'Show Set Stashbox Favorites Button';
         const settingsSubheader = 'Display set stashbox favorites button on performers page.';
         const checkbox = await stash.createSystemSettingCheckbox(el, settingsId, inputId, settingsHeader, settingsSubheader);

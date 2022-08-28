@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name        Stash Performer Audit Task Button
 // @description Adds a button to the performers page to run the audit plugin task
-// @version     0.2.4
+// @version     0.2.5
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
 // @grant       GM.getValue
 // @grant       GM.setValue
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
 (function () {
@@ -49,6 +49,7 @@
     });
 
     stash.addSystemSetting(async (elementId, el) => {
+        if (document.getElementById(inputId)) return;
         const settingsHeader = 'Show Audit Performer URLs Button';
         const settingsSubheader = 'Display audit performer urls button on performers page.';
         const checkbox = await stash.createSystemSettingCheckbox(el, settingsId, inputId, settingsHeader, settingsSubheader);

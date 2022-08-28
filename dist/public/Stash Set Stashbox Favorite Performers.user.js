@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name        Stash Set Stashbox Favorite Performers
 // @description Set Stashbox favorite performers according to stash favorites. Requires userscript_functions stash plugin
-// @version     0.1.2
+// @version     0.1.3
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
 // @grant       GM.getValue
 // @grant       GM.setValue
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
 (function() {
@@ -85,6 +85,7 @@
     });
 
     stash.addSystemSetting(async (elementId, el) => {
+        if (document.getElementById(inputId)) return;
         const settingsHeader = 'Show Set Stashbox Favorites Button';
         const settingsSubheader = 'Display set stashbox favorites button on performers page.';
         const checkbox = await stash.createSystemSettingCheckbox(el, settingsId, inputId, settingsHeader, settingsSubheader);
