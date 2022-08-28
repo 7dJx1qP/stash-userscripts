@@ -11,8 +11,6 @@
 (function() {
     'use strict';
 
-    console.log('Stash Batch Search');
-
     const DELAY = 200;
 
     const {
@@ -66,7 +64,6 @@
         btn.classList.remove('btn-primary');
         btn.classList.add('btn-danger');
         running = true;
-        console.log('Search Started');
         buttons.length = 0;
         for (const button of document.querySelectorAll('.btn.btn-primary')) {
             if (button.innerText === 'Search') {
@@ -81,7 +78,6 @@
         btn.classList.remove('btn-danger');
         btn.classList.add('btn-primary');
         running = false;
-        console.log('Search Stopped');
     }
 
     stash.addEventListener('page:performers', function () {

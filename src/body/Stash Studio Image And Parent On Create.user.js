@@ -1,8 +1,6 @@
 (function() {
     'use strict';
 
-    console.log('Stash Studio Create');
-
     const {
         stash,
         Stash,

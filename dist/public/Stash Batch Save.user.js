@@ -11,8 +11,6 @@
 (function() {
     'use strict';
 
-    console.log('Stash Batch Save');
-
     const {
         stash,
         Stash,
@@ -76,7 +74,6 @@
         btn.classList.remove('btn-primary');
         btn.classList.add('btn-danger');
         running = true;
-        console.log('Save Started');
         buttons.length = 0;
         for (const button of document.querySelectorAll('.btn.btn-primary')) {
             if (button.innerText === 'Save') {
@@ -94,7 +91,6 @@
         running = false;
         sceneId = null;
         stash.removeEventListener('stash:response', processSceneUpdate);
-        console.log('Save Stopped');
     }
 
     stash.addEventListener('page:scenes', function () {

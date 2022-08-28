@@ -11,8 +11,6 @@
 (function() {
     'use strict';
 
-    console.log('Stash Stats');
-
     const {
         stash,
         Stash,

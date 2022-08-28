@@ -1,8 +1,6 @@
 (function() {
     'use strict';
 
-    console.log('Stash Batch Query Edit');
-
     const scenes = {};
 
     const processScenes = function (data) {
@@ -114,7 +112,6 @@
         btn.classList.remove('btn-primary');
         btn.classList.add('btn-danger');
         running = true;
-        console.log('Query Edit Started');
         buttons.length = 0;
         for (const button of document.querySelectorAll('.btn.btn-primary')) {
             if (button.innerText === 'Search') {
@@ -141,7 +138,6 @@
         btn.classList.remove('btn-danger');
         btn.classList.add('btn-primary');
         running = false;
-        console.log('Query Edit Stopped');
     }
 
     stash.addEventListener('stash:response', function (evt) {
