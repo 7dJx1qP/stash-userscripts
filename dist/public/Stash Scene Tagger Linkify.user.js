@@ -205,6 +205,12 @@
                     });
                 });
                 observer.observe(searchItem, observerOptions);
+
+                const sceneLink = searchItem.querySelector('a.scene-link');
+                sceneLink.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    window.open(sceneLink.href, '_blank');
+                });
             }
         });
     });

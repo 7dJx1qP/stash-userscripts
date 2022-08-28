@@ -36,7 +36,6 @@
                     birthdateElement.classList.add('PerformerTagger-birthdate');
                     const headerElement = performerElement.querySelector('.PerformerTagger-header');
                     headerElement.classList.add('d-inline-block', 'mr-2');
-                    headerElement.setAttribute("target", "_blank");
                     headerElement.addEventListener("click", (event) => {
                         event.preventDefault();
                         window.open(headerElement.href, '_blank');
