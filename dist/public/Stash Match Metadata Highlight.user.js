@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash Match Metadata Highlight
 // @description Highlight mismatching data in scene tagger matches
-// @version     0.2.2
+// @version     0.2.3
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -33,6 +33,11 @@
 
     const datePattern = /\d{4}\-\d{2}\-\d{2}/g;
 
+    const COLORS = {
+        'green': '#0f9960',
+        'red': '#ff7373',
+    };
+
     function run() {
         if (!running) return;
         const button = buttons.pop();
@@ -53,41 +58,43 @@
             const resultTitle = resultMetadata.querySelector('h4 > div.optional-field > div.optional-field-content > a > div.TruncatedText');
             if (resultTitle) {
                 if (queryInput.value.indexOf(resultTitle.innerText) === -1) {
-                    resultTitle.style.color = 'red';
+                    resultTitle.style.color = COLORS['red'];
                 }
                 else {
-                    resultTitle.style.color = 'green';
+                    resultTitle.style.color = COLORS['green'];
                     newQuery = newQuery.replace(resultTitle.innerText, '');
                 }
             }
             const resultDate = resultMetadata.querySelector('h5 > div.optional-field > div.optional-field-content');
             if (resultDate) {
                 if (queryInput.value.indexOf(resultDate.innerText) === -1) {
-                    resultDate.style.color = 'red';
+                    resultDate.style.color = COLORS['red'];
                 }
                 else {
-                    resultDate.style.color = 'green';
+                    resultDate.style.color = COLORS['green'];
                     newQuery = newQuery.replace(resultDate.innerText, '');
                 }
             }
 
             const resultStudio = getElementByXpath('.//div[@class="entity-name" and text()="Studio"]/following-sibling::span[@class="ml-auto"]//b', scene);
+            const nodeToColor = resultStudio.firstChild || resultStudio;
             if (queryInput.value.indexOf(resultStudio.innerText) === -1) {
-                resultStudio.style.color = 'red';
+                nodeToColor.style.color = COLORS['red'];
             }
             else {
-                resultStudio.style.color = 'green';
+                nodeToColor.style.color = COLORS['green'];
                 newQuery = newQuery.replace(resultStudio.innerText, '');
             }
 
             const resultPerformers = getElementsByXpath('.//div[@class="entity-name" and text()="Performer"]/following-sibling::span[@class="ml-auto"]//b', scene);
             let node = null;
             while (node = resultPerformers.iterateNext()) {
+                const nodeToColor = node.firstChild || node;
                 if (queryInput.value.indexOf(node.innerText) === -1) {
-                    node.style.color = 'red';
+                    nodeToColor.style.color = COLORS['red'];
                 }
                 else {
-                    node.style.color = 'green';
+                    nodeToColor.style.color = COLORS['green'];
                     newQuery = newQuery.replace(node.innerText, '');
                 }
             }
