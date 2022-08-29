@@ -2,7 +2,7 @@
 // @name        Stash Batch Search
 // @namespace   %NAMESPACE%
 // @description Adds a batch search button to scenes and performers tagger
-// @version     0.3.0
+// @version     0.3.1
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

@@ -83,20 +83,14 @@
         stash.removeEventListener('stash:response', processSceneUpdate);
     }
 
-    function processTagger() {
-        waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
-            if (!document.getElementById(btnId)) {
-                const container = el.parentElement;
-                container.appendChild(btn);
-                sortElementChildren(container);
-                el.classList.add('ml-3');
-            }
-        });
-    }
+    stash.addEventListener('tagger', evt => {
+        const el = evt.detail;
+        if (!document.getElementById(btnId)) {
+            const container = el.parentElement;
+            container.appendChild(btn);
+            sortElementChildren(container);
+            el.classList.add('ml-3');
+        }
+    });
 
-    stash.addEventListener('page:scenes', processTagger);
-    stash.addEventListener('page:performer:scenes', processTagger);
-    stash.addEventListener('page:studio:scenes', processTagger);
-    stash.addEventListener('page:tag:scenes', processTagger);
-    stash.addEventListener('page:movie:scenes', processTagger);
 })();

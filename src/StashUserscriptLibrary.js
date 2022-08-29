@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.21.0
+// version 0.22.0
 
 (function () {
     'use strict';
@@ -670,6 +670,7 @@
             }
             processTagger() {
                 waitForElementByXpath("//button[text()='Scrape All']", (xpath, el) => {
+                    this.dispatchEvent(new CustomEvent('tagger', { 'detail': el }));
                     for (const searchItem of document.querySelectorAll('.search-item')) {
                         const observerOptions = {
                             childList: true,
@@ -722,6 +723,9 @@
 
                         this.dispatchEvent(new CustomEvent('tagger:searchitem', { 'detail': searchItem }));
                     }
+                });
+                waitForElementByXpath("//div[@class='tagger-container-header']/div/div[@class='row']/h4[text()='Configuration']", (xpath, el) => {
+                    this.dispatchEvent(new CustomEvent('tagger:configuration', { 'detail': el }));
                 });
             }
         }
