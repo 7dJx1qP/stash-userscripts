@@ -2,7 +2,7 @@
 // @name        Stash Performer Tagger Additions
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab.
-// @version     0.1.4
+// @version     0.1.5
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -23,20 +23,6 @@
         createElementFromHTML,
     } = window.stash;
 
-    const performers = {};
-
-    const processPerformers = function (data) {
-        if (data.data.findPerformers?.performers) {
-            for (const performer of data.data.findPerformers.performers) {
-                performers[performer.id] = performer;
-            }
-        }
-    }
-
-    stash.addEventListener('stash:response', function (evt) {
-        processPerformers(evt.detail);
-    });
-
     stash.addEventListener('page:performers', function () {
         waitForElementClass("tagger-container", function () {
             const performerElements = document.querySelectorAll('.PerformerTagger-details');
@@ -52,7 +38,7 @@
                         window.open(headerElement.href, '_blank');
                     });
                     const performerId = headerElement.href.split('/').pop();
-                    const performer = performers[performerId];
+                    const performer = stash.performers[performerId];
                     birthdateElement.innerText = performer.birthdate;
                     if (performer.url) {
                         const urlElement = createElementFromHTML(`<button type="button" class="minimal icon-link btn btn-primary" style="vertical-align: top;">
