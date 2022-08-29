@@ -140,12 +140,11 @@
     stash.addEventListener('tagger:configuration', evt => {
         const el = evt.detail;
         if (!document.getElementById(queryEditConfigId)) {
-            const configContainer = el.parentElement.parentElement;
+            const configContainer = el.parentElement;
             const queryEditConfig = createElementFromHTML(`
-<div id="${queryEditConfigId}" class="row">
-<h4 class="col-12">Query Edit Configuration</h4>
-<hr class="w-100">
-<div class="col-md-6">
+<div id="${queryEditConfigId}" class="col-md-6 mt-4">
+<h5>Query Edit Configuration</h5>
+<div>
     <div class="align-items-center form-group">
         <div class="form-check">
             <input type="checkbox" id="query-edit-include-date" class="form-check-input" data-default="true">
