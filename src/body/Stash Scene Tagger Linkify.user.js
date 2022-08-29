@@ -15,31 +15,6 @@
         xPathResultToArray,
     } = window.stash;
 
-    function processMatchRemotePerformer(node, matchNode) {
-        if (!matchNode) matchNode = getClosestAncestor(node, '.search-item');
-        const resultLink = matchNode.querySelector('.scene-details .optional-field .optional-field-content a');
-        const stashId = resultLink.href.split('/').pop();
-        const resultUrl = new URL(resultLink.href);
-        const scene = stash.remoteScenes[stashId];
-        const performerNode = node.querySelector('b.ml-2');
-        const performerName = performerNode.innerText;
-        const performer = scene.performers.find(performer => performer.name === performerName);
-        const performerUrl = resultUrl.origin + '/performers/' + performer.remote_site_id;
-        performerNode.innerHTML = `<a href=${performerUrl} target="_blank">${performerName}</a>`;
-    }
-
-    function processMatchRemoteStudio(node, matchNode) {
-        if (!matchNode) matchNode = getClosestAncestor(node, '.search-item');
-        const resultLink = matchNode.querySelector('.scene-details .optional-field .optional-field-content a');
-        const stashId = resultLink.href.split('/').pop();
-        const resultUrl = new URL(resultLink.href);
-        const scene = stash.remoteScenes[stashId];
-        const subNode = node.querySelector('b.ml-2');
-        const studioName = subNode.innerText;
-        const studioUrl = resultUrl.origin + '/studios/' + scene.studio.remote_site_id;
-        subNode.innerHTML = `<a href=${studioUrl} target="_blank">${studioName}</a>`;
-    }
-
     async function getPerformerByName(name) {
         const reqData = {
             "operationName": "FindPerformers",
@@ -92,37 +67,61 @@
         return null;
     }
 
-    async function processMatchLocal(node, matchNode) {
+    function processMatchRemotePerformer(node, matchNode) {
         if (!matchNode) matchNode = getClosestAncestor(node, '.search-item');
-        const resultLink = matchNode.querySelector('.scene-details .optional-field .optional-field-content a');
-        const stashId = resultLink.href.split('/').pop();
-        const resultUrl = new URL(resultLink.href);
-        const scene = stash.remoteScenes[stashId];
+        const {
+            remoteUrl,
+            remoteData,
+        } = stash.parseSearchResultItem(matchNode);
+        const performerNode = node.querySelector('b.ml-2');
+        const performerName = performerNode.innerText;
+        const performer = remoteData.performers.find(performer => performer.name === performerName);
+        const performerUrl = remoteUrl.origin + '/performers/' + performer.remote_site_id;
+        performerNode.innerHTML = `<a href=${performerUrl} target="_blank">${performerName}</a>`;
+        performerNode.firstChild.style.color = performerNode.style.color;
+    }
+
+    function processMatchRemoteStudio(node, matchNode) {
+        if (!matchNode) matchNode = getClosestAncestor(node, '.search-item');
+        const {
+            remoteUrl,
+            remoteData,
+        } = stash.parseSearchResultItem(matchNode);
+        const subNode = node.querySelector('b.ml-2');
+        const studioName = subNode.innerText;
+        const studioUrl = remoteUrl.origin + '/studios/' + remoteData.studio.remote_site_id;
+        subNode.innerHTML = `<a href=${studioUrl} target="_blank">${studioName}</a>`;
+        subNode.firstChild.style.color = subNode.style.color;
+    }
+
+    async function processMatchLocal(node, searchItem) {
+        if (!searchItem) searchItem = getClosestAncestor(node, '.search-item');
+        const { matches } = stash.parseSearchResultItem(searchItem);
+        const { matchType, data } = matches.find(({ matchNode }) => matchNode === node);
         const subNode = node.querySelector('b');
-        const remoteNode = node.parentElement.querySelector('.entity-name b.ml-2');
-        if (remoteNode.parentElement.innerText.startsWith('Performer:')) {
-            const remotePerformerName = remoteNode.innerText;
-            let performer = scene.performers.find(performer => performer.name === remotePerformerName);
+        if (matchType === 'performer') {
             let performerUrl;
-            if (performer.stored_id) {
-                performerUrl = window.location.origin + '/performers/' + performer.stored_id;
+            if (data?.stored_id) {
+                performerUrl = window.location.origin + '/performers/' + data.stored_id;
             }
             else {
-                performer = await getPerformerByName(subNode.innerText);
+                const performer = await getPerformerByName(subNode.innerText);
                 performerUrl = window.location.origin + '/performers/' + performer.id;
             }
             subNode.innerHTML = `<a href=${performerUrl} target="_blank">${subNode.innerText}</a>`;
+            subNode.firstChild.style.color = subNode.style.color;
         }
-        else if (remoteNode.parentElement.innerText.startsWith('Studio:')) {
+        else if (matchType === 'studio') {
             let studioUrl;
-            if (scene.studio.stored_id) {
-                studioUrl = window.location.origin + '/studios/' + scene.studio.stored_id;
+            if (data?.stored_id) {
+                studioUrl = window.location.origin + '/studios/' + data.stored_id;
             }
             else {
-                studio = await getStudioByName(subNode.innerText);
+                const studio = await getStudioByName(subNode.innerText);
                 studioUrl = window.location.origin + '/studios/' + studio.id;
             }
             subNode.innerHTML = `<a href=${studioUrl} target="_blank">${subNode.innerText}</a>`;
+            subNode.firstChild.style.color = subNode.style.color;
         }
     }
 

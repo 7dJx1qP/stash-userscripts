@@ -2,7 +2,7 @@
 // @name        Stash Batch Query Edit
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Batch modify scene tagger search query
-// @version     0.4.2
+// @version     0.4.3
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -37,14 +37,11 @@
         if (!running) return;
         const button = buttons.pop();
         if (button) {
-            const scene = getClosestAncestor(button, '.search-item');
-            const sceneLink = scene.querySelector('a.scene-link');
-            const sceneURL = new URL(sceneLink.href);
-            const sceneId = sceneURL.pathname.replace('/scenes/', '');
-            const sceneData = stash.scenes[sceneId];
-            const sceneName = scene.querySelector('a.scene-link > div.TruncatedText');
-
-            const queryInput = scene.querySelector('input.text-input');
+            const searchItem = getClosestAncestor(button, '.search-item');
+            const {
+                data,
+                queryInput,
+            } = stash.parseSearchItem(searchItem);
 
             const includeStudio = document.getElementById('query-edit-include-studio').checked;
             const includeDate = document.getElementById('query-edit-include-date').checked;
@@ -63,8 +60,8 @@
             }
             blacklist.push([/[_-]/gi, ' ']);
             blacklist.push([/[^a-z0-9\s]/gi, '']);
-            if (sceneData.date) {
-                blacklist.push([new RegExp(sceneData.date.replaceAll('-', ''), "gi"), '']);
+            if (data.date) {
+                blacklist.push([new RegExp(data.date.replaceAll('-', ''), "gi"), '']);
             }
 
             const filterBlacklist = (s, regexes) => regexes.reduce((acc, [regex, repl]) => {
@@ -72,16 +69,16 @@
             }, s)
 
             const queryData = [];
-            if (sceneData.date && includeDate) queryData.push(sceneData.date);
-            if (sceneData.studio && includeStudio) queryData.push(filterBlacklist(sceneData.studio.name, blacklist));
-            if (sceneData.performers && includePerformers !== 'none') {
-                for (const performer of sceneData.performers) {
+            if (data.date && includeDate) queryData.push(data.date);
+            if (data.studio && includeStudio) queryData.push(filterBlacklist(data.studio.name, blacklist));
+            if (data.performers && includePerformers !== 'none') {
+                for (const performer of data.performers) {
                     if (includePerformers === 'all' || (includePerformers === 'female-only' && performer.gender.toUpperCase() === 'FEMALE')) {
                         queryData.push(filterBlacklist(performer.name, blacklist));
                     }
                 }
             }
-            if (sceneData.title && includeTitle) queryData.push(filterBlacklist(sceneData.title, videoExtensionRegexes.concat(blacklist)));
+            if (data.title && includeTitle) queryData.push(filterBlacklist(data.title, videoExtensionRegexes.concat(blacklist)));
 
             const queryValue = queryData.join(' ');
             updateTextInput(queryInput, queryValue);

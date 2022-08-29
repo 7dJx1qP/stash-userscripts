@@ -2,7 +2,7 @@
 // @name        Stash Batch Save
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a batch save button to scenes tagger
-// @version     0.4.1
+// @version     0.4.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -31,10 +31,9 @@
         if (!running) return;
         const button = buttons.pop();
         if (button) {
-            const scene = getClosestAncestor(button, '.search-item');
-            const sceneLink = scene.querySelector('a.scene-link');
-            const sceneURL = new URL(sceneLink.href);
-            sceneId = sceneURL.pathname.replace('/scenes/', '');
+            const searchItem = getClosestAncestor(button, '.search-item');
+            const { id } = stash.parseSearchItem(searchItem);
+            sceneId = id;
             if (!button.disabled) {
                 button.click();
             }

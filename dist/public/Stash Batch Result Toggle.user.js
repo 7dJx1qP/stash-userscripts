@@ -2,7 +2,7 @@
 // @name        Stash Batch Result Toggle
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Batch toggle scene tagger search result fields
-// @version     0.3.1
+// @version     0.3.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -33,14 +33,13 @@
         if (!running) return;
         const button = buttons.pop();
         if (button) {
-            const scene = getClosestAncestor(button, '.search-item');
-            const sceneName = scene.querySelector('a.scene-link > div.TruncatedText');
+            const searchItem = getClosestAncestor(button, '.search-item');
 
-            const optionalButtons = scene.querySelectorAll('div.optional-field > button.include-exclude-button');
+            const optionalButtons = searchItem.querySelectorAll('div.optional-field > button.include-exclude-button');
             for (const optionalButton of optionalButtons) {
                 optionalButton.click();
             }
-            const stashIdButton = scene.querySelector('div.col-lg-6 > div.flex-column > div.scene-details > div.optional-field > button.include-exclude-button');
+            const stashIdButton = searchItem.querySelector('div.col-lg-6 > div.flex-column > div.scene-details > div.optional-field > button.include-exclude-button');
             stashIdButton.click();
 
             setTimeout(run, DELAY);

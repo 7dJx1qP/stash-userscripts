@@ -2,7 +2,7 @@
 // @name        Stash Match Metadata Highlight
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Highlight mismatching data in scene tagger matches
-// @version     0.3.1
+// @version     0.3.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -23,6 +23,7 @@
         getElementByXpath,
         getElementsByXpath,
         getClosestAncestor,
+        createElementFromHTML,
         updateTextInput,
         sortElementChildren,
     } = window.stash;
@@ -35,72 +36,118 @@
     const COLORS = {
         'green': '#0f9960',
         'red': '#ff7373',
+        'yellow': '#d9822b'
     };
+
+    function colorizeSearchItem(searchItem) {
+        const searchResultItem = searchItem.querySelector('li.search-result.selected-result.active');
+        if (!searchResultItem) return;
+
+        const {
+            urlNode,
+            url,
+            id,
+            data,
+            nameNode,
+            name,
+            queryInput,
+            performerNodes
+        } = stash.parseSearchItem(searchItem);
+
+        // let myDate = '';
+
+        // let newQuery = queryInput.value;
+
+        // let dateIndex = queryInput.value.search(datePattern);
+        // if (dateIndex !== -1) {
+        //     myDate = queryInput.value.substring(dateIndex, dateIndex+10);
+        // }
+
+        const {
+            remoteUrlNode,
+            remoteId,
+            remoteUrl,
+            remoteData,
+            urlNode: matchUrlNode,
+            detailsNode,
+            imageNode,
+            titleNode,
+            dateNode,
+            studioNode,
+            performerNodes: matchPerformerNodes,
+            matches
+        } = stash.parseSearchResultItem(searchResultItem);
+
+        if (titleNode) {
+            titleNode.firstChild.style.color = COLORS.yellow;
+            if (data?.title) {
+                titleNode.firstChild.style.color = titleNode.innerText === data.title ? COLORS.green : COLORS.red;
+            }
+        }
+
+        if (dateNode) {
+            dateNode.style.color = COLORS.yellow;
+            if (data?.date) {
+                dateNode.style.color = dateNode.innerText === data.date ? COLORS.green : COLORS.red;
+            }
+        }
+
+        if (remoteUrlNode) {
+            remoteUrlNode.style.color = COLORS.yellow;
+            if (data?.stash_ids?.length) {
+                remoteUrlNode.style.color = data.stash_ids.find(o => o.stash_id === remoteUrlNode.innerText) ? COLORS.green : COLORS.red;
+            }
+        }
+
+        if (detailsNode) {
+            detailsNode.style.color = COLORS.yellow;
+            if (data?.details) {
+                detailsNode.style.color = detailsNode.innerText === data.details ? COLORS.green : COLORS.red;
+            }
+        }
+
+        if (matchUrlNode) {
+            matchUrlNode.firstChild.style.color = COLORS.yellow;
+            if (data?.url) {
+                matchUrlNode.firstChild.style.color = matchUrlNode.innerText === data.url ? COLORS.green : COLORS.red;
+            }
+        }
+
+        const performerTags = Array.from(performerNodes);
+        performerTags.forEach(performerTag => performerTag.style.backgroundColor = COLORS.red);
+
+        for (const {
+            matchType,
+            matchNode,
+            data: matchData
+        } of matches) {
+            const subNode = matchNode.querySelector('b');
+            const nodeToColor = subNode.firstChild.nodeType === Node.TEXT_NODE ? subNode : subNode.firstChild;
+            let matched = false;
+            if (matchType === 'performer') {
+                const performer = data?.performers?.find(performer => performer.id === matchData.stored_id);
+                if (performer) {
+                    matched = true;
+                    const performerTag = performerTags.find(performerTag => performerTag.innerText === performer.name);
+                    if (performerTag) {
+                        performerTag.style.backgroundColor = COLORS.green;
+                    }
+                }
+            }
+            else if (matchType === 'studio' && data?.studio?.id === matchData.stored_id) {
+                matched = true;
+            }
+            nodeToColor.style.color = matched ? COLORS.green : COLORS.red;
+        }
+
+    }
 
     function run() {
         if (!running) return;
         const button = buttons.pop();
         if (button) {
-            const scene = getClosestAncestor(button, '.search-item');
-            const myTitle = scene.querySelector('a.scene-link > div.TruncatedText');
-            let myDate = '';
-
-            const queryInput = scene.querySelector('input.text-input');
-            let newQuery = queryInput.value;
-
-            let dateIndex = queryInput.value.search(datePattern);
-            if (dateIndex !== -1) {
-                myDate = queryInput.value.substring(dateIndex, dateIndex+10);
-            }
-
-            const resultMetadata = scene.querySelector('li.search-result.selected-result.active div.scene-metadata');
-            const resultTitle = resultMetadata.querySelector('h4 > div.optional-field > div.optional-field-content > a > div.TruncatedText');
-            if (resultTitle) {
-                if (queryInput.value.indexOf(resultTitle.innerText) === -1) {
-                    resultTitle.style.color = COLORS['red'];
-                }
-                else {
-                    resultTitle.style.color = COLORS['green'];
-                    newQuery = newQuery.replace(resultTitle.innerText, '');
-                }
-            }
-            const resultDate = resultMetadata.querySelector('h5 > div.optional-field > div.optional-field-content');
-            if (resultDate) {
-                if (queryInput.value.indexOf(resultDate.innerText) === -1) {
-                    resultDate.style.color = COLORS['red'];
-                }
-                else {
-                    resultDate.style.color = COLORS['green'];
-                    newQuery = newQuery.replace(resultDate.innerText, '');
-                }
-            }
-
-            const resultStudio = getElementByXpath('.//div[@class="entity-name" and text()="Studio"]/following-sibling::span[@class="ml-auto"]//b', scene);
-            const nodeToColor = resultStudio.firstChild || resultStudio;
-            if (queryInput.value.indexOf(resultStudio.innerText) === -1) {
-                nodeToColor.style.color = COLORS['red'];
-            }
-            else {
-                nodeToColor.style.color = COLORS['green'];
-                newQuery = newQuery.replace(resultStudio.innerText, '');
-            }
-
-            const resultPerformers = getElementsByXpath('.//div[@class="entity-name" and text()="Performer"]/following-sibling::span[@class="ml-auto"]//b', scene);
-            let node = null;
-            while (node = resultPerformers.iterateNext()) {
-                const nodeToColor = node.firstChild || node;
-                if (queryInput.value.indexOf(node.innerText) === -1) {
-                    nodeToColor.style.color = COLORS['red'];
-                }
-                else {
-                    nodeToColor.style.color = COLORS['green'];
-                    newQuery = newQuery.replace(node.innerText, '');
-                }
-            }
-
-            updateTextInput(queryInput, newQuery);
-
-
+            const searchItem = getClosestAncestor(button, '.search-item');
+            colorizeSearchItem(searchItem);
             setTimeout(run, 50);
         }
         else {
@@ -154,5 +201,11 @@
             el.classList.add('ml-3');
         }
     });
+
+    stash.addEventListener('tagger:mutation:add:remoteperformer', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
+    stash.addEventListener('tagger:mutation:add:remotestudio', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
+    stash.addEventListener('tagger:mutation:add:local', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
+    stash.addEventListener('tagger:mutation:add:container', evt => colorizeSearchItem(evt.detail.node));
+    stash.addEventListener('tagger:mutation:add:subcontainer', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
 
 })();

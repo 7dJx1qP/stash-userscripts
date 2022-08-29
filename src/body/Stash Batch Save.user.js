@@ -20,10 +20,9 @@
         if (!running) return;
         const button = buttons.pop();
         if (button) {
-            const scene = getClosestAncestor(button, '.search-item');
-            const sceneLink = scene.querySelector('a.scene-link');
-            const sceneURL = new URL(sceneLink.href);
-            sceneId = sceneURL.pathname.replace('/scenes/', '');
+            const searchItem = getClosestAncestor(button, '.search-item');
+            const { id } = stash.parseSearchItem(searchItem);
+            sceneId = id;
             if (!button.disabled) {
                 button.click();
             }

@@ -22,14 +22,13 @@
         if (!running) return;
         const button = buttons.pop();
         if (button) {
-            const scene = getClosestAncestor(button, '.search-item');
-            const sceneName = scene.querySelector('a.scene-link > div.TruncatedText');
+            const searchItem = getClosestAncestor(button, '.search-item');
 
-            const optionalButtons = scene.querySelectorAll('div.optional-field > button.include-exclude-button');
+            const optionalButtons = searchItem.querySelectorAll('div.optional-field > button.include-exclude-button');
             for (const optionalButton of optionalButtons) {
                 optionalButton.click();
             }
-            const stashIdButton = scene.querySelector('div.col-lg-6 > div.flex-column > div.scene-details > div.optional-field > button.include-exclude-button');
+            const stashIdButton = searchItem.querySelector('div.col-lg-6 > div.flex-column > div.scene-details > div.optional-field > button.include-exclude-button');
             stashIdButton.click();
 
             setTimeout(run, DELAY);

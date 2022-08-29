@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.24.0
+// version 0.25.0
 
 (function () {
     'use strict';
@@ -686,40 +686,27 @@
                             mutations.forEach(mutation => {
                                 mutation.addedNodes.forEach(node => {
                                     if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Performer:')) {
-                                        //processMatchRemotePerformer(node);
-                                        // console.log(1, node);
                                         this.dispatchEvent(new CustomEvent('tagger:mutation:add:remoteperformer', { 'detail': { node, mutation } }));
                                     }
                                     else if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Studio:')) {
-                                        //processMatchRemoteStudio(node);
-                                        // console.log(2, node);
                                         this.dispatchEvent(new CustomEvent('tagger:mutation:add:remotestudio', { 'detail': { node, mutation } }));
                                     }
                                     else if (node.tagName === 'SPAN' && node.innerText.startsWith('Matched:')) {
-                                        //processMatchLocal(node);
-                                        // console.log(3, node);
                                         this.dispatchEvent(new CustomEvent('tagger:mutation:add:local', { 'detail': { node, mutation } }));
                                     }
                                     else if (node.tagName === 'UL') {
-                                        //processMatchResult(node);
-                                        // console.log(4, node);
                                         this.dispatchEvent(new CustomEvent('tagger:mutation:add:container', { 'detail': { node, mutation } }));
                                     }
                                     else if (node?.classList?.contains('col-lg-6')) {
-                                        //processMatchResult(getClosestAncestor(node, '.search-item'));
-                                        // console.log(5, node);
                                         this.dispatchEvent(new CustomEvent('tagger:mutation:add:subcontainer', { 'detail': { node, mutation } }));
                                     }
                                     else if (node.tagName === 'H5') { // scene date
-                                        // console.log(6, node);
                                         this.dispatchEvent(new CustomEvent('tagger:mutation:add:date', { 'detail': { node, mutation } }));
                                     }
                                     else if (node.tagName === 'DIV' && node?.classList?.contains('d-flex') && node?.classList?.contains('flex-column')) { // scene stashid, url, details
-                                        // console.log(7, node);
                                         this.dispatchEvent(new CustomEvent('tagger:mutation:add:detailscontainer', { 'detail': { node, mutation } }));
                                     }
                                     else {
-                                        // console.log(8, node);
                                         this.dispatchEvent(new CustomEvent('tagger:mutation:add:other', { 'detail': { node, mutation } }));
                                     }
                                 });
@@ -760,6 +747,111 @@
                     for (const performer of data.data.findPerformers.performers) {
                         this.performers[performer.id] = performer;
                     }
+                }
+            }
+            parseSearchItem(searchItem) {
+                const urlNode = searchItem.querySelector('a.scene-link');
+                const url = new URL(urlNode.href);
+                const id = url.pathname.replace('/scenes/', '');
+                const data = this.scenes[id];
+                const nameNode = searchItem.querySelector('a.scene-link > div.TruncatedText');
+                const name = nameNode.innerText;
+                const queryInput = searchItem.querySelector('input.text-input');
+                const performerNodes = searchItem.querySelectorAll('.performer-tag-container');
+
+                return {
+                    urlNode,
+                    url,
+                    id,
+                    data,
+                    nameNode,
+                    name,
+                    queryInput,
+                    performerNodes
+                }
+            }
+            parseSearchResultItem(searchResultItem) {
+                const remoteUrlNode = searchResultItem.querySelector('.scene-details .optional-field .optional-field-content a');
+                const remoteId = remoteUrlNode?.href.split('/').pop();
+                const remoteUrl = remoteUrlNode?.href ? new URL(remoteUrlNode.href) : null;
+                const remoteData = this.remoteScenes[remoteId];
+
+                const sceneDetailNodes = searchResultItem.querySelectorAll('.scene-details .optional-field .optional-field-content');
+                let urlNode = null;
+                let detailsNode = null;
+                for (const sceneDetailNode of sceneDetailNodes) {
+                    if (remoteData.url === sceneDetailNode.innerText) {
+                        urlNode = sceneDetailNode;
+                    }
+                    else if (remoteData.details === sceneDetailNode.innerText) {
+                        detailsNode = sceneDetailNode;
+                    }
+                }
+
+                const imageNode = searchResultItem.querySelector('.scene-image-container .optional-field .optional-field-content');
+
+                const metadataNode = searchResultItem.querySelector('.scene-metadata');
+                const titleNode = metadataNode.querySelector('h4 .optional-field .optional-field-content');
+                const dateNode = metadataNode.querySelector('h5 .optional-field .optional-field-content');
+
+                const entityNodes = searchResultItem.querySelectorAll('.entity-name');
+                let studioNode = null;
+                const performerNodes = [];
+                for (const entityNode of entityNodes) {
+                    if (entityNode.innerText.startsWith('Studio:')) {
+                        studioNode = entityNode;
+                    }
+                    else if (entityNode.innerText.startsWith('Performer:')) {
+                        performerNodes.push(entityNode);
+                    }
+                }
+
+                const matchNodes = searchResultItem.querySelectorAll('div.col-lg-6 div.mt-2 div.row.no-gutters.my-2 span.ml-auto');
+                const matches = []
+                for (const matchNode of matchNodes) {
+                    let matchType = null;
+                    const entityNode = matchNode.parentElement.querySelector('.entity-name');
+
+                    const matchName = matchNode.querySelector('.optional-field-content b').innerText;
+                    const remoteName = entityNode.querySelector('b').innerText;
+
+                    let data;
+                    if (entityNode.innerText.startsWith('Performer:')) {
+                        matchType = 'performer';
+                        if (remoteData) {
+                            data = remoteData.performers.find(performer => performer.name === remoteName);
+                        }
+                    }
+                    else if (entityNode.innerText.startsWith('Studio:')) {
+                        matchType = 'studio';
+                        if (remoteData) {
+                            data = remoteData.studio
+                        }
+                    }
+
+                    matches.push({
+                        matchType,
+                        matchNode,
+                        entityNode,
+                        matchName,
+                        remoteName,
+                        data
+                    });
+                }
+
+                return {
+                    remoteUrlNode,
+                    remoteId,
+                    remoteUrl,
+                    remoteData,
+                    urlNode,
+                    detailsNode,
+                    imageNode,
+                    titleNode,
+                    dateNode,
+                    studioNode,
+                    performerNodes,
+                    matches
                 }
             }
         }
