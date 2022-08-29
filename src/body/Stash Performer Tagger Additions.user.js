@@ -12,20 +12,6 @@
         createElementFromHTML,
     } = window.stash;
 
-    const performers = {};
-
-    const processPerformers = function (data) {
-        if (data.data.findPerformers?.performers) {
-            for (const performer of data.data.findPerformers.performers) {
-                performers[performer.id] = performer;
-            }
-        }
-    }
-
-    stash.addEventListener('stash:response', function (evt) {
-        processPerformers(evt.detail);
-    });
-
     stash.addEventListener('page:performers', function () {
         waitForElementClass("tagger-container", function () {
             const performerElements = document.querySelectorAll('.PerformerTagger-details');
@@ -41,7 +27,7 @@
                         window.open(headerElement.href, '_blank');
                     });
                     const performerId = headerElement.href.split('/').pop();
-                    const performer = performers[performerId];
+                    const performer = stash.performers[performerId];
                     birthdateElement.innerText = performer.birthdate;
                     if (performer.url) {
                         const urlElement = createElementFromHTML(`<button type="button" class="minimal icon-link btn btn-primary" style="vertical-align: top;">

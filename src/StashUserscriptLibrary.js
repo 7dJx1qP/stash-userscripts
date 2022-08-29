@@ -181,6 +181,8 @@
                         this.getPluginVersion(evt.detail);
                     }
                     this.processRemoteScenes(evt.detail);
+                    this.processScenes(evt.detail);
+                    this.processPerformers(evt.detail);
                     this.dispatchEvent(new CustomEvent('stash:response', { 'detail': evt.detail }));
                 });
                 stashListener.addEventListener('pluginVersion', (evt) => {
@@ -195,6 +197,8 @@
                 this.settingsCallbacks = [];
                 this.settingsId = 'userscript-settings';
                 this.remoteScenes = {};
+                this.scenes = {};
+                this.performers = {};
             }
             comparePluginVersion(minPluginVersion) {
                 let [currMajor, currMinor, currPatch = 0] = this.pluginVersion.split('.').map(i => parseInt(i));
@@ -741,6 +745,20 @@
                 else if (data.data?.scrapeSingleScene) {
                     for (const scene of data.data.scrapeSingleScene) {
                         this.remoteScenes[scene.remote_site_id] = scene;
+                    }
+                }
+            }
+            processScenes(data) {
+                if (data.data.findScenes?.scenes) {
+                    for (const scene of data.data.findScenes.scenes) {
+                        this.scenes[scene.id] = scene;
+                    }
+                }
+            }
+            processPerformers(data) {
+                if (data.data.findPerformers?.performers) {
+                    for (const performer of data.data.findPerformers.performers) {
+                        this.performers[performer.id] = performer;
                     }
                 }
             }

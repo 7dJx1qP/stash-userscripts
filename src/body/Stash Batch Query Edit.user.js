@@ -1,16 +1,6 @@
 (function() {
     'use strict';
 
-    const scenes = {};
-
-    const processScenes = function (data) {
-        if (data.data.findScenes?.scenes) {
-            for (const scene of data.data.findScenes.scenes) {
-                scenes[scene.id] = scene;
-            }
-        }
-    }
-
     const DELAY = 200;
 
     const {
@@ -38,7 +28,7 @@
             const sceneLink = scene.querySelector('a.scene-link');
             const sceneURL = new URL(sceneLink.href);
             const sceneId = sceneURL.pathname.replace('/scenes/', '');
-            const sceneData = scenes[sceneId];
+            const sceneData = stash.scenes[sceneId];
             const sceneName = scene.querySelector('a.scene-link > div.TruncatedText');
 
             const queryInput = scene.querySelector('input.text-input');
@@ -139,10 +129,6 @@
         btn.classList.add('btn-primary');
         running = false;
     }
-
-    stash.addEventListener('stash:response', function (evt) {
-        processScenes(evt.detail);
-    });
 
     stash.addEventListener('tagger', evt => {
         const el = evt.detail;
