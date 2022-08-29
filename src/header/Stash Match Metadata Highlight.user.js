@@ -2,7 +2,7 @@
 // @name        Stash Match Metadata Highlight
 // @namespace   %NAMESPACE%
 // @description Highlight mismatching data in scene tagger matches
-// @version     0.2.4
+// @version     0.3.0
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

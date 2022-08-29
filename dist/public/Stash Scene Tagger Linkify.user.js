@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Linkify
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Turn all scene tagger result text referencing stash or stashbox studio and performer names into clickable links
-// @version     0.1.2
+// @version     0.2.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -177,7 +177,7 @@
         processRemoteScenes(evt.detail);
     });
 
-    stash.addEventListener('page:scenes', function () {
+    function processTagger() {
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             for (const searchItem of document.querySelectorAll('.search-item')) {
                 const observerOptions = {
@@ -214,5 +214,11 @@
                 });
             }
         });
-    });
+    }
+
+    stash.addEventListener('page:scenes', processTagger);
+    stash.addEventListener('page:performer:scenes', processTagger);
+    stash.addEventListener('page:studio:scenes', processTagger);
+    stash.addEventListener('page:tag:scenes', processTagger);
+    stash.addEventListener('page:movie:scenes', processTagger);
 })();

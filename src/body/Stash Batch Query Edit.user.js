@@ -144,7 +144,7 @@
         processScenes(evt.detail);
     });
 
-    stash.addEventListener('page:scenes', function () {
+    function processTagger() {
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
                 const container = el.parentElement;
@@ -207,7 +207,13 @@
                 loadSettings();
             }
         });
-    });
+    }
+
+    stash.addEventListener('page:scenes', processTagger);
+    stash.addEventListener('page:performer:scenes', processTagger);
+    stash.addEventListener('page:studio:scenes', processTagger);
+    stash.addEventListener('page:tag:scenes', processTagger);
+    stash.addEventListener('page:movie:scenes', processTagger);
 
     async function loadSettings() {
         for (const input of document.querySelectorAll(`#${queryEditConfigId} input`)) {

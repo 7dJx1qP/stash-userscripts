@@ -166,7 +166,7 @@
         processRemoteScenes(evt.detail);
     });
 
-    stash.addEventListener('page:scenes', function () {
+    function processTagger() {
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             for (const searchItem of document.querySelectorAll('.search-item')) {
                 const observerOptions = {
@@ -203,5 +203,11 @@
                 });
             }
         });
-    });
+    }
+
+    stash.addEventListener('page:scenes', processTagger);
+    stash.addEventListener('page:performer:scenes', processTagger);
+    stash.addEventListener('page:studio:scenes', processTagger);
+    stash.addEventListener('page:tag:scenes', processTagger);
+    stash.addEventListener('page:movie:scenes', processTagger);
 })();

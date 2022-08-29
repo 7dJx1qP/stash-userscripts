@@ -2,7 +2,7 @@
 // @name        Stash Batch Save
 // @namespace   %NAMESPACE%
 // @description Adds a batch save button to scenes tagger
-// @version     0.3.1
+// @version     0.4.0
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

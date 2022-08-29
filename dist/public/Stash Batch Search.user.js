@@ -2,7 +2,7 @@
 // @name        Stash Batch Search
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a batch search button to scenes and performers tagger
-// @version     0.2.3
+// @version     0.3.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -91,7 +91,7 @@
         });
     });
 
-    stash.addEventListener('page:scenes', function () {
+    function processTagger() {
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
                 const container = el.parentElement;
@@ -100,6 +100,12 @@
                 el.classList.add('ml-3');
             }
         });
-    });
+    }
+
+    stash.addEventListener('page:scenes', processTagger);
+    stash.addEventListener('page:performer:scenes', processTagger);
+    stash.addEventListener('page:studio:scenes', processTagger);
+    stash.addEventListener('page:tag:scenes', processTagger);
+    stash.addEventListener('page:movie:scenes', processTagger);
 
 })();

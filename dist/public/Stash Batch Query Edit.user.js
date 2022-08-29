@@ -2,7 +2,7 @@
 // @name        Stash Batch Query Edit
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Batch modify scene tagger search query
-// @version     0.3.3
+// @version     0.4.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -157,7 +157,7 @@
         processScenes(evt.detail);
     });
 
-    stash.addEventListener('page:scenes', function () {
+    function processTagger() {
         waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
             if (!document.getElementById(btnId)) {
                 const container = el.parentElement;
@@ -220,7 +220,13 @@
                 loadSettings();
             }
         });
-    });
+    }
+
+    stash.addEventListener('page:scenes', processTagger);
+    stash.addEventListener('page:performer:scenes', processTagger);
+    stash.addEventListener('page:studio:scenes', processTagger);
+    stash.addEventListener('page:tag:scenes', processTagger);
+    stash.addEventListener('page:movie:scenes', processTagger);
 
     async function loadSettings() {
         for (const input of document.querySelectorAll(`#${queryEditConfigId} input`)) {

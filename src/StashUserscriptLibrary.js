@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.19.0
+// version 0.20.0
 
 (function () {
     'use strict';
@@ -431,15 +431,20 @@
                     this.dispatchEvent(new Event('page:image'));
                 }
 
-                // movies wall
-                if (this.matchUrl(location, /\/movies\?/)) {
-                    this.log.debug('[Navigation] Wall-Movies Page');
-                    this.dispatchEvent(new Event('page:movies'));
+                // movie scenes page
+                else if (this.matchUrl(location, /\/movies\/\d+\?/)) {
+                    this.log.debug('[Navigation] Movie Page - Scenes');
+                    this.dispatchEvent(new Event('page:movie:scenes'));
                 }
                 // movie page
-                if (this.matchUrl(location, /\/movies\/\d+/)) {
+                else if (this.matchUrl(location, /\/movies\/\d+/)) {
                     this.log.debug('[Navigation] Movie Page');
                     this.dispatchEvent(new Event('page:movie'));
+                }
+                // movies wall
+                else if (this.matchUrl(location, /\/movies\?/)) {
+                    this.log.debug('[Navigation] Wall-Movies Page');
+                    this.dispatchEvent(new Event('page:movies'));
                 }
 
                 // galleries wall
