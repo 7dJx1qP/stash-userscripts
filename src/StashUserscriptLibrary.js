@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.20.0
+// version 0.21.0
 
 (function () {
     'use strict';
@@ -417,6 +417,7 @@
                 // scenes wall
                 else if (this.matchUrl(location, /\/scenes\?/)) {
                     this.log.debug('[Navigation] Wall-Scene Page');
+                    this.processTagger();
                     this.dispatchEvent(new Event('page:scenes'));
                 }
 
@@ -434,6 +435,7 @@
                 // movie scenes page
                 else if (this.matchUrl(location, /\/movies\/\d+\?/)) {
                     this.log.debug('[Navigation] Movie Page - Scenes');
+                    this.processTagger();
                     this.dispatchEvent(new Event('page:movie:scenes'));
                 }
                 // movie page
@@ -461,6 +463,7 @@
                 // performer scenes page
                 if (this.matchUrl(location, /\/performers\/\d+\/scenes/)) {
                     this.log.debug('[Navigation] Performer Page - Scenes');
+                    this.processTagger();
                     this.dispatchEvent(new Event('page:performer:scenes'));
                 }
                 // performer galleries page
@@ -536,6 +539,7 @@
                 // studio scenes page
                 else if (this.matchUrl(location, /\/studios\/\d+\?/)) {
                     this.log.debug('[Navigation] Studio Page - Scenes');
+                    this.processTagger();
                     this.dispatchEvent(new Event('page:studio:scenes'));
                 }
                 // studio page
@@ -572,6 +576,7 @@
                 // tag scenes page
                 else if (this.matchUrl(location, /\/tags\/\d+\?/)) {
                     this.log.debug('[Navigation] Tag Page - Scenes');
+                    this.processTagger();
                     this.dispatchEvent(new Event('page:tag:scenes'));
                 }
                 // tag page
@@ -662,6 +667,62 @@
                         throw 'Get config value failed.';
                     }
                 }
+            }
+            processTagger() {
+                waitForElementByXpath("//button[text()='Scrape All']", (xpath, el) => {
+                    for (const searchItem of document.querySelectorAll('.search-item')) {
+                        const observerOptions = {
+                            childList: true,
+                            subtree: true
+                        }
+                        const observer = new MutationObserver(mutations => {
+                            mutations.forEach(mutation => {
+                                mutation.addedNodes.forEach(node => {
+                                    if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Performer:')) {
+                                        //processMatchRemotePerformer(node);
+                                        // console.log(1, node);
+                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:remoteperformer', { 'detail': { node, mutation } }));
+                                    }
+                                    else if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Studio:')) {
+                                        //processMatchRemoteStudio(node);
+                                        // console.log(2, node);
+                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:remotestudio', { 'detail': { node, mutation } }));
+                                    }
+                                    else if (node.tagName === 'SPAN' && node.innerText.startsWith('Matched:')) {
+                                        //processMatchLocal(node);
+                                        // console.log(3, node);
+                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:local', { 'detail': { node, mutation } }));
+                                    }
+                                    else if (node.tagName === 'UL') {
+                                        //processMatchResult(node);
+                                        // console.log(4, node);
+                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:container', { 'detail': { node, mutation } }));
+                                    }
+                                    else if (node?.classList?.contains('col-lg-6')) {
+                                        //processMatchResult(getClosestAncestor(node, '.search-item'));
+                                        // console.log(5, node);
+                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:subcontainer', { 'detail': { node, mutation } }));
+                                    }
+                                    else if (node.tagName === 'H5') { // scene date
+                                        // console.log(6, node);
+                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:date', { 'detail': { node, mutation } }));
+                                    }
+                                    else if (node.tagName === 'DIV' && node?.classList?.contains('d-flex') && node?.classList?.contains('flex-column')) { // scene stashid, url, details
+                                        // console.log(7, node);
+                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:detailscontainer', { 'detail': { node, mutation } }));
+                                    }
+                                    else {
+                                        // console.log(8, node);
+                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:other', { 'detail': { node, mutation } }));
+                                    }
+                                });
+                            });
+                        });
+                        observer.observe(searchItem, observerOptions);
+
+                        this.dispatchEvent(new CustomEvent('tagger:searchitem', { 'detail': searchItem }));
+                    }
+                });
             }
         }
         

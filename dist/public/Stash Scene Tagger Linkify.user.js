@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Linkify
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Turn all scene tagger result text referencing stash or stashbox studio and performer names into clickable links
-// @version     0.2.0
+// @version     0.2.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -177,48 +177,18 @@
         processRemoteScenes(evt.detail);
     });
 
-    function processTagger() {
-        waitForElementByXpath("//button[text()='Scrape All']", function (xpath, el) {
-            for (const searchItem of document.querySelectorAll('.search-item')) {
-                const observerOptions = {
-                    childList: true,
-                    subtree: true
-                }
-                const observer = new MutationObserver(mutations => {
-                    mutations.forEach(mutation => {
-                        mutation.addedNodes.forEach(node => {
-                            if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Performer:')) {
-                                processMatchRemotePerformer(node);
-                            }
-                            else if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Studio:')) {
-                                processMatchRemoteStudio(node);
-                            }
-                            else if (node.tagName === 'SPAN' && node.innerText.startsWith('Matched:')) {
-                                processMatchLocal(node);
-                            }
-                            else if (node.tagName === 'UL') {
-                                processMatchResult(node);
-                            }
-                            else if (node?.classList?.contains('col-lg-6')) {
-                                processMatchResult(getClosestAncestor(node, '.search-item'));
-                            }
-                        });
-                    });
-                });
-                observer.observe(searchItem, observerOptions);
-
-                const sceneLink = searchItem.querySelector('a.scene-link');
-                sceneLink.addEventListener("click", (event) => {
-                    event.preventDefault();
-                    window.open(sceneLink.href, '_blank');
-                });
-            }
+    stash.addEventListener('tagger:searchitem', function (evt) {
+        const searchItem = evt.detail;
+        const sceneLink = searchItem.querySelector('a.scene-link');
+        sceneLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            window.open(sceneLink.href, '_blank');
         });
-    }
+    });
 
-    stash.addEventListener('page:scenes', processTagger);
-    stash.addEventListener('page:performer:scenes', processTagger);
-    stash.addEventListener('page:studio:scenes', processTagger);
-    stash.addEventListener('page:tag:scenes', processTagger);
-    stash.addEventListener('page:movie:scenes', processTagger);
+    stash.addEventListener('tagger:mutation:add:remoteperformer', evt => processMatchRemotePerformer(evt.detail.node));
+    stash.addEventListener('tagger:mutation:add:remotestudio', evt => processMatchRemoteStudio(evt.detail.node));
+    stash.addEventListener('tagger:mutation:add:local', evt => processMatchLocal(evt.detail.node));
+    stash.addEventListener('tagger:mutation:add:container', evt => processMatchResult(evt.detail.node));
+    stash.addEventListener('tagger:mutation:add:subcontainer', evt => processMatchResult(getClosestAncestor(evt.detail.node, '.search-item')));
 })();
