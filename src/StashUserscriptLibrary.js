@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.22.0
+// version 0.23.0
 
 (function () {
     'use strict';
@@ -180,6 +180,7 @@
                     if (evt.detail.data?.plugins) {
                         this.getPluginVersion(evt.detail);
                     }
+                    this.processRemoteScenes(evt.detail);
                     this.dispatchEvent(new CustomEvent('stash:response', { 'detail': evt.detail }));
                 });
                 stashListener.addEventListener('pluginVersion', (evt) => {
@@ -193,6 +194,7 @@
                 this.visiblePluginTasks = ['Userscript Functions'];
                 this.settingsCallbacks = [];
                 this.settingsId = 'userscript-settings';
+                this.remoteScenes = [];
             }
             comparePluginVersion(minPluginVersion) {
                 let [currMajor, currMinor, currPatch = 0] = this.pluginVersion.split('.').map(i => parseInt(i));
@@ -727,6 +729,20 @@
                 waitForElementByXpath("//div[@class='tagger-container-header']/div/div[@class='row']/h4[text()='Configuration']", (xpath, el) => {
                     this.dispatchEvent(new CustomEvent('tagger:configuration', { 'detail': el }));
                 });
+            }
+            processRemoteScenes(data) {
+                if (data.data?.scrapeMultiScenes) {
+                    for (const matchResults of data.data.scrapeMultiScenes) {
+                        for (const scene of matchResults) {
+                            this.remoteScenes[scene.remote_site_id] = scene;
+                        }
+                    }
+                }
+                else if (data.data?.scrapeSingleScene) {
+                    for (const scene of data.data.scrapeSingleScene) {
+                        this.remoteScenes[scene.remote_site_id] = scene;
+                    }
+                }
             }
         }
         

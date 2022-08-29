@@ -15,29 +15,12 @@
         xPathResultToArray,
     } = window.stash;
 
-    const remoteScenes = {};
-
-    const processRemoteScenes = function (data) {
-        if (data.data?.scrapeMultiScenes) {
-            for (const matchResults of data.data.scrapeMultiScenes) {
-                for (const scene of matchResults) {
-                    remoteScenes[scene.remote_site_id] = scene;
-                }
-            }
-        }
-        else if (data.data?.scrapeSingleScene) {
-            for (const scene of data.data.scrapeSingleScene) {
-                remoteScenes[scene.remote_site_id] = scene;
-            }
-        }
-    }
-
     function processMatchRemotePerformer(node, matchNode) {
         if (!matchNode) matchNode = getClosestAncestor(node, '.search-item');
         const resultLink = matchNode.querySelector('.scene-details .optional-field .optional-field-content a');
         const stashId = resultLink.href.split('/').pop();
         const resultUrl = new URL(resultLink.href);
-        const scene = remoteScenes[stashId];
+        const scene = stash.remoteScenes[stashId];
         const performerNode = node.querySelector('b.ml-2');
         const performerName = performerNode.innerText;
         const performer = scene.performers.find(performer => performer.name === performerName);
@@ -50,7 +33,7 @@
         const resultLink = matchNode.querySelector('.scene-details .optional-field .optional-field-content a');
         const stashId = resultLink.href.split('/').pop();
         const resultUrl = new URL(resultLink.href);
-        const scene = remoteScenes[stashId];
+        const scene = stash.remoteScenes[stashId];
         const subNode = node.querySelector('b.ml-2');
         const studioName = subNode.innerText;
         const studioUrl = resultUrl.origin + '/studios/' + scene.studio.remote_site_id;
@@ -114,7 +97,7 @@
         const resultLink = matchNode.querySelector('.scene-details .optional-field .optional-field-content a');
         const stashId = resultLink.href.split('/').pop();
         const resultUrl = new URL(resultLink.href);
-        const scene = remoteScenes[stashId];
+        const scene = stash.remoteScenes[stashId];
         const subNode = node.querySelector('b');
         const remoteNode = node.parentElement.querySelector('.entity-name b.ml-2');
         if (remoteNode.parentElement.innerText.startsWith('Performer:')) {
@@ -161,10 +144,6 @@
             processMatchLocal(localStudioNode, matchNode);
         }
     }
-
-    stash.addEventListener('stash:response', function (evt) {
-        processRemoteScenes(evt.detail);
-    });
 
     stash.addEventListener('tagger:searchitem', function (evt) {
         const searchItem = evt.detail;
