@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Linkify
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Turn all scene tagger result text referencing stash or stashbox studio and performer names into clickable links
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -187,10 +187,10 @@
                 const observer = new MutationObserver(mutations => {
                     mutations.forEach(mutation => {
                         mutation.addedNodes.forEach(node => {
-                            if (node.classList.contains('entity-name') && node.innerText.startsWith('Performer:')) {
+                            if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Performer:')) {
                                 processMatchRemotePerformer(node);
                             }
-                            else if (node.classList.contains('entity-name') && node.innerText.startsWith('Studio:')) {
+                            else if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Studio:')) {
                                 processMatchRemoteStudio(node);
                             }
                             else if (node.tagName === 'SPAN' && node.innerText.startsWith('Matched:')) {
@@ -199,7 +199,7 @@
                             else if (node.tagName === 'UL') {
                                 processMatchResult(node);
                             }
-                            else if (node.classList.contains('col-lg-6')) {
+                            else if (node?.classList?.contains('col-lg-6')) {
                                 processMatchResult(getClosestAncestor(node, '.search-item'));
                             }
                         });
