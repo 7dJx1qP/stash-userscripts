@@ -194,7 +194,7 @@
                 this.visiblePluginTasks = ['Userscript Functions'];
                 this.settingsCallbacks = [];
                 this.settingsId = 'userscript-settings';
-                this.remoteScenes = [];
+                this.remoteScenes = {};
             }
             comparePluginVersion(minPluginVersion) {
                 let [currMajor, currMinor, currPatch = 0] = this.pluginVersion.split('.').map(i => parseInt(i));
