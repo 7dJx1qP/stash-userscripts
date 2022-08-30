@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Colorizer
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Colorize scene tagger match results to show matching and mismatching scene data.
-// @version     0.3.6
+// @version     0.3.7
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -25,6 +25,12 @@
         updateTextInput,
         sortElementChildren,
     } = window.stash;
+
+    const DEFAULT_COLORS = {
+        'green': '#0f9960',
+        'red': '#ff7373',
+        'yellow': '#d9822b'
+    };
 
     const COLORS = {
         'green': '#0f9960',
@@ -188,6 +194,30 @@
             <label title="" for="colorize-performers" class="form-check-label">Performers</label>
         </div>
     </div>
+    <div class="align-items-center form-group col-md-12">
+        <div class="row">
+            <label title="" for="colorize-color-green" class="col-sm-2 col-form-label">Match Color</label>
+            <div class="col-sm-10">
+                <input type="text" id="colorize-color-green" class="query-text-field bg-secondary text-white border-secondary form-control" data-default="${DEFAULT_COLORS.green}" placeholder="${DEFAULT_COLORS.green}">
+            </div>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-12">
+        <div class="row">
+            <label title="" for="colorize-color-yellow" class="col-sm-2 col-form-label">Missing Color</label>
+            <div class="col-sm-10">
+                <input type="text" id="colorize-color-yellow" class="query-text-field bg-secondary text-white border-secondary form-control" data-default="${DEFAULT_COLORS.yellow}" placeholder="${DEFAULT_COLORS.yellow}">
+            </div>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-12">
+        <div class="row">
+            <label title="" for="colorize-color-red" class="col-sm-2 col-form-label">Mismatch Color</label>
+            <div class="col-sm-10">
+                <input type="text" id="colorize-color-red" class="query-text-field bg-secondary text-white border-secondary form-control" data-default="${DEFAULT_COLORS.red}" placeholder="${DEFAULT_COLORS.red}">
+            </div>
+        </div>
+    </div>
 </div>
 </div>
             `);
@@ -197,10 +227,19 @@
     });
 
     async function loadSettings() {
-        for (const input of document.querySelectorAll(`#${colorizeConfigId} input`)) {
+        for (const input of document.querySelectorAll(`#${colorizeConfigId} input[type="checkbox"]`)) {
             input.checked = await GM.getValue(input.id, input.dataset.default === 'true');
             input.addEventListener('change', async () => {
                 await GM.setValue(input.id, input.checked);
+            });
+        }
+        for (const input of document.querySelectorAll(`#${colorizeConfigId} input[type="text"]`)) {
+            input.value = await GM.getValue(input.id, input.dataset.default);
+            input.addEventListener('change', async () => {
+                const value = input.value.trim() || input.dataset.default;
+                input.value = value;
+                COLORS[input.id.replace('colorize-color-', '')] = value;
+                await GM.setValue(input.id, value);
             });
         }
     }
