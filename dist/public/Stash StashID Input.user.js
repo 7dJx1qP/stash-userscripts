@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stash StashID Input
 // @description Adds input for entering new stash id to performer details page and studio page
-// @version     0.2.0
+// @version     0.2.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -184,9 +184,8 @@ fragment StudioData on Studio {
                         const stash_ids = data.data.findPerformer.stash_ids;
                         if (stash_ids.find(({endpoint, stash_id }) => endpoint === newEndpoint && stash_id === newStashId)) return;
                         if (!confirm(`Add StashID ${newStashId}?`)) return;
-                        updatePerformerStashIDs(performerId, stash_ids.concat([{ endpoint: newEndpoint, stash_id: newStashId }]));
-                        window.location.reload();
-                    });
+                        return updatePerformerStashIDs(performerId, stash_ids.concat([{ endpoint: newEndpoint, stash_id: newStashId }]));
+                    }).then(() => window.location.reload());
                 });
                 stashIdInputContainer.appendChild(stashIdInput);
                 detailsList.appendChild(stashIdInputContainer);
@@ -249,9 +248,8 @@ fragment StudioData on Studio {
                         const stash_ids = data.data.findStudio.stash_ids;
                         if (stash_ids.find(({endpoint, stash_id }) => endpoint === newEndpoint && stash_id === newStashId)) return;
                         if (!confirm(`Add StashID ${newStashId}?`)) return;
-                        updateStudioStashIDs(studioId, stash_ids.concat([{ endpoint: newEndpoint, stash_id: newStashId }]));
-                        window.location.reload();
-                    });
+                        return updateStudioStashIDs(studioId, stash_ids.concat([{ endpoint: newEndpoint, stash_id: newStashId }]));
+                    }).then(() => window.location.reload());
                 });
                 container.appendChild(stashIdInput);
                 container.appendChild(stashboxInput);
