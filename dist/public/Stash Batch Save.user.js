@@ -2,7 +2,7 @@
 // @name        Stash Batch Save
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a batch save button to scenes tagger
-// @version     0.4.2
+// @version     0.4.3
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -102,5 +102,13 @@
             el.classList.add('ml-3');
         }
     });
+
+    function checkSaveButtonDisplay() {
+        const taggerContainer = document.querySelector('.tagger-container');
+        const saveButton = getElementByXpath("//button[text()='Save']", taggerContainer);
+        btn.style.display = saveButton ? 'inline-block' : 'none';
+    }
+
+    stash.addEventListener('tagger:mutations:searchitems', checkSaveButtonDisplay);
 
 })();

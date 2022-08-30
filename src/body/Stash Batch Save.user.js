@@ -92,4 +92,12 @@
         }
     });
 
+    function checkSaveButtonDisplay() {
+        const taggerContainer = document.querySelector('.tagger-container');
+        const saveButton = getElementByXpath("//button[text()='Save']", taggerContainer);
+        btn.style.display = saveButton ? 'inline-block' : 'none';
+    }
+
+    stash.addEventListener('tagger:mutations:searchitems', checkSaveButtonDisplay);
+
 })();

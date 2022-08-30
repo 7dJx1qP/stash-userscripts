@@ -2,7 +2,7 @@
 // @name        Stash Batch Result Toggle
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Batch toggle scene tagger search result fields
-// @version     0.3.5
+// @version     0.3.6
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -315,5 +315,13 @@
     stash.addEventListener('tagger:mutation:add:local', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
     stash.addEventListener('tagger:mutation:add:container', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
     stash.addEventListener('tagger:mutation:add:subcontainer', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
+
+    function checkSaveButtonDisplay() {
+        const taggerContainer = document.querySelector('.tagger-container');
+        const saveButton = getElementByXpath("//button[text()='Save']", taggerContainer);
+        btnGroup.style.display = saveButton ? 'inline-block' : 'none';
+    }
+
+    stash.addEventListener('tagger:mutations:searchitems', checkSaveButtonDisplay);
 
 })();

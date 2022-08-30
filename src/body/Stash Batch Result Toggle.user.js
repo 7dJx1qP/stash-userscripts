@@ -305,4 +305,12 @@
     stash.addEventListener('tagger:mutation:add:container', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
     stash.addEventListener('tagger:mutation:add:subcontainer', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
 
+    function checkSaveButtonDisplay() {
+        const taggerContainer = document.querySelector('.tagger-container');
+        const saveButton = getElementByXpath("//button[text()='Save']", taggerContainer);
+        btnGroup.style.display = saveButton ? 'inline-block' : 'none';
+    }
+
+    stash.addEventListener('tagger:mutations:searchitems', checkSaveButtonDisplay);
+
 })();
