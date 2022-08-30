@@ -2,7 +2,7 @@
 // @name        Stash Match Metadata Highlight
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Highlight mismatching data in scene tagger matches
-// @version     0.3.2
+// @version     0.3.3
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -28,11 +28,6 @@
         sortElementChildren,
     } = window.stash;
 
-    let running = false;
-    const buttons = [];
-
-    const datePattern = /\d{4}\-\d{2}\-\d{2}/g;
-
     const COLORS = {
         'green': '#0f9960',
         'red': '#ff7373',
@@ -54,15 +49,6 @@
             performerNodes
         } = stash.parseSearchItem(searchItem);
 
-        // let myDate = '';
-
-        // let newQuery = queryInput.value;
-
-        // let dateIndex = queryInput.value.search(datePattern);
-        // if (dateIndex !== -1) {
-        //     myDate = queryInput.value.substring(dateIndex, dateIndex+10);
-        // }
-
         const {
             remoteUrlNode,
             remoteId,
@@ -78,35 +64,43 @@
             matches
         } = stash.parseSearchResultItem(searchResultItem);
 
-        if (titleNode) {
+        const includeTitle = document.getElementById('colorize-title').checked;
+        const includeDate = document.getElementById('colorize-date').checked;
+        const includeStashID = document.getElementById('colorize-stashid').checked;
+        const includeURL = document.getElementById('colorize-url').checked;
+        const includeDetails = document.getElementById('colorize-details').checked;
+        const includeStudio = document.getElementById('colorize-studio').checked;
+        const includePerformers = document.getElementById('colorize-performers').checked;
+
+        if (includeTitle && titleNode) {
             titleNode.firstChild.style.color = COLORS.yellow;
             if (data?.title) {
                 titleNode.firstChild.style.color = titleNode.innerText === data.title ? COLORS.green : COLORS.red;
             }
         }
 
-        if (dateNode) {
+        if (includeDate && dateNode) {
             dateNode.style.color = COLORS.yellow;
             if (data?.date) {
                 dateNode.style.color = dateNode.innerText === data.date ? COLORS.green : COLORS.red;
             }
         }
 
-        if (remoteUrlNode) {
+        if (includeStashID && remoteUrlNode) {
             remoteUrlNode.style.color = COLORS.yellow;
             if (data?.stash_ids?.length) {
                 remoteUrlNode.style.color = data.stash_ids.find(o => o.stash_id === remoteUrlNode.innerText) ? COLORS.green : COLORS.red;
             }
         }
 
-        if (detailsNode) {
+        if (includeDetails && detailsNode) {
             detailsNode.style.color = COLORS.yellow;
             if (data?.details) {
                 detailsNode.style.color = detailsNode.innerText === data.details ? COLORS.green : COLORS.red;
             }
         }
 
-        if (matchUrlNode) {
+        if (includeURL && matchUrlNode) {
             matchUrlNode.firstChild.style.color = COLORS.yellow;
             if (data?.url) {
                 matchUrlNode.firstChild.style.color = matchUrlNode.innerText === data.url ? COLORS.green : COLORS.red;
@@ -137,70 +131,81 @@
             else if (matchType === 'studio' && data?.studio?.id === matchData.stored_id) {
                 matched = true;
             }
-            nodeToColor.style.color = matched ? COLORS.green : COLORS.red;
-        }
-
-    }
-
-    function run() {
-        if (!running) return;
-        const button = buttons.pop();
-        if (button) {
-            const searchItem = getClosestAncestor(button, '.search-item');
-            colorizeSearchItem(searchItem);
-            setTimeout(run, 50);
-        }
-        else {
-            stop();
-        }
-    }
-
-    const btnId = 'metadata-highlight';
-    const startLabel = 'Highlight';
-    const stopLabel = 'Stop Highlight';
-    const btn = document.createElement("button");
-    btn.setAttribute("id", btnId);
-    btn.classList.add('btn', 'btn-primary', 'ml-3');
-    btn.innerHTML = startLabel;
-    btn.onclick = () => {
-        if (running) {
-            stop();
-        }
-        else {
-            start();
-        }
-    };
-
-    function start() {
-        btn.innerHTML = stopLabel;
-        btn.classList.remove('btn-primary');
-        btn.classList.add('btn-danger');
-        running = true;
-        buttons.length = 0;
-        for (const button of document.querySelectorAll('.btn.btn-primary')) {
-            if (button.innerText === 'Save') {
-                buttons.push(button);
+            if ((includeStudio && matchType === 'studio') || (includePerformers && matchType === 'performer')) {
+                nodeToColor.style.color = matched ? COLORS.green : COLORS.red;
             }
         }
-        run();
+
     }
 
-    function stop() {
-        btn.innerHTML = startLabel;
-        btn.classList.remove('btn-danger');
-        btn.classList.add('btn-primary');
-        running = false;
-    }
+    const colorizeConfigId = 'colorize-config';
 
-    stash.addEventListener('tagger', evt => {
+    stash.addEventListener('tagger:configuration', evt => {
         const el = evt.detail;
-        if (!document.getElementById(btnId)) {
-            const container = el.parentElement;
-            container.appendChild(btn);
-            sortElementChildren(container);
-            el.classList.add('ml-3');
+        if (!document.getElementById(colorizeConfigId)) {
+            const configContainer = el.parentElement;
+            const colorizeConfig = createElementFromHTML(`
+<div id="${colorizeConfigId}" class="col-md-6 mt-4">
+<h5>Colorize Configuration</h5>
+<div class="row">
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="colorize-title" class="form-check-input" data-default="true">
+            <label title="" for="colorize-title" class="form-check-label">Title</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="colorize-date" class="form-check-input" data-default="true">
+            <label title="" for="colorize-date" class="form-check-label">Date</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="colorize-stashid" class="form-check-input" data-default="true">
+            <label title="" for="colorize-stashid" class="form-check-label">Stash ID</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="colorize-url" class="form-check-input" data-default="true">
+            <label title="" for="colorize-url" class="form-check-label">URL</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="colorize-details" class="form-check-input" data-default="true">
+            <label title="" for="colorize-details" class="form-check-label">Details</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="colorize-studio" class="form-check-input" data-default="true">
+            <label title="" for="colorize-studio" class="form-check-label">Studio</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="colorize-performers" class="form-check-input" data-default="true">
+            <label title="" for="colorize-performers" class="form-check-label">Performers</label>
+        </div>
+    </div>
+</div>
+</div>
+            `);
+            configContainer.appendChild(colorizeConfig);
+            loadSettings();
         }
     });
+
+    async function loadSettings() {
+        for (const input of document.querySelectorAll(`#${colorizeConfigId} input`)) {
+            input.checked = await GM.getValue(input.id, input.dataset.default === 'true');
+            input.addEventListener('change', async () => {
+                await GM.setValue(input.id, input.checked);
+            });
+        }
+    }
 
     stash.addEventListener('tagger:mutation:add:remoteperformer', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:remotestudio', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));

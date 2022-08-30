@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Linkify
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Turn all scene tagger result text referencing stash or stashbox studio and performer names into clickable links
-// @version     0.2.3
+// @version     0.2.4
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -79,6 +79,7 @@
     }
 
     function processMatchRemotePerformer(node, matchNode) {
+        if (!document.getElementById('linkify-stashbox-performers').checked) return;
         if (!matchNode) matchNode = getClosestAncestor(node, '.search-item');
         const {
             remoteUrl,
@@ -93,6 +94,7 @@
     }
 
     function processMatchRemoteStudio(node, matchNode) {
+        if (!document.getElementById('linkify-stashbox-studio').checked) return;
         if (!matchNode) matchNode = getClosestAncestor(node, '.search-item');
         const {
             remoteUrl,
@@ -110,7 +112,7 @@
         const { matches } = stash.parseSearchResultItem(searchItem);
         const { matchType, data } = matches.find(({ matchNode }) => matchNode === node);
         const subNode = node.querySelector('b');
-        if (matchType === 'performer') {
+        if (matchType === 'performer' && document.getElementById('linkify-performers').checked) {
             let performerUrl;
             if (data?.stored_id) {
                 performerUrl = window.location.origin + '/performers/' + data.stored_id;
@@ -122,7 +124,7 @@
             subNode.innerHTML = `<a href=${performerUrl} target="_blank">${subNode.innerText}</a>`;
             subNode.firstChild.style.color = subNode.style.color;
         }
-        else if (matchType === 'studio') {
+        else if (matchType === 'studio' && document.getElementById('linkify-studio').checked) {
             let studioUrl;
             if (data?.stored_id) {
                 studioUrl = window.location.origin + '/studios/' + data.stored_id;
@@ -163,6 +165,57 @@
             window.open(sceneLink.href, '_blank');
         });
     });
+
+    const linkifyConfigId = 'linkify-config';
+
+    stash.addEventListener('tagger:configuration', evt => {
+        const el = evt.detail;
+        if (!document.getElementById(linkifyConfigId)) {
+            const configContainer = el.parentElement;
+            const linkifyConfig = createElementFromHTML(`
+<div id="${linkifyConfigId}" class="col-md-6 mt-4">
+<h5>Linkify Configuration</h5>
+<div class="row">
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="linkify-studio" class="form-check-input" data-default="true">
+            <label title="" for="linkify-studio" class="form-check-label">Studio</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="linkify-performers" class="form-check-input" data-default="true">
+            <label title="" for="linkify-performers" class="form-check-label">Performers</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="linkify-stashbox-studio" class="form-check-input" data-default="true">
+            <label title="" for="linkify-stashbox-studio" class="form-check-label">Stashbox Studio</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="linkify-stashbox-performers" class="form-check-input" data-default="true">
+            <label title="" for="linkify-stashbox-performers" class="form-check-label">Stashbox Performers</label>
+        </div>
+    </div>
+</div>
+</div>
+            `);
+            configContainer.appendChild(linkifyConfig);
+            loadSettings();
+        }
+    });
+
+    async function loadSettings() {
+        for (const input of document.querySelectorAll(`#${linkifyConfigId} input`)) {
+            input.checked = await GM.getValue(input.id, input.dataset.default === 'true');
+            input.addEventListener('change', async () => {
+                await GM.setValue(input.id, input.checked);
+            });
+        }
+    }
 
     stash.addEventListener('tagger:mutation:add:remoteperformer', evt => processMatchRemotePerformer(evt.detail.node));
     stash.addEventListener('tagger:mutation:add:remotestudio', evt => processMatchRemoteStudio(evt.detail.node));
