@@ -34,43 +34,89 @@ Pick and choose which userscript to install in the table below or install just `
 | Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Stats.user.js?raw=1)  |
 | Stash Studio Image And Parent On Create | In Scene Tagger, sets studio image and parent studio from StashDB when a studio is created  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Studio%20Image%20And%20Parent%20On%20Create.user.js?raw=1)  |
 
-Performers page
+# Screenshots
 
-![Performers page](images/performers-page.png?raw=true "Performers page")
+## Stash Batch Query Edit
 
-Stats page
+![Config](images/Stash%20Batch%20Query%20Edit/config.png?raw=true "Config")
 
-![Stats page](images/stats-page.png?raw=true "Stats page")
+![Scenes tagger](images/Stash%20Batch%20Query%20Edit/scenes-tagger.png?raw=true "Scenes tagger")
 
-Scenes page tagger view
+## Stash Batch Result Toggle
 
-![Scenes page tagger view](images/scenes-tagger.png?raw=true "Scenes page tagger view")
+![Config](images/Stash%20Batch%20Result%20Toggle/config.png?raw=true "Config")
 
-Scenes page scene tagger linkify
+![Scenes tagger](images/Stash%20Batch%20Result%20Toggle/scenes-tagger.png?raw=true "Scenes tagger")
 
-![Scenes page scene tagger linkify](images/scene-tagger-linkify.png?raw=true "Scenes page scene tagger linkify")
+## Stash Batch Save
 
-Scenes page tagger view configuration settings
+![Scenes tagger](images/Stash%20Batch%20Save/scenes-tagger.png?raw=true "Scenes tagger")
 
-![Scenes page tagger view configuration settings](images/query-edit-config.png?raw=true "Scenes page tagger view configuration settings")
+## Stash Batch Search
 
-Studio page
+![Scenes tagger](images/Stash%20Batch%20Search/scenes-tagger.png?raw=true "Scenes tagger")
 
-![Studio page](images/studio-page.png?raw=true "Studio page")
+## Stash New Performer Filter Button
 
-Performer page
+![Performers page](images/Stash%20New%20Performer%20Filter%20Button/performers-page.png?raw=true "Performers page")
 
-![Performer page](images/performer-page.png?raw=true "Performer page")
+## Stash Open Media Player
 
-Performer page, performer image cropper
+![System settings](images/Stash%20Open%20Media%20Player/system-settings.png?raw=true "System settings")
 
-![Performer page, performer image cropper](images/performer-image-cropper.png?raw=true "Performer page, performer image cropper")
+## Stash Performer Audit Task Button
 
-Performers page tagger view
+![Plugin tasks](images/Stash%20Performer%20Audit%20Task%20Button/plugin-tasks.png?raw=true "Plugin tasks")
 
-![Performers page tagger view](images/performer-tagger.png?raw=true "Performers page tagger view")
+![System settings](images/Stash%20Performer%20Audit%20Task%20Button/system-settings.png?raw=true "System settings")
 
-## Userscript Functions Plugin
+## Stash Performer Image Cropper
+
+![Cropper](images/Stash%20Performer%20Image%20Cropper/performer-image-cropper.png?raw=true "Cropper")
+
+## Stash Performer Tagger Additions
+
+![Performer tagger](images/Stash%20Performer%20Tagger%20Additions/performer-tagger.png?raw=true "Performer tagger")
+
+## Stash Performer URL Searchbox
+
+![Performers page](images/Stash%20Performer%20URL%20Searchbox/performers-page.png?raw=true "Performers page")
+
+## Stash Scene Tagger Additions
+
+![Config](images/Stash%20Scene%20Tagger%20Additions/config.png?raw=true "Config")
+
+## Stash Scene Tagger Colorizer
+
+![Config](images/Stash%20Scene%20Tagger%20Colorizer/config.png?raw=true "Config")
+
+![Scenes tagger](images/Stash%20Scene%20Tagger%20Colorizer/scenes-tagger.png?raw=true "Scenes tagger")
+
+## Stash Scene Tagger Linkify
+
+![Config](images/Stash%20Scene%20Tagger%20Linkify/config.png?raw=true "Config")
+
+![Scenes tagger](images/Stash%20Scene%20Tagger%20Linkify/scenes-tagger.png?raw=true "Scenes tagger")
+
+## Stash Set Stashbox Favorite Performers
+
+![Plugin tasks](images/Stash%20Set%20Stashbox%20Favorite%20Performers/plugin-tasks.png?raw=true "Plugin tasks")
+
+![System settings](images/Stash%20Set%20Stashbox%20Favorite%20Performers/system-settings.png?raw=true "System settings")
+
+## Stash StashID Input
+
+![Performer page](images/Stash%20StashID%20Input/performer-page.png?raw=true "Performer page")
+
+![Studio page](images/Stash%20StashID%20Input/studio-page.png?raw=true "Studio page")
+
+## Stash Stats
+
+![Stats page](images/Stash%20Stats/stats-page.png?raw=true "Stats page")
+
+## Stash Studio Image And Parent On Create
+
+# Userscript Functions Plugin
 
 This additional stash plugin is required by some userscripts for their functionality
 
@@ -90,7 +136,11 @@ Update `config.ini` in the `userscript_functions` folder with your stash URL.
 
 Plugin settings aside from the server URL and server api key can be updated from within the Stash settings under the System tab:
 
-![Settings page system tab](images/system-settings.png?raw=true "Settings page system tab")
+![System settings](images/Userscript%20Functions%20Plugin/system-settings.png?raw=true "System settings")
+
+Plugin tasks:
+
+![Plugin tasks](images/Userscript%20Functions%20Plugin/plugin-tasks.png?raw=true "Plugin tasks")
 
 ## Developing
 
