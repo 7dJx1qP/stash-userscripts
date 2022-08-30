@@ -1,4 +1,4 @@
 GITHUB_ROOT_URL = r"https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/%%BRANCH%%/"
-BUNDLE_VERSION = "0.13.6"
+BUNDLE_VERSION = "0.13.7"
 SERVER_URL = "http://localhost:9999"
 NAMESPACE = "https://github.com/7dJx1qP/stash-userscripts"

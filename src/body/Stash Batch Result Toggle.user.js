@@ -232,7 +232,7 @@
             const configContainer = el.parentElement;
             const resultToggleConfig = createElementFromHTML(`
 <div id="${resultToggleConfigId}" class="col-md-6 mt-4">
-<h5>Result Toggle Configuration</h5>
+<h5>Result Toggle ${startLabel} Configuration</h5>
 <div class="row">
     <div class="align-items-center form-group col-md-6">
         <div class="form-check">
