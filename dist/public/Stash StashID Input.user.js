@@ -228,9 +228,8 @@ fragment StudioData on Studio {
                         const stash_ids = data.data.findPerformer.stash_ids;
                         if (stash_ids.find(({endpoint, stash_id }) => endpoint === newEndpoint && stash_id === newStashId)) return;
                         if (!confirm(`Add StashID ${newStashId}?`)) return;
-                        updatePerformerStashIDs(performerId, stash_ids.concat([{ endpoint: newEndpoint, stash_id: newStashId }]));
-                        window.location.reload();
-                    });
+                        return updatePerformerStashIDs(performerId, stash_ids.concat([{ endpoint: newEndpoint, stash_id: newStashId }]));
+                    }).then(() => window.location.reload());
                 });
                 stashIdInputContainer.appendChild(stashIdInput);
                 detailsList.appendChild(stashIdInputContainer);
@@ -307,9 +306,8 @@ fragment StudioData on Studio {
                         const stash_ids = data.data.findStudio.stash_ids;
                         if (stash_ids.find(({endpoint, stash_id }) => endpoint === newEndpoint && stash_id === newStashId)) return;
                         if (!confirm(`Add StashID ${newStashId}?`)) return;
-                        updateStudioStashIDs(studioId, stash_ids.concat([{ endpoint: newEndpoint, stash_id: newStashId }]));
-                        window.location.reload();
-                    });
+                        return updateStudioStashIDs(studioId, stash_ids.concat([{ endpoint: newEndpoint, stash_id: newStashId }]));
+                    }).then(() => window.location.reload());
                 });
                 container.appendChild(stashIdInput);
                 container.appendChild(stashboxInput);
