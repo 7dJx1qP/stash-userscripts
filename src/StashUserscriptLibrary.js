@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.25.1
+// version 0.26.0
 
 (function () {
     'use strict';
@@ -677,43 +677,46 @@
             processTagger() {
                 waitForElementByXpath("//button[text()='Scrape All']", (xpath, el) => {
                     this.dispatchEvent(new CustomEvent('tagger', { 'detail': el }));
-                    for (const searchItem of document.querySelectorAll('.search-item')) {
-                        const observerOptions = {
-                            childList: true,
-                            subtree: true
-                        }
-                        const observer = new MutationObserver(mutations => {
-                            mutations.forEach(mutation => {
-                                mutation.addedNodes.forEach(node => {
-                                    if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Performer:')) {
-                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:remoteperformer', { 'detail': { node, mutation } }));
-                                    }
-                                    else if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Studio:')) {
-                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:remotestudio', { 'detail': { node, mutation } }));
-                                    }
-                                    else if (node.tagName === 'SPAN' && node.innerText.startsWith('Matched:')) {
-                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:local', { 'detail': { node, mutation } }));
-                                    }
-                                    else if (node.tagName === 'UL') {
-                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:container', { 'detail': { node, mutation } }));
-                                    }
-                                    else if (node?.classList?.contains('col-lg-6')) {
-                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:subcontainer', { 'detail': { node, mutation } }));
-                                    }
-                                    else if (node.tagName === 'H5') { // scene date
-                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:date', { 'detail': { node, mutation } }));
-                                    }
-                                    else if (node.tagName === 'DIV' && node?.classList?.contains('d-flex') && node?.classList?.contains('flex-column')) { // scene stashid, url, details
-                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:detailscontainer', { 'detail': { node, mutation } }));
-                                    }
-                                    else {
-                                        this.dispatchEvent(new CustomEvent('tagger:mutation:add:other', { 'detail': { node, mutation } }));
-                                    }
-                                });
+
+                    const searchItemContainer = document.querySelector('.tagger-container').lastChild;
+                    const observerOptions = {
+                        childList: true,
+                        subtree: true
+                    }
+                    const observer = new MutationObserver(mutations => {
+                        mutations.forEach(mutation => {
+                            mutation.addedNodes.forEach(node => {
+                                if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Performer:')) {
+                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:remoteperformer', { 'detail': { node, mutation } }));
+                                }
+                                else if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Studio:')) {
+                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:remotestudio', { 'detail': { node, mutation } }));
+                                }
+                                else if (node.tagName === 'SPAN' && node.innerText.startsWith('Matched:')) {
+                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:local', { 'detail': { node, mutation } }));
+                                }
+                                else if (node.tagName === 'UL') {
+                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:container', { 'detail': { node, mutation } }));
+                                }
+                                else if (node?.classList?.contains('col-lg-6')) {
+                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:subcontainer', { 'detail': { node, mutation } }));
+                                }
+                                else if (node.tagName === 'H5') { // scene date
+                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:date', { 'detail': { node, mutation } }));
+                                }
+                                else if (node.tagName === 'DIV' && node?.classList?.contains('d-flex') && node?.classList?.contains('flex-column')) { // scene stashid, url, details
+                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:detailscontainer', { 'detail': { node, mutation } }));
+                                }
+                                else {
+                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:other', { 'detail': { node, mutation } }));
+                                }
                             });
                         });
-                        observer.observe(searchItem, observerOptions);
+                        this.dispatchEvent(new CustomEvent('tagger:mutations:searchitems', { 'detail': mutations }));
+                    });
+                    observer.observe(searchItemContainer, observerOptions);
 
+                    for (const searchItem of document.querySelectorAll('.search-item')) {
                         this.dispatchEvent(new CustomEvent('tagger:searchitem', { 'detail': searchItem }));
                     }
                 });
