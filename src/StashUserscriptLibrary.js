@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.26.1
+// version 0.26.2
 
 (function () {
     'use strict';
@@ -627,9 +627,8 @@
                     const tasks = el.querySelectorAll('.setting');
                     for (const task of tasks) {
                         const taskName = task.querySelector('h3').innerText;
-                        if (this.visiblePluginTasks.indexOf(taskName) === -1) {
-                            task.style.display = 'none';
-                        }
+                        task.classList.add(this.visiblePluginTasks.indexOf(taskName) === -1 ? 'd-none' : 'd-flex');
+                        this.dispatchEvent(new CustomEvent('stash:plugin:task', { 'detail': { taskName, task } }));
                     }
                 });
             }

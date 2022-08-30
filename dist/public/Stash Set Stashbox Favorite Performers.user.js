@@ -2,7 +2,7 @@
 // @name        Stash Set Stashbox Favorite Performers
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Set Stashbox favorite performers according to stash favorites. Requires userscript_functions stash plugin
-// @version     0.1.4
+// @version     0.1.5
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -27,7 +27,8 @@
 
     const MIN_REQUIRED_PLUGIN_VERSION = '0.5.0';
 
-    stash.visiblePluginTasks.push('Set Stashbox Favorite Performers');
+    const TASK_NAME = 'Set Stashbox Favorite Performers';
+    stash.visiblePluginTasks.push(TASK_NAME);
 
     const settingsId = 'userscript-settings-set-stashbox-favorites-task';
     const inputId = 'userscript-settings-set-stashbox-favorites-button-visible';
@@ -106,6 +107,21 @@
             if (alertedPluginVersion !== stash.pluginVersion) {
                 await GM.setValue('alerted_plugin_version', stash.pluginVersion);
                 alert(`User functions plugin version is ${stash.pluginVersion}. Set Stashbox Favorite Performers userscript requires version ${MIN_REQUIRED_PLUGIN_VERSION} or higher.`);
+            }
+        }
+    });
+
+    stash.addEventListener('stash:plugin:task', async function (evt) {
+        const { taskName, task } = evt.detail;
+        if (taskName === TASK_NAME) {
+            const taskButton = task.querySelector('button');
+            if (!taskButton.classList.contains('hooked')) {
+                taskButton.classList.add('hooked');
+                taskButton.addEventListener('click', evt => {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                    runSetStashBoxFavoritePerformersTask();
+                });
             }
         }
     });
