@@ -2,7 +2,7 @@
 // @name        Stash Batch Query Edit
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Batch modify scene tagger search query
-// @version     0.4.4
+// @version     0.4.5
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -138,9 +138,9 @@
         running = false;
     }
 
-    stash.addEventListener('tagger', evt => {
-        const el = evt.detail;
-        if (!document.getElementById(btnId)) {
+    stash.addEventListener('tagger:mutations:header', evt => {
+        const el = getElementByXpath("//button[text()='Scrape All']");
+        if (el && !document.getElementById(btnId)) {
             const container = el.parentElement;
             container.appendChild(btn);
             sortElementChildren(container);

@@ -2,7 +2,7 @@
 // @name        Stash Batch Result Toggle
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Batch toggle scene tagger search result fields
-// @version     0.3.6
+// @version     0.3.7
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -225,9 +225,9 @@
         btnOff.disabled = false;
     }
 
-    stash.addEventListener('tagger', evt => {
-        const el = evt.detail;
-        if (!document.getElementById(btnGroupId)) {
+    stash.addEventListener('tagger:mutations:header', evt => {
+        const el = getElementByXpath("//button[text()='Scrape All']");
+        if (el && !document.getElementById(btnGroupId)) {
             const container = el.parentElement;
             container.appendChild(btnGroup);
             sortElementChildren(container);

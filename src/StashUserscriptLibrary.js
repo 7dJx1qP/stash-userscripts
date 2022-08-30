@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.26.0
+// version 0.26.1
 
 (function () {
     'use strict';
@@ -679,10 +679,7 @@
                     this.dispatchEvent(new CustomEvent('tagger', { 'detail': el }));
 
                     const searchItemContainer = document.querySelector('.tagger-container').lastChild;
-                    const observerOptions = {
-                        childList: true,
-                        subtree: true
-                    }
+
                     const observer = new MutationObserver(mutations => {
                         mutations.forEach(mutation => {
                             mutation.addedNodes.forEach(node => {
@@ -714,7 +711,19 @@
                         });
                         this.dispatchEvent(new CustomEvent('tagger:mutations:searchitems', { 'detail': mutations }));
                     });
-                    observer.observe(searchItemContainer, observerOptions);
+                    observer.observe(searchItemContainer, {
+                        childList: true,
+                        subtree: true
+                    });
+
+                    const taggerContainerHeader = document.querySelector('.tagger-container-header');
+                    const taggerContainerHeaderObserver = new MutationObserver(mutations => {
+                        this.dispatchEvent(new CustomEvent('tagger:mutations:header', { 'detail': mutations }));
+                    });
+                    taggerContainerHeaderObserver.observe(taggerContainerHeader, {
+                        childList: true,
+                        subtree: true
+                    });
 
                     for (const searchItem of document.querySelectorAll('.search-item')) {
                         this.dispatchEvent(new CustomEvent('tagger:searchitem', { 'detail': searchItem }));

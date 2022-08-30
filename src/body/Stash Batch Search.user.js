@@ -80,9 +80,9 @@
         });
     });
 
-    stash.addEventListener('tagger', evt => {
-        const el = evt.detail;
-        if (!document.getElementById(btnId)) {
+    stash.addEventListener('tagger:mutations:header', evt => {
+        const el = getElementByXpath("//button[text()='Scrape All']");
+        if (el && !document.getElementById(btnId)) {
             const container = el.parentElement;
             container.appendChild(btn);
             sortElementChildren(container);

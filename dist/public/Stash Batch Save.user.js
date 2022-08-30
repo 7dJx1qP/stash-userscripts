@@ -2,7 +2,7 @@
 // @name        Stash Batch Save
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a batch save button to scenes tagger
-// @version     0.4.3
+// @version     0.4.4
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -93,9 +93,9 @@
         stash.removeEventListener('stash:response', processSceneUpdate);
     }
 
-    stash.addEventListener('tagger', evt => {
-        const el = evt.detail;
-        if (!document.getElementById(btnId)) {
+    stash.addEventListener('tagger:mutations:header', evt => {
+        const el = getElementByXpath("//button[text()='Scrape All']");
+        if (el && !document.getElementById(btnId)) {
             const container = el.parentElement;
             container.appendChild(btn);
             sortElementChildren(container);
