@@ -2,7 +2,7 @@
 // @name        Stash Match Metadata Highlight
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Highlight mismatching data in scene tagger matches
-// @version     0.3.4
+// @version     0.3.5
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -96,7 +96,7 @@
         if (includeDetails && detailsNode) {
             detailsNode.style.color = COLORS.yellow;
             if (data?.details) {
-                detailsNode.style.color = detailsNode.innerText === data.details ? COLORS.green : COLORS.red;
+                detailsNode.style.color = detailsNode.textContent === data.details ? COLORS.green : COLORS.red;
             }
         }
 

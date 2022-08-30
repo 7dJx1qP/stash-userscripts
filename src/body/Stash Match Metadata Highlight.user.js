@@ -85,7 +85,7 @@
         if (includeDetails && detailsNode) {
             detailsNode.style.color = COLORS.yellow;
             if (data?.details) {
-                detailsNode.style.color = detailsNode.innerText === data.details ? COLORS.green : COLORS.red;
+                detailsNode.style.color = detailsNode.textContent === data.details ? COLORS.green : COLORS.red;
             }
         }
 

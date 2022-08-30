@@ -783,7 +783,7 @@
                     if (remoteData.url === sceneDetailNode.innerText) {
                         urlNode = sceneDetailNode;
                     }
-                    else if (remoteData.details === sceneDetailNode.innerText) {
+                    else if (remoteData.details === sceneDetailNode.textContent) {
                         detailsNode = sceneDetailNode;
                     }
                 }
