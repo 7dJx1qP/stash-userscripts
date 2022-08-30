@@ -17,11 +17,6 @@
         sortElementChildren,
     } = window.stash;
 
-    let running = false;
-    const buttons = [];
-
-    const datePattern = /\d{4}\-\d{2}\-\d{2}/g;
-
     const COLORS = {
         'green': '#0f9960',
         'red': '#ff7373',
@@ -131,66 +126,6 @@
         }
 
     }
-
-    function run() {
-        if (!running) return;
-        const button = buttons.pop();
-        if (button) {
-            const searchItem = getClosestAncestor(button, '.search-item');
-            colorizeSearchItem(searchItem);
-            setTimeout(run, 50);
-        }
-        else {
-            stop();
-        }
-    }
-
-    const btnId = 'metadata-highlight';
-    const startLabel = 'Highlight';
-    const stopLabel = 'Stop Highlight';
-    const btn = document.createElement("button");
-    btn.setAttribute("id", btnId);
-    btn.classList.add('btn', 'btn-primary', 'ml-3');
-    btn.innerHTML = startLabel;
-    btn.onclick = () => {
-        if (running) {
-            stop();
-        }
-        else {
-            start();
-        }
-    };
-
-    function start() {
-        btn.innerHTML = stopLabel;
-        btn.classList.remove('btn-primary');
-        btn.classList.add('btn-danger');
-        running = true;
-        buttons.length = 0;
-        for (const button of document.querySelectorAll('.btn.btn-primary')) {
-            if (button.innerText === 'Save') {
-                buttons.push(button);
-            }
-        }
-        run();
-    }
-
-    function stop() {
-        btn.innerHTML = startLabel;
-        btn.classList.remove('btn-danger');
-        btn.classList.add('btn-primary');
-        running = false;
-    }
-
-    stash.addEventListener('tagger', evt => {
-        const el = evt.detail;
-        if (!document.getElementById(btnId)) {
-            const container = el.parentElement;
-            container.appendChild(btn);
-            sortElementChildren(container);
-            el.classList.add('ml-3');
-        }
-    });
 
     const colorizeConfigId = 'colorize-config';
 
