@@ -4,7 +4,15 @@
 
 Installation requires a browser extension such as [Violentmonkey](https://violentmonkey.github.io/) / [Tampermonkey](https://www.tampermonkey.net/) / [Greasemonkey](https://www.greasespot.net/).
 
-Pick and choose which userscript to install or install just `Stash Userscripts Bundle.user.js` to get all of them
+> You may remove any unwanted userscripts from the bundle by removing the line that starts with `// @require` that corresponds to the userscript you wish to remove.
+
+**By default the userscripts only work for `http://localhost:9999`**
+
+> If you access Stash from a different address, you will need to modify the userscript when you install it.
+>
+> Find the line `// @match       http://localhost:9999/*` and replace `http://localhost:9999/*` with your Stash address.
+
+Pick and choose which userscript to install in the table below or install just `Stash Userscripts Bundle.user.js` to get all of them.
 
 | Script Name  | Description | [Plugin Required](#userscript-functions-plugin) | Install |
 | ------------- | ------------- | ------------- | ------------- |
