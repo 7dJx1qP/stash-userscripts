@@ -2,7 +2,7 @@
 // @name        Stash Userscripts Bundle
 // @namespace     https://github.com/7dJx1qP/stash-userscripts
 // @description Stash Userscripts Bundle
-// @version     0.12.4
+// @version     0.13.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
@@ -31,6 +31,7 @@
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Performer Image Cropper.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Performer Tagger Additions.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Performer URL Searchbox.user.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Scene Tagger Additions.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Scene Tagger Linkify.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash Set Stashbox Favorite Performers.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src/body\Stash StashID Input.user.js

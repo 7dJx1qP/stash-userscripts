@@ -12,8 +12,6 @@
 (function() {
     'use strict';
 
-    const DELAY = 200;
-
     const {
         stash,
         Stash,
