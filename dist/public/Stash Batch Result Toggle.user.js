@@ -2,7 +2,7 @@
 // @name        Stash Batch Result Toggle
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Batch toggle scene tagger search result fields
-// @version     0.3.4
+// @version     0.3.5
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -11,8 +11,6 @@
 
 (function() {
     'use strict';
-
-    const DELAY = 200;
 
     const {
         stash,
@@ -131,7 +129,7 @@
                 toggleMode = 0;
             }
             toggleSearchItem(searchItem, toggleMode);
-            setTimeout(run, DELAY);
+            setTimeout(run, 0);
         }
         else {
             stop();

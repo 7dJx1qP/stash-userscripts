@@ -1,8 +1,6 @@
 (function() {
     'use strict';
 
-    const DELAY = 200;
-
     const {
         stash,
         Stash,
@@ -120,7 +118,7 @@
                 toggleMode = 0;
             }
             toggleSearchItem(searchItem, toggleMode);
-            setTimeout(run, DELAY);
+            setTimeout(run, 0);
         }
         else {
             stop();
