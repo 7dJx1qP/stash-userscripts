@@ -2,7 +2,7 @@
 // @name        Stash Batch Result Toggle
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Batch toggle scene tagger search result fields
-// @version     0.3.3
+// @version     0.3.4
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -315,7 +315,7 @@
     stash.addEventListener('tagger:mutation:add:remoteperformer', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
     stash.addEventListener('tagger:mutation:add:remotestudio', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
     stash.addEventListener('tagger:mutation:add:local', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
-    stash.addEventListener('tagger:mutation:add:container', evt => toggleSearchItem(evt.detail.node, 0));
+    stash.addEventListener('tagger:mutation:add:container', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
     stash.addEventListener('tagger:mutation:add:subcontainer', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
 
 })();

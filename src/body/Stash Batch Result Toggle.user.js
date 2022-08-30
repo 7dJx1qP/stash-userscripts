@@ -304,7 +304,7 @@
     stash.addEventListener('tagger:mutation:add:remoteperformer', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
     stash.addEventListener('tagger:mutation:add:remotestudio', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
     stash.addEventListener('tagger:mutation:add:local', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
-    stash.addEventListener('tagger:mutation:add:container', evt => toggleSearchItem(evt.detail.node, 0));
+    stash.addEventListener('tagger:mutation:add:container', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
     stash.addEventListener('tagger:mutation:add:subcontainer', evt => toggleSearchItem(getClosestAncestor(evt.detail.node, '.search-item'), 0));
 
 })();

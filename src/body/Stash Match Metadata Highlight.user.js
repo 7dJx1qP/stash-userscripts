@@ -199,7 +199,7 @@
     stash.addEventListener('tagger:mutation:add:remoteperformer', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:remotestudio', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:local', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
-    stash.addEventListener('tagger:mutation:add:container', evt => colorizeSearchItem(evt.detail.node));
+    stash.addEventListener('tagger:mutation:add:container', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:subcontainer', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
 
 })();

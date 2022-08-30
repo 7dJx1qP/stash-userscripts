@@ -2,7 +2,7 @@
 // @name        Stash Match Metadata Highlight
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Highlight mismatching data in scene tagger matches
-// @version     0.3.3
+// @version     0.3.4
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -210,7 +210,7 @@
     stash.addEventListener('tagger:mutation:add:remoteperformer', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:remotestudio', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:local', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
-    stash.addEventListener('tagger:mutation:add:container', evt => colorizeSearchItem(evt.detail.node));
+    stash.addEventListener('tagger:mutation:add:container', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:subcontainer', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
 
 })();
