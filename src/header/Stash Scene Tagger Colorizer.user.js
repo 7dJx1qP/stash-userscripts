@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name        Stash Match Metadata Highlight
+// @name        Stash Scene Tagger Colorizer
 // @namespace   %NAMESPACE%
-// @description Highlight mismatching data in scene tagger matches
+// @description Colorize scene tagger match results to show matching and mismatching scene data.
 // @version     0.3.6
 // @author      7dJx1qP
 // @match       %MATCHURL%
