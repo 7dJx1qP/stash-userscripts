@@ -2,10 +2,12 @@
 // @name        Stash Scene Tagger Additions
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds scene duration and filepath to tagger view.
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
+// @grant       GM.getValue
+// @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 

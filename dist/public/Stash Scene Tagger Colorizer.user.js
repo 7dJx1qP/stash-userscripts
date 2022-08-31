@@ -2,10 +2,12 @@
 // @name        Stash Scene Tagger Colorizer
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Colorize scene tagger match results to show matching and mismatching scene data.
-// @version     0.3.7
+// @version     0.3.8
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
+// @grant       GM.getValue
+// @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
