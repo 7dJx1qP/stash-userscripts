@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.13.11 Stash Userscripts Bundle
+### 0.2.4 Stash StashID Input
+#### Added
+- Add support for `Set Stashbox Favorite Performers` performer favorite status syncing when adding performer stash ids
+
 ## 0.13.10 Stash Userscripts Bundle
 ### 0.3.9 Stash Batch Result Toggle
 #### Fixed

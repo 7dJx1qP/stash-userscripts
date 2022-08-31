@@ -28,6 +28,7 @@
 
 fragment PerformerData on Performer {
     id
+    favorite
     stash_ids {
         stash_id
         endpoint

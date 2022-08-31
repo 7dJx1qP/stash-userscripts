@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.26.2
+// version 0.26.3
 
 (function () {
     'use strict';
@@ -232,7 +232,7 @@
                 }
 
                 try {
-                    const res = await fetch('/graphql', options);
+                    const res = await unsafeWindow.fetch('/graphql', options);
                     this.log.debug(res);
                     return res.json();
                 }
