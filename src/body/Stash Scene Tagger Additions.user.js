@@ -47,7 +47,7 @@
 
         const originalSceneDetails = searchItem.querySelector('.original-scene-details');
 
-        if (!originalSceneDetails.firstChild.firstChild.querySelector('.scene-url')) {
+        if (!originalSceneDetails.firstChild.firstChild.querySelector('.scene-url') && data.url) {
             const sceneUrlNode = createElementFromHTML(`<a href="${data.url}" class="scene-url" target="_blank">${data.url}</a>`);
             sceneUrlNode.style.display = includeUrl ? 'block' : 'none';
             sceneUrlNode.style.fontWeight = 500;
@@ -55,7 +55,7 @@
             originalSceneDetails.firstChild.firstChild.appendChild(sceneUrlNode);
         }
 
-        if (!originalSceneDetails.firstChild.firstChild.querySelector('.scene-path')) {
+        if (!originalSceneDetails.firstChild.firstChild.querySelector('.scene-path') && data.path) {
             const pathNode = createElementFromHTML(`<a href="#" class="scene-path">${data.path}</a>`);
             pathNode.style.display = includePath ? 'block' : 'none';
             pathNode.style.fontWeight = 500;
@@ -69,7 +69,7 @@
             originalSceneDetails.firstChild.firstChild.appendChild(pathNode);
         }
         
-        if (!originalSceneDetails.firstChild.firstChild.querySelector('.scene-duration')) {
+        if (!originalSceneDetails.firstChild.firstChild.querySelector('.scene-duration') && data.file.duration) {
             const durationNode = createElementFromHTML(`<span class="scene-duration">Duration: ${formatDuration(data.file.duration)}</span>`);
             durationNode.style.display = includeDuration ? 'block' : 'none';
             durationNode.style.fontWeight = 500;
