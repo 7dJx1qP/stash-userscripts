@@ -83,6 +83,22 @@ def stashbox_call_graphql(endpoint, query, variables=None):
         log.error(err)
         return None
 
+def get_stashbox_performer_favorite(endpoint, stash_id):
+    query = """
+query FullPerformer($id: ID!) {
+  findPerformer(id: $id) {
+    id
+    is_favorite
+  }
+}
+    """
+
+    variables = {
+        "id": stash_id
+    }
+
+    return stashbox_call_graphql(endpoint, query, variables)
+
 def update_stashbox_performer_favorite(endpoint, stash_id, favorite):
     query = """
 mutation FavoritePerformer($id: ID!, $favorite: Boolean!) {
@@ -129,6 +145,8 @@ query Performers($input: PerformerQueryInput!) {
     request_count = 0
     max_request_count = 1
 
+    performercounts = {}
+
     while request_count < max_request_count:
         result = stashbox_call_graphql(endpoint, query, variables)
         request_count += 1
@@ -143,9 +161,14 @@ query Performers($input: PerformerQueryInput!) {
             max_request_count = math.ceil(total_count / per_page)
 
         log.info(f'Received page {variables["input"]["page"] - 1} of {max_request_count}')
+        for performer in query_performers.get("performers"):
+            performer_id = performer['id']
+            if performer_id not in performercounts:
+                performercounts[performer_id] = 1
+            else:
+                performercounts[performer_id] += 1
         performers.update([performer["id"] for performer in query_performers.get("performers")])
-
-    return performers
+    return performers, performercounts
 
 def set_stashbox_favorite_performers(db: StashDatabase, endpoint):
     stash_ids = set([row["stash_id"] for row in db.fetchall("""SELECT DISTINCT b.stash_id
@@ -155,7 +178,7 @@ ON a.id = b.performer_id
 WHERE a.favorite = 1""")])
     log.info(f'Stash {len(stash_ids)} favorite performers')
     log.info(f'Fetching Stashbox favorite performers...')
-    stashbox_stash_ids = get_favorite_performers_from_stashbox(endpoint)
+    stashbox_stash_ids, performercounts = get_favorite_performers_from_stashbox(endpoint)
     log.info(f'Stashbox {len(stashbox_stash_ids)} favorite performers')
 
     favorites_to_add = stash_ids - stashbox_stash_ids
@@ -170,3 +193,20 @@ WHERE a.favorite = 1""")])
     for stash_id in favorites_to_remove:
         update_stashbox_performer_favorite(endpoint, stash_id, False)
     log.info('Remove done.')
+
+    for performer_id, count in performercounts.items():
+        if count > 1:
+            log.info(f'Fixing duplicate stashbox favorite {performer_id} count={count}')
+            update_stashbox_performer_favorite(endpoint, performer_id, False)
+            update_stashbox_performer_favorite(endpoint, performer_id, True)
+    log.info('Fixed duplicates.')
+
+def set_stashbox_favorite_performer(endpoint, stash_id, favorite):
+    result = get_stashbox_performer_favorite(endpoint, stash_id)
+    if not result:
+        return
+    if favorite != result["findPerformer"]["is_favorite"]:
+        update_stashbox_performer_favorite(endpoint, stash_id, favorite)
+        log.info(f'Updated Stashbox performer {stash_id} favorite={favorite}')
+    else:
+        log.info(f'Stashbox performer {stash_id} already in sync favorite={favorite}')

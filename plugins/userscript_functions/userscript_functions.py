@@ -5,7 +5,7 @@ import os
 import pathlib
 import sys
 import subprocess
-from favorite_performers_sync import set_stashbox_favorite_performers, update_stashbox_performer_favorite
+from favorite_performers_sync import set_stashbox_favorite_performers, set_stashbox_favorite_performer
 from studiodownloader import update_studio_from_stashbox
 from audit_performer_urls import audit_performer_urls
 try:
@@ -84,4 +84,4 @@ elif name == 'favorite_performer_sync':
     stash_id = json_input['args']['stash_id']
     favorite = json_input['args']['favorite']
     log.debug(f"Favorite performer sync: endpoint={endpoint}, stash_id={stash_id}, favorite={favorite}")
-    update_stashbox_performer_favorite(endpoint, stash_id, favorite)
+    set_stashbox_favorite_performer(endpoint, stash_id, favorite)
