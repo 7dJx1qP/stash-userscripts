@@ -169,3 +169,12 @@
 ### 0.1.0 Stash Scene Tagger Linkify
 #### Added
 - Add userscript
+
+### 0.2.2 Stash StashID Input
+#### Added
+- Add copy to clipboard button to performer/studio stash ids
+
+## 0.9.5 Stash Userscripts Bundle
+### 0.2.1 Stash StashID Input
+#### Fixed
+- Fix creating doubled stashid input
