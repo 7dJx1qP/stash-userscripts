@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Colorizer
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Colorize scene tagger match results to show matching and mismatching scene data.
-// @version     0.3.8
+// @version     0.4.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -26,7 +26,7 @@
         createElementFromHTML,
         updateTextInput,
         sortElementChildren,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     const DEFAULT_COLORS = {
         'green': '#0f9960',

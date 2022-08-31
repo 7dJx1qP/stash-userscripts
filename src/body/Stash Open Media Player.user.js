@@ -8,7 +8,7 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     const MIN_REQUIRED_PLUGIN_VERSION = '0.4.0';
 

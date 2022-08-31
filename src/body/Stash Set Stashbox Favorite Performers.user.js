@@ -10,7 +10,7 @@
         getElementByXpath,
         getClosestAncestor,
         updateTextInput,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     const MIN_REQUIRED_PLUGIN_VERSION = '0.5.0';
 

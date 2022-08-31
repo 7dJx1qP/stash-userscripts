@@ -10,7 +10,7 @@
         getElementByXpath,
         getClosestAncestor,
         updateTextInput,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     function runStudioUpdateTask(studioId, endpoint, remoteSiteId) {
         stash.runPluginTask("userscript_functions", "Update Studio", [{"key":"studio_id", "value":{"str": studioId}}, {"key":"endpoint", "value":{"str": endpoint}}, {"key":"remote_site_id", "value":{"str": remoteSiteId}}]);

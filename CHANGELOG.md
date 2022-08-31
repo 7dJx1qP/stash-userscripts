@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.14.0 Stash Userscripts Bundle
+#### Fixed
+- Fix userscripts interoperability when individually installed
+### 0.5.0 Stash Batch Query Edit
+### 0.4.0 Stash Batch Result Toggle
+### 0.5.0 Stash Batch Save
+### 0.4.0 Stash Batch Search
+### 0.3.0 Stash New Performer Filter Button
+### 0.2.0 Stash Open Media Player
+### 0.3.0 Stash Performer Audit Task Button
+### 0.2.0 Stash Performer Image Cropper
+### 0.2.0 Stash Performer Tagger Additions
+### 0.2.0 Stash Performer URL Searchbox
+### 0.2.0 Stash Scene Tagger Additions
+### 0.4.0 Stash Scene Tagger Colorizer
+### 0.3.0 Stash Scene Tagger Linkify
+### 0.2.0 Stash Set Stashbox Favorite Performers
+### 0.3.0 Stash StashID Input
+### 0.2.0 Stash Stats
+### 0.2.0 Stash Studio Image And Parent On Create
+
 ## 0.13.12 Stash Userscripts Bundle
 ### 0.3.3 Stash Batch Search
 #### Added

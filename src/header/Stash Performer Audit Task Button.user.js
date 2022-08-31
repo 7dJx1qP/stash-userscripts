@@ -2,7 +2,7 @@
 // @name        Stash Performer Audit Task Button
 // @namespace   %NAMESPACE%
 // @description Adds a button to the performers page to run the audit plugin task
-// @version     0.2.6
+// @version     0.3.0
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

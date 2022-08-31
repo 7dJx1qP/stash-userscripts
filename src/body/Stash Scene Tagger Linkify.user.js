@@ -13,7 +13,7 @@
         insertAfter,
         createElementFromHTML,
         xPathResultToArray,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     async function getPerformerByName(name) {
         const reqData = {

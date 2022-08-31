@@ -2,7 +2,7 @@
 // @name        Stash Batch Result Toggle
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Batch toggle scene tagger search result fields
-// @version     0.3.9
+// @version     0.4.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -25,7 +25,7 @@
         createElementFromHTML,
         updateTextInput,
         sortElementChildren,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     let running = false;
     const buttons = [];

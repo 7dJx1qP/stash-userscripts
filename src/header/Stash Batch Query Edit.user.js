@@ -2,7 +2,7 @@
 // @name        Stash Batch Query Edit
 // @namespace   %NAMESPACE%
 // @description Batch modify scene tagger search query
-// @version     0.4.5
+// @version     0.5.0
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

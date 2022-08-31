@@ -2,7 +2,7 @@
 // @name        Stash Stats
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Add stats to stats page
-// @version     0.1.5
+// @version     0.2.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -21,7 +21,7 @@
         getElementByXpath,
         getClosestAncestor,
         updateTextInput,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     function createStatElement(container, title, heading) {
         const statEl = document.createElement('div');

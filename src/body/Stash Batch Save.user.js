@@ -10,7 +10,7 @@
         getElementByXpath,
         getClosestAncestor,
         sortElementChildren,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     let running = false;
     const buttons = [];

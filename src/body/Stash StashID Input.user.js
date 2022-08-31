@@ -10,7 +10,7 @@
         getElementByXpath,
         getElementsByXpath,
         createElementFromHTML,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     async function updatePerformerStashIDs(performerId, stash_ids) {
         const reqData = {

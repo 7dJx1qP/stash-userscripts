@@ -2,7 +2,7 @@
 // @name        Stash New Performer Filter Button
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a button to the performers page to switch to a new performers filter
-// @version     0.2.5
+// @version     0.3.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -19,7 +19,7 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     stash.addEventListener('page:performers', function () {
         waitForElementClass("btn-toolbar", function () {

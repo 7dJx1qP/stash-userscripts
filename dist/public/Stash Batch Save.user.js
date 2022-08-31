@@ -2,7 +2,7 @@
 // @name        Stash Batch Save
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a batch save button to scenes tagger
-// @version     0.4.4
+// @version     0.5.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -21,7 +21,7 @@
         getElementByXpath,
         getClosestAncestor,
         sortElementChildren,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     let running = false;
     const buttons = [];

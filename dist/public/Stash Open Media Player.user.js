@@ -2,7 +2,7 @@
 // @name        Stash Open Media Player
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Open scene filepath links in an external media player. Requires userscript_functions stash plugin
-// @version     0.1.9
+// @version     0.2.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -21,7 +21,7 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     const MIN_REQUIRED_PLUGIN_VERSION = '0.4.0';
 

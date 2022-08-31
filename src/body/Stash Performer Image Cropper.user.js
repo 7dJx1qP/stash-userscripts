@@ -11,7 +11,7 @@
         waitForElementByXpath,
         getElementByXpath,
         reloadImg,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     const css = GM_getResourceText("IMPORTED_CSS");
     GM_addStyle(css);

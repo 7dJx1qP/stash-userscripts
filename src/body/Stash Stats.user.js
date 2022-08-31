@@ -10,7 +10,7 @@
         getElementByXpath,
         getClosestAncestor,
         updateTextInput,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     function createStatElement(container, title, heading) {
         const statEl = document.createElement('div');

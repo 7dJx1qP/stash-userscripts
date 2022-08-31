@@ -2,7 +2,7 @@
 // @name        Stash Batch Search
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a batch search button to scenes and performers tagger
-// @version     0.3.3
+// @version     0.4.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -24,7 +24,7 @@
         getElementByXpath,
         sortElementChildren,
         createElementFromHTML,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     let running = false;
     const buttons = [];

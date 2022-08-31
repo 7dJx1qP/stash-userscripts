@@ -10,7 +10,7 @@
         getElementByXpath,
         insertAfter,
         createElementFromHTML,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     stash.addEventListener('page:performers', function () {
         waitForElementClass("tagger-container", function () {

@@ -2,7 +2,7 @@
 // @name        Stash Performer URL Searchbox
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a search by performer url textbox to the performers page
-// @version     0.1.5
+// @version     0.2.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -19,7 +19,7 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     stash.addEventListener('page:performers', function () {
         waitForElementClass("btn-toolbar", function () {

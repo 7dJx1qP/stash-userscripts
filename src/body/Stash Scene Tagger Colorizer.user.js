@@ -13,7 +13,7 @@
         createElementFromHTML,
         updateTextInput,
         sortElementChildren,
-    } = window.stash;
+    } = unsafeWindow.stash;
 
     const DEFAULT_COLORS = {
         'green': '#0f9960',
