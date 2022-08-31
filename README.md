@@ -122,6 +122,8 @@ Pick and choose which userscript to install in the table below or install just `
 
 ## Stash Studio Image And Parent On Create
 
+![Scenes tagger](images/Stash%20Studio%20Image%20And%20Parent%20On%20Create/scenes-tagger.png?raw=true "Scenes tagger")
+
 # Userscript Functions Plugin
 
 This additional stash plugin is required by some userscripts for their functionality
