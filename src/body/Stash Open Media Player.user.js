@@ -13,7 +13,7 @@
     const MIN_REQUIRED_PLUGIN_VERSION = '0.4.0';
 
     function openMediaPlayerTask(path) {
-        stash.runPluginTask("userscript_functions", "Open in Media Player", {"key":"path", "value":{"str": path}});
+        stash.runPluginTask("userscript_functions", "Open in Media Player", {"key":"path", "value":{"str": decodeURI(path)}});
     }
 
     // scene filepath open with Media Player
