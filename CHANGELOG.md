@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.13.12 Stash Userscripts Bundle
+### 0.3.3 Stash Batch Search
+#### Added
+- Add configuration option for search delay
+
 ## 0.13.11 Stash Userscripts Bundle
 ### 0.2.4 Stash StashID Input
 #### Added

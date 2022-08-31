@@ -1,7 +1,8 @@
 (function() {
     'use strict';
 
-    const DELAY = 200;
+    const DEFAULT_DELAY = 200;
+    let delay = DEFAULT_DELAY;
 
     const {
         stash,
@@ -11,6 +12,7 @@
         waitForElementByXpath,
         getElementByXpath,
         sortElementChildren,
+        createElementFromHTML,
     } = window.stash;
 
     let running = false;
@@ -26,7 +28,7 @@
             else {
                 buttons.push(button);
             }
-            setTimeout(run, DELAY);
+            setTimeout(run, delay);
         }
         else {
             stop();
@@ -89,5 +91,47 @@
             el.classList.add('ml-3');
         }
     });
+
+    const batchSearchConfigId = 'batch-search-config';
+
+    stash.addEventListener('tagger:configuration', evt => {
+        const el = evt.detail;
+        if (!document.getElementById(batchSearchConfigId)) {
+            const configContainer = el.parentElement;
+            const batchSearchConfig = createElementFromHTML(`
+<div id="${batchSearchConfigId}" class="col-md-6 mt-4">
+<h5>Batch Search</h5>
+<div class="row">
+    <div class="align-items-center form-group col-md-12">
+        <div class="row">
+            <label title="" for="batch-search-delay" class="col-sm-2 col-form-label">Delay (ms)</label>
+            <div class="col-sm-10">
+                <input type="text" id="batch-search-delay" class="query-text-field bg-secondary text-white border-secondary form-control" data-default="${DEFAULT_DELAY}" placeholder="${DEFAULT_DELAY}">
+            </div>
+        </div>
+        <small class="form-text">Wait time in milliseconds between scene searches.</small>
+    </div>
+</div>
+</div>
+            `);
+            configContainer.appendChild(batchSearchConfig);
+            loadSettings();
+        }
+    });
+
+    async function loadSettings() {
+        for (const input of document.querySelectorAll(`#${batchSearchConfigId} input[type="text"]`)) {
+            input.value = await GM.getValue(input.id, input.dataset.default);
+            input.addEventListener('change', async () => {
+                let value = parseInt(input.value.trim())
+                if (isNaN(value)) {
+                    value = parseInt(input.dataset.default);
+                }
+                input.value = value;
+                delay = value;
+                await GM.setValue(input.id, value);
+            });
+        }
+    }
 
 })();
