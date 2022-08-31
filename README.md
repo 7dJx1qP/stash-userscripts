@@ -70,6 +70,8 @@ Pick and choose which userscript to install in the table below or install just `
 
 ![System settings](images/Stash%20Performer%20Audit%20Task%20Button/system-settings.png?raw=true "System settings")
 
+![Performers page](images/Stash%20Performer%20Audit%20Task%20Button/performers-page.png?raw=true "Performers page")
+
 ## Stash Performer Image Cropper
 
 ![Cropper](images/Stash%20Performer%20Image%20Cropper/performer-image-cropper.png?raw=true "Cropper")
@@ -85,6 +87,8 @@ Pick and choose which userscript to install in the table below or install just `
 ## Stash Scene Tagger Additions
 
 ![Config](images/Stash%20Scene%20Tagger%20Additions/config.png?raw=true "Config")
+
+![Scenes tagger](images/Stash%20Scene%20Tagger%20Additions/scenes-tagger.png?raw=true "Scenes tagger")
 
 ## Stash Scene Tagger Colorizer
 
@@ -103,6 +107,8 @@ Pick and choose which userscript to install in the table below or install just `
 ![Plugin tasks](images/Stash%20Set%20Stashbox%20Favorite%20Performers/plugin-tasks.png?raw=true "Plugin tasks")
 
 ![System settings](images/Stash%20Set%20Stashbox%20Favorite%20Performers/system-settings.png?raw=true "System settings")
+
+![Performers page](images/Stash%20Set%20Stashbox%20Favorite%20Performers/performers-page.png?raw=true "Performers page")
 
 ## Stash StashID Input
 
