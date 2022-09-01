@@ -134,10 +134,12 @@ mutation studioimageadd($input: StudioUpdateInput!) {
     variables = {
         "input": {
             "id": studio["id"],
-            "image": studio_data["images"][0]["url"],
+            "image": None,
             "parent_id": parent_id
         }
     }
+    if studio_data["images"]:
+        variables["input"]["image"] = studio_data["images"][0]["url"]
     call_graphql(query, variables)
 
 def get_studio(studio_id):

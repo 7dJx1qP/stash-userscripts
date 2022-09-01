@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.3 Userscript Functions Plugin
+### Fixed
+- Fix failing to set studio parent on create if studio has no image
+
 ## 0.15.3 Stash Userscripts Bundle
 ### 0.4.2 Stash Scene Tagger Colorizer
 #### Added
