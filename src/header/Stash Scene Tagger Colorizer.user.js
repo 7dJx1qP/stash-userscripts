@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Colorizer
 // @namespace   %NAMESPACE%
 // @description Colorize scene tagger match results to show matching and mismatching scene data.
-// @version     0.4.1
+// @version     0.4.2
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

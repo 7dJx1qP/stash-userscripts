@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.15.3 Stash Userscripts Bundle
+### 0.4.2 Stash Scene Tagger Colorizer
+#### Added
+- Add coloring for partial title matches
+
 ## 0.15.2 Stash Userscripts Bundle
 ### 0.4.1 Stash Scene Tagger Colorizer
 #### Changed

@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Colorizer
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Colorize scene tagger match results to show matching and mismatching scene data.
-// @version     0.4.1
+// @version     0.4.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -39,6 +39,119 @@
         'red': '#ff7373',
         'yellow': '#d9822b'
     };
+
+    function isAlphaNumeric(str) {
+        let code, i, len;
+
+        for (i = 0, len = str.length; i < len; i++) {
+            code = str.charCodeAt(i);
+            if (!(code > 47 && code < 58) && // numeric (0-9)
+                !(code > 64 && code < 91) && // upper alpha (A-Z)
+                !(code > 96 && code < 123)) { // lower alpha (a-z)
+                return false;
+            }
+        }
+        return true;
+    };
+
+    const findCommon = (str1 = '', str2 = '') => {
+        const s1 = [...str1].filter(isAlphaNumeric);
+        const s2 = [...str2].filter(isAlphaNumeric);
+        const arr = Array(s2.length + 1).fill(null).map(() => {
+           return Array(s1.length + 1).fill(null);
+        });
+        for (let j = 0; j <= s1.length; j += 1) {
+           arr[0][j] = 0;
+        }
+        for (let i = 0; i <= s2.length; i += 1) {
+           arr[i][0] = 0;
+        }
+        let len = 0;
+        let col = 0;
+        let row = 0;
+        for (let i = 1; i <= s2.length; i += 1) {
+           for (let j = 1; j <= s1.length; j += 1) {
+              if (s1[j - 1] === s2[i - 1]) {
+                 arr[i][j] = arr[i - 1][j - 1] + 1;
+              }
+              else {
+                 arr[i][j] = 0;
+              }
+              if (arr[i][j] > len) {
+                 len = arr[i][j];
+                 col = j;
+                 row = i;
+              }
+           }
+        }
+        if (len === 0) {
+           return '';
+        }
+        let res = '';
+        while (arr[row][col] > 0) {
+           res = s1[col - 1] + res;
+           row -= 1;
+           col -= 1;
+        }
+        return res;
+     };
+
+    function getMatchIndex(a, b) {
+        const re = new RegExp('(' + b.split('').join('[^a-zA-Z\d]*?') + ')', 'i');
+        const match = a.match(re);
+        let matchedText = null,
+            start = null,
+            end = null;
+        if (match) {
+            matchedText = match[0];
+            start = match.index;
+            end = match.index + matchedText.length;
+        }
+        return {
+            matchedText,
+            start,
+            end
+        };
+    }
+
+    function colorCommonText(element, title, commonText) {
+        const {
+            matchedText,
+            start,
+            end
+        } = getMatchIndex(title, commonText);
+        if (matchedText) {
+            colorNode(element, title, start, end);
+        }
+        else {
+            element.style.color = COLORS.red;
+        }
+    }
+
+    function colorNode(element, title, start, end) {
+        if (start === 0 && end === title.length) {
+            element.style.color = COLORS.green;
+        }
+        else {
+            element.innerHTML = '';
+            if (start) {
+                const substring1 = document.createElement('span');
+                substring1.style.color = COLORS.red;
+                substring1.innerText = title.substring(0, start);
+                element.appendChild(substring1);
+            }
+            const substring2 = document.createElement('span');
+            substring2.innerText = title.substring(start, end);
+            substring2.style.color = COLORS.green;
+            element.appendChild(substring2);
+            if (end < title.length) {
+                const substring3 = document.createElement('span');
+                substring3.innerText = title.substring(end);
+                substring3.style.color = COLORS.red;
+                element.appendChild(substring3);
+            }
+        }
+    }
 
     function colorizeSearchItem(searchItem) {
         const searchResultItem = searchItem.querySelector('li.search-result.selected-result.active');
@@ -81,8 +194,18 @@
         if (includeTitle && titleNode) {
             titleNode.firstChild.style.color = COLORS.yellow;
             if (data?.title) {
-                titleNode.firstChild.style.color = titleNode.innerText === data.title ? COLORS.green : COLORS.red;
+                if (titleNode.innerText === data.title) {
+                    titleNode.firstChild.style.color = COLORS.green;
+                    nameNode.style.color = COLORS.green;
+                }
+                else {
+                    const commonText = findCommon(data.title.toLowerCase(), remoteData.title.toLowerCase());
+
+                    colorCommonText(nameNode, data.title, commonText);
+                    colorCommonText(titleNode.firstChild, remoteData.title, commonText);
+                }
             }
+
         }
 
         if (includeDate && dateNode) {
