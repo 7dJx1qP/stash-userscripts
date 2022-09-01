@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.15.0 Stash Userscripts Bundle
+### 0.1.0 Stash Performer Markers Tab
+#### Added
+- Add userscript
+
 ## 0.14.0 Stash Userscripts Bundle
 #### Fixed
 - Fix userscripts interoperability when individually installed

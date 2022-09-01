@@ -24,6 +24,7 @@ Pick and choose which userscript to install in the table below or install just `
 | Stash Open Media Player  | Open filepath link on scene page 'File Info' tab in an external media player when clicked  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Open%20Media%20Player.user.js?raw=1)  |
 | Stash Performer Audit Task Button  |  Adds a button to the performers page to check for duplicate performer urls. Task output shown in stash logs  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20Audit%20Task%20Button.user.js?raw=1)  |
 | Stash Performer Image Cropper  |  Adds ability to crop performer image from performer page  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20Image%20Cropper.user.js?raw=1)  |
+| Stash Performer Markers Tab  |  Adds a Markers link to performer pages  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20Markers%20Tab.user.js?raw=1)  |
 | Stash Performer Tagger Additions  |  Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20Tagger%20Additions.user.js?raw=1)  |
 | Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20URL%20Searchbox.user.js?raw=1)  |
 | Stash Scene Tagger Additions  |  Adds scene duration, filepath, and url to tagger view in the collapsible scene details sections. Adds shift-click to collapsible scene details buttons to open/close all. |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Additions.user.js?raw=1)  |
@@ -75,6 +76,10 @@ Pick and choose which userscript to install in the table below or install just `
 ## Stash Performer Image Cropper
 
 ![Cropper](images/Stash%20Performer%20Image%20Cropper/performer-image-cropper.png?raw=true "Cropper")
+
+## Stash Performer Markers Tab
+
+![Performer page](images/Stash%20Performer%20Markers%20Tab/performer-page.png?raw=true "Performer page")
 
 ## Stash Performer Tagger Additions
 
