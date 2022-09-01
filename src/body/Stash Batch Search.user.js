@@ -121,7 +121,8 @@
 
     async function loadSettings() {
         for (const input of document.querySelectorAll(`#${batchSearchConfigId} input[type="text"]`)) {
-            input.value = await GM.getValue(input.id, input.dataset.default);
+            input.value = parseInt(await GM.getValue(input.id, input.dataset.default));
+            delay = input.value;
             input.addEventListener('change', async () => {
                 let value = parseInt(input.value.trim())
                 if (isNaN(value)) {

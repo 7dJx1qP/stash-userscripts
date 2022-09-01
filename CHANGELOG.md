@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.1 Stash Userscripts Bundle
+### 0.4.1 Stash Batch Search
+#### Fixed
+- Fix delay value not used
+- Fix missing userscript permission grants
+
 ## 0.15.0 Stash Userscripts Bundle
 ### 0.1.0 Stash Performer Markers Tab
 #### Added

@@ -2,10 +2,12 @@
 // @name        Stash Batch Search
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a batch search button to scenes and performers tagger
-// @version     0.4.0
+// @version     0.4.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
+// @grant       GM.getValue
+// @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
@@ -132,7 +134,8 @@
 
     async function loadSettings() {
         for (const input of document.querySelectorAll(`#${batchSearchConfigId} input[type="text"]`)) {
-            input.value = await GM.getValue(input.id, input.dataset.default);
+            input.value = parseInt(await GM.getValue(input.id, input.dataset.default));
+            delay = input.value;
             input.addEventListener('change', async () => {
                 let value = parseInt(input.value.trim())
                 if (isNaN(value)) {
