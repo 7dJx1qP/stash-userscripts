@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Colorizer
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Colorize scene tagger match results to show matching and mismatching scene data.
-// @version     0.4.0
+// @version     0.4.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -123,22 +123,22 @@
         } of matches) {
             const subNode = matchNode.querySelector('b');
             const nodeToColor = subNode.firstChild.nodeType === Node.TEXT_NODE ? subNode : subNode.firstChild;
-            let matched = false;
+            let matchColor = COLORS.yellow;
             if (matchType === 'performer') {
                 const performer = data?.performers?.find(performer => performer.id === matchData.stored_id);
                 if (performer) {
-                    matched = true;
+                    matchColor = COLORS.green;
                     const performerTag = performerTags.find(performerTag => performerTag.innerText === performer.name);
                     if (performerTag) {
                         performerTag.style.backgroundColor = COLORS.green;
                     }
                 }
             }
-            else if (matchType === 'studio' && data?.studio?.id === matchData.stored_id) {
-                matched = true;
+            else if (matchType === 'studio' && data?.studio?.id) {
+                matchColor = data?.studio?.id === matchData.stored_id ? COLORS.green : COLORS.red;
             }
             if ((includeStudio && matchType === 'studio') || (includePerformers && matchType === 'performer')) {
-                nodeToColor.style.color = matched ? COLORS.green : COLORS.red;
+                nodeToColor.style.color = matchColor;
             }
         }
 

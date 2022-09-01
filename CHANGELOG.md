@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.15.2 Stash Userscripts Bundle
+### 0.4.1 Stash Scene Tagger Colorizer
+#### Changed
+- Change studio and performer colorize to use missing color when appropriate
+
 ## 0.15.1 Stash Userscripts Bundle
 ### 0.4.1 Stash Batch Search
 #### Fixed
