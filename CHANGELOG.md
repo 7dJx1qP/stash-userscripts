@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.15.5 Stash Userscripts Bundle
+### 0.3.1 Stash Scene Tagger Linkify
+#### Fixed
+- Fix studio not linkifying when created from scene tagger
+
 ## 0.15.4 Stash Userscripts Bundle
 ### 0.4.0 Stash StashID Input
 #### Added
