@@ -43,7 +43,7 @@
 
     async function getStudioByName(name) {
         const reqData = {
-            "operationName": "FindPerformers",
+            "operationName": "FindStudios",
             "variables": {
                 "studio_filter": {
                   "name": {

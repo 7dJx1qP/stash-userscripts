@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Linkify
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Turn all scene tagger result text referencing stash or stashbox studio and performer names into clickable links
-// @version     0.3.0
+// @version     0.3.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -56,7 +56,7 @@
 
     async function getStudioByName(name) {
         const reqData = {
-            "operationName": "FindPerformers",
+            "operationName": "FindStudios",
             "variables": {
                 "studio_filter": {
                   "name": {
