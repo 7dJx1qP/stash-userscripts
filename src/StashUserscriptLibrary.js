@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.27.0
+// version 0.28.0
 
 (function () {
     'use strict';
@@ -199,6 +199,7 @@
                 this.remoteScenes = {};
                 this.scenes = {};
                 this.performers = {};
+                this.userscripts = [];
             }
             comparePluginVersion(minPluginVersion) {
                 let [currMajor, currMinor, currPatch = 0] = this.pluginVersion.split('.').map(i => parseInt(i));
@@ -636,22 +637,24 @@
                 return this.runPluginTask("userscript_functions", "Update Config Value", [{"key":"section_key", "value":{"str": sectionKey}}, {"key":"prop_name", "value":{"str": propName}}, {"key":"value", "value":{"str": value}}]);
             }
             async getConfigValueTask(sectionKey, propName) {
-                const reqTime = Date.now();
-
                 await this.runPluginTask("userscript_functions", "Get Config Value", [{"key":"section_key", "value":{"str": sectionKey}}, {"key":"prop_name", "value":{"str": propName}}]);
 
+                // poll logs until plugin task output appears
+                const prefix = `[Plugin / Userscript Functions] get_config_value: [${sectionKey}][${propName}] =`;
+                return this.pollLogsForMessage(prefix);
+            }
+            async pollLogsForMessage(prefix) {
+                const reqTime = Date.now();
                 const reqData = {
                     "variables": {},
                     "query": `query Logs {
-          logs {
-            time
-            level
-            message
-          }
-        }`
+                        logs {
+                            time
+                            level
+                            message
+                        }
+                    }`
                 };
-
-                // poll logs until plugin task output appears
                 await new Promise(r => setTimeout(r, 500));
                 let retries = 0;
                 while (true) {
@@ -659,7 +662,6 @@
                     await new Promise(r => setTimeout(r, delay));
                     retries++;
         
-                    const prefix = `[Plugin / Userscript Functions] get_config_value: [${sectionKey}][${propName}] =`
                     const logs = await this.callGQL(reqData);
                     for (const log of logs.data.logs) {
                         const logTime = Date.parse(log.time);
@@ -669,7 +671,7 @@
                     }
 
                     if (retries >= 5) {
-                        throw 'Get config value failed.';
+                        throw `Poll logs failed for message: ${prefix}`;
                     }
                 }
             }

@@ -2,7 +2,7 @@
 // @name        Stash StashID Input
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds input for entering new stash id to performer details page and studio page
-// @version     0.3.0
+// @version     0.4.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -174,6 +174,27 @@ fragment StudioData on Studio {
         }
     }
 
+    function createDownloadButton(studioId, endpoint, remoteSiteId) {
+        const downloadBtn = document.createElement('button');
+        downloadBtn.title = 'Download studio image and set parent studio';
+        downloadBtn.innerHTML = `<svg class="svg-inline--fa" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="#FFFFFF" d="M152 120c-26.51 0-48 21.49-48 48s21.49 48 48 48s48-21.49 48-48S178.5 120 152 120zM447.1 32h-384C28.65 32-.0091 60.65-.0091 96v320c0 35.35 28.65 64 63.1 64h384c35.35 0 64-28.65 64-64V96C511.1 60.65 483.3 32 447.1 32zM463.1 409.3l-136.8-185.9C323.8 218.8 318.1 216 312 216c-6.113 0-11.82 2.768-15.21 7.379l-106.6 144.1l-37.09-46.1c-3.441-4.279-8.934-6.809-14.77-6.809c-5.842 0-11.33 2.529-14.78 6.809l-75.52 93.81c0-.0293 0 .0293 0 0L47.99 96c0-8.822 7.178-16 16-16h384c8.822 0 16 7.178 16 16V409.3z"/></svg>`
+        downloadBtn.classList.add('btn', 'btn-secondary', 'btn-sm', 'minimal', 'ml-1');
+        downloadBtn.addEventListener('click', downloadImageHandler(studioId, endpoint, remoteSiteId));
+        return downloadBtn;
+    }
+
+    function downloadImageHandler(studioId, endpoint, remoteSiteId) {
+        return evt => {
+            if (!confirm(`Download studio image and set parent studio?`)) return;
+            const callback = () => {
+                document.body.style.cursor = 'auto';
+                window.location.reload();
+            }
+            document.body.style.cursor = 'wait';
+            stash.dispatchEvent(new CustomEvent('userscript_functions:update_studio', { 'detail': { studioId, endpoint, remoteSiteId, callback, errCallback: callback } }));
+        }
+    }
+
     stash.addEventListener('page:performer:details', function () {
         waitForElementId('performer-details-tabpane-details', async function (elementId, el) {
             if (!document.getElementById('update-stashids-endpoint')) {
@@ -325,6 +346,11 @@ fragment StudioData on Studio {
 
                         const copyBtn = createCopyButton(copyTooltip, stash_id);
                         row.appendChild(copyBtn);
+
+                        if (stash.userscripts.indexOf('Stash Studio Image And Parent On Create') !== -1) {
+                            const downloadBtn = createDownloadButton(studioId, endpoint, stash_id);
+                            row.appendChild(downloadBtn);
+                        }
                     }
                 });
             }

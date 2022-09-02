@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.15.4 Stash Userscripts Bundle
+### 0.4.0 Stash StashID Input
+#### Added
+- Add studio page button to download studio image and set parent studio if `Stash Studio Image And Parent On Create` userscript is installed
+
+### 0.3.0 Stash Studio Image And Parent On Create
+#### Added
+- Add support for studio page button added by `Stash StashID Input` userscript to download studio image and set parent studio
+
+## 0.5.4 Userscript Functions Plugin
+### Added
+- Log when studio update task finishes which can be detected by the `Stash Studio Image And Parent On Create` userscript to trigger an automatic page refresh
+
 ## 0.5.3 Userscript Functions Plugin
 ### Fixed
 - Fix failing to set studio parent on create if studio has no image

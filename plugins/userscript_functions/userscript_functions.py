@@ -43,6 +43,7 @@ elif name == 'update_studio':
     remote_site_id = json_input['args']['remote_site_id']
     log.debug(f"{name}: {studio_id} {endpoint} {remote_site_id}")
     update_studio_from_stashbox(studio_id, endpoint, remote_site_id)
+    log.debug(f"{name}: Done.")
 elif name == 'audit_performer_urls':
     try:
         db = StashDatabase(get_database_path())
