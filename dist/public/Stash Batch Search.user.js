@@ -2,7 +2,7 @@
 // @name        Stash Batch Search
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a batch search button to scenes and performers tagger
-// @version     0.4.1
+// @version     0.4.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -30,10 +30,12 @@
 
     let running = false;
     const buttons = [];
+    let maxCount = 0;
 
     function run() {
         if (!running) return;
         const button = buttons.pop();
+        stash.setProgress((maxCount - buttons.length) / maxCount * 100);
         if (button) {
             if (!button.disabled) {
                 button.click();
@@ -69,12 +71,14 @@
         btn.classList.remove('btn-primary');
         btn.classList.add('btn-danger');
         running = true;
+        stash.setProgress(0);
         buttons.length = 0;
         for (const button of document.querySelectorAll('.btn.btn-primary')) {
             if (button.innerText === 'Search') {
                 buttons.push(button);
             }
         }
+        maxCount = buttons.length;
         run();
     }
 
@@ -83,6 +87,7 @@
         btn.classList.remove('btn-danger');
         btn.classList.add('btn-primary');
         running = false;
+        stash.setProgress(0);
     }
 
     stash.addEventListener('page:performers', function () {

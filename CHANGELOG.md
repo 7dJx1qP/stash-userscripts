@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.15.6 Stash Userscripts Bundle
+### 0.3.1 Stash Scene Tagger Linkify
+#### Added
+- Add progress bar for batch operations
+### 0.5.1 Stash Batch Query Edit
+### 0.4.1 Stash Batch Result Toggle
+### 0.5.1 Stash Batch Save
+### 0.4.2 Stash Batch Search
+
 ## 0.15.5 Stash Userscripts Bundle
 ### 0.3.1 Stash Scene Tagger Linkify
 #### Fixed

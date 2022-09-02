@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.28.0
+// version 0.28.1
 
 (function () {
     'use strict';
@@ -729,10 +729,24 @@
                     for (const searchItem of document.querySelectorAll('.search-item')) {
                         this.dispatchEvent(new CustomEvent('tagger:searchitem', { 'detail': searchItem }));
                     }
+
+                    if (!document.getElementById('progress-bar')) {
+                        const progressBar = createElementFromHTML(`<div id="progress-bar" class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div>`);
+                        progressBar.classList.add('progress');
+                        progressBar.style.display = 'none';
+                        taggerContainerHeader.appendChild(progressBar);
+                    }
                 });
                 waitForElementByXpath("//div[@class='tagger-container-header']/div/div[@class='row']/h4[text()='Configuration']", (xpath, el) => {
                     this.dispatchEvent(new CustomEvent('tagger:configuration', { 'detail': el }));
                 });
+            }
+            setProgress(value) {
+                const progressBar = document.getElementById('progress-bar');
+                if (progressBar) {
+                    progressBar.firstChild.style.width = value + '%';
+                    progressBar.style.display = (value <= 0 || value > 100) ? 'none' : 'flex';
+                }
             }
             processRemoteScenes(data) {
                 if (data.data?.scrapeMultiScenes) {

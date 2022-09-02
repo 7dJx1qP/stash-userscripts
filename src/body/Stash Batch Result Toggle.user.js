@@ -16,6 +16,7 @@
 
     let running = false;
     const buttons = [];
+    let maxCount = 0;
 
     function resolveToggle(el) {
         let button = null;
@@ -105,6 +106,7 @@
     function run() {
         if (!running) return;
         const button = buttons.pop();
+        stash.setProgress((maxCount - buttons.length) / maxCount * 100);
         if (button) {
             const searchItem = getClosestAncestor(button, '.search-item');
             let toggleMode = 0;
@@ -195,12 +197,14 @@
         btnOff.disabled = true;
         btn.disabled = false;
         running = true;
+        stash.setProgress(0);
         buttons.length = 0;
         for (const button of document.querySelectorAll('.btn.btn-primary')) {
             if (button.innerText === 'Search') {
                 buttons.push(button);
             }
         }
+        maxCount = buttons.length;
         run();
     }
 
@@ -209,6 +213,7 @@
         btn.classList.remove('btn-danger');
         btn.classList.add('btn-primary');
         running = false;
+        stash.setProgress(0);
         btnMixed.disabled = false;
         btnOn.disabled = false;
         btnOff.disabled = false;

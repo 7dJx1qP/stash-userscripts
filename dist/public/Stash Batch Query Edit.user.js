@@ -2,7 +2,7 @@
 // @name        Stash Batch Query Edit
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Batch modify scene tagger search query
-// @version     0.5.0
+// @version     0.5.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -30,10 +30,12 @@
 
     let running = false;
     const buttons = [];
+    let maxCount = 0;
 
     function run(videoExtensions) {
         if (!running) return;
         const button = buttons.pop();
+        stash.setProgress((maxCount - buttons.length) / maxCount * 100);
         if (button) {
             const searchItem = getClosestAncestor(button, '.search-item');
             const {
@@ -110,12 +112,14 @@
         btn.classList.remove('btn-primary');
         btn.classList.add('btn-danger');
         running = true;
+        stash.setProgress(0);
         buttons.length = 0;
         for (const button of document.querySelectorAll('.btn.btn-primary')) {
             if (button.innerText === 'Search') {
                 buttons.push(button);
             }
         }
+        maxCount = buttons.length;
         const reqData = {
             "variables": {},
             "query": `query Configuration {
@@ -136,6 +140,7 @@
         btn.classList.remove('btn-danger');
         btn.classList.add('btn-primary');
         running = false;
+        stash.setProgress(0);
     }
 
     stash.addEventListener('tagger:mutations:header', evt => {
