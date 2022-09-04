@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.15.7 Stash Userscripts Bundle
+### 0.2.1 Stash Performer Image Cropper
+#### Changed
+- Change initial aspect ratio of crop box to 2:3 to match aspect ratio of performer cards
+
 ## 0.15.6 Stash Userscripts Bundle
 ### 0.3.1 Stash Scene Tagger Linkify
 #### Added

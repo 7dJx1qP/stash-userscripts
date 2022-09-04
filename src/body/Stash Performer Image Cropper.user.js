@@ -47,6 +47,7 @@
     
                     cropper = new Cropper(image, {
                         viewMode: 1,
+                        initialAspectRatio: 2 /3,
                         movable: false,
                         rotatable: false,
                         scalable: false,

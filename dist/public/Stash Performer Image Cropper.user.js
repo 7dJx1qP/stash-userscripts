@@ -2,7 +2,7 @@
 // @name        Stash Performer Image Cropper
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds an image cropper to performer page
-// @version     0.2.0
+// @version     0.2.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
@@ -62,6 +62,7 @@
     
                     cropper = new Cropper(image, {
                         viewMode: 1,
+                        initialAspectRatio: 2 /3,
                         movable: false,
                         rotatable: false,
                         scalable: false,
