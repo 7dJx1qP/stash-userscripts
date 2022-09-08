@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.28.1
+// version 0.29.0
 
 (function () {
     'use strict';
@@ -183,6 +183,7 @@
                     this.processRemoteScenes(evt.detail);
                     this.processScenes(evt.detail);
                     this.processPerformers(evt.detail);
+                    this.processApiKey(evt.detail);
                     this.dispatchEvent(new CustomEvent('stash:response', { 'detail': evt.detail }));
                 });
                 stashListener.addEventListener('pluginVersion', (evt) => {
@@ -202,6 +203,7 @@
                 this.userscripts = [];
             }
             comparePluginVersion(minPluginVersion) {
+                if (!this.pluginVersion) return -1;
                 let [currMajor, currMinor, currPatch = 0] = this.pluginVersion.split('.').map(i => parseInt(i));
                 let [minMajor, minMinor, minPatch = 0] = minPluginVersion.split('.').map(i => parseInt(i));
                 if (currMajor > minMajor) return 1;
@@ -295,6 +297,20 @@
                 };
                 return this.callGQL(reqData);
             }
+            async getApiKey() {
+                const reqData = {
+                    "operationName": "Configuration",
+                    "variables": {},
+                    "query": `query Configuration {
+                        configuration {
+                          general {
+                            apiKey
+                          }
+                        }
+                      }`
+                };
+                return this.callGQL(reqData);
+            }
             matchUrl(location, fragment) {
                 const regexp = concatRegexp(new RegExp(location.origin), fragment);
                 this.log.debug(regexp, location.href.match(regexp));
@@ -310,6 +326,9 @@
                         section.innerHTML = `<h1>Userscript Settings</h1>`;
                         el.appendChild(section);
 
+                        const expectedApiKey = (await this.getApiKey())?.data?.configuration?.general?.apiKey || '';
+                        const expectedUrl = window.location.origin;
+
                         const serverUrlInput = await this.createSystemSettingTextbox(section, 'userscript-section-server-url', 'userscript-server-url', 'Stash Server URL', '', 'Server URL…', true);
                         serverUrlInput.addEventListener('change', () => {
                             const value = serverUrlInput.value || '';
@@ -324,8 +343,11 @@
                             }
                         });
                         serverUrlInput.disabled = true;
+                        serverUrlInput.value = expectedUrl;
                         this.getConfigValueTask('STASH', 'url').then(value => {
-                            serverUrlInput.value = value || '';
+                            if (value !== expectedUrl) {
+                                return this.updateConfigValueTask('STASH', 'url', expectedUrl);
+                            }
                         });
 
                         const apiKeyInput = await this.createSystemSettingTextbox(section, 'userscript-section-server-apikey', 'userscript-server-apikey', 'Stash API Key', '', 'API Key…', true);
@@ -340,8 +362,11 @@
                             }
                         });
                         apiKeyInput.disabled = true;
+                        apiKeyInput.value = expectedApiKey;
                         this.getConfigValueTask('STASH', 'api_key').then(value => {
-                            apiKeyInput.value = value || '';
+                            if (value !== expectedApiKey) {
+                                return this.updateConfigValueTask('STASH', 'api_key', expectedApiKey);
+                            }
                         });
                     }
                     else {
@@ -774,6 +799,11 @@
                     for (const performer of data.data.findPerformers.performers) {
                         this.performers[performer.id] = performer;
                     }
+                }
+            }
+            processApiKey(data) {
+                if (data.data.generateAPIKey != null && this.pluginVersion) {
+                    this.updateConfigValueTask('STASH', 'api_key', data.data.generateAPIKey);
                 }
             }
             parseSearchItem(searchItem) {

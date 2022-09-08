@@ -143,13 +143,15 @@ This additional stash plugin is required by some userscripts for their functiona
 
 Copy the whole folder [`userscript_functions`](https://github.com/7dJx1qP/stash-userscripts/tree/master/plugins/userscript_functions) to your stash `plugins` folder.
 
-Update `config.ini` in the `userscript_functions` folder with your stash URL.
-
 `pip install requests pystashlib`
 
-Plugin settings aside from the server URL and server api key can be updated from within the Stash settings under the System tab:
+Plugin settings can be updated from within the Stash settings under the System tab. The stash url and api key settings are automatically set for you when the system settings page is loaded.
 
 ![System settings](images/Userscript%20Functions%20Plugin/system-settings.png?raw=true "System settings")
+
+* The stash url is determined by the userscript based on the current page url you use to access stash.
+
+* The stash api key value is fully managed by the userscript. If you generate or clear your api key, the userscript will update the plugin `config.ini` api key value.
 
 Plugin tasks:
 

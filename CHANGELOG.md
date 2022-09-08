@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.15.8 Stash Userscripts Bundle
+#### Added
+- Add automatic updating of userscript functions plugin `config.ini` stash url and apikey values
+
 ## 0.15.7 Stash Userscripts Bundle
 ### 0.2.1 Stash Performer Image Cropper
 #### Changed
