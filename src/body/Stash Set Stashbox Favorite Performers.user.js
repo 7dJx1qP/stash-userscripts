@@ -65,10 +65,15 @@
             performers = data.data.bulkPerformerUpdate.filter(performer => performer?.stash_ids?.length);
         }
         if (performers) {
-            for (const performer of performers) {
-                for (const { endpoint, stash_id } of performer.stash_ids) {
-                    runSetStashBoxFavoritePerformerTask(endpoint, stash_id, performer.favorite);
+            if (performers.length <= 10) {
+                for (const performer of performers) {
+                    for (const { endpoint, stash_id } of performer.stash_ids) {
+                        runSetStashBoxFavoritePerformerTask(endpoint, stash_id, performer.favorite);
+                    }
                 }
+            }
+            else {
+                runSetStashBoxFavoritePerformersTask();
             }
         }
     });

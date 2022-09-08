@@ -2,7 +2,7 @@
 // @name        Stash Set Stashbox Favorite Performers
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Set Stashbox favorite performers according to stash favorites. Requires userscript_functions stash plugin
-// @version     0.2.0
+// @version     0.2.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -78,10 +78,15 @@
             performers = data.data.bulkPerformerUpdate.filter(performer => performer?.stash_ids?.length);
         }
         if (performers) {
-            for (const performer of performers) {
-                for (const { endpoint, stash_id } of performer.stash_ids) {
-                    runSetStashBoxFavoritePerformerTask(endpoint, stash_id, performer.favorite);
+            if (performers.length <= 10) {
+                for (const performer of performers) {
+                    for (const { endpoint, stash_id } of performer.stash_ids) {
+                        runSetStashBoxFavoritePerformerTask(endpoint, stash_id, performer.favorite);
+                    }
                 }
+            }
+            else {
+                runSetStashBoxFavoritePerformersTask();
             }
         }
     });

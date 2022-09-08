@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.15.9 Stash Userscripts Bundle
+### 0.2.1 Stash Set Stashbox Favorite Performers
+#### Changed
+- Change to run the `Set Stashbox Favorite Performers` task if more than 10 performers are batch edited. Previously the `Set Stashbox Favorite Performer` task would be run individually for each performer
+
 ## 0.15.8 Stash Userscripts Bundle
 #### Added
 - Add automatic updating of userscript functions plugin `config.ini` stash url and apikey values
