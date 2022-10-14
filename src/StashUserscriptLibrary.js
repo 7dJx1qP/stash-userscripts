@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.29.0
+// version 0.29.1
 
 (function () {
     'use strict';
@@ -17,8 +17,13 @@
             // response interceptor here
             const contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
-                const data = await response.clone().json();
-                stashListener.dispatchEvent(new CustomEvent('response', { 'detail': data }));
+                try {
+                    const data = await response.clone().json();
+                    stashListener.dispatchEvent(new CustomEvent('response', { 'detail': data }));
+                }
+                catch (e) {
+
+                }
             }
             return response;
         };
@@ -272,7 +277,7 @@
             }
             async getPluginVersion(plugins) {
                 let version = null;
-                for (const plugin of plugins.data.plugins) {
+                for (const plugin of plugins?.data?.plugins || []) {
                     if (plugin.id === 'userscript_functions') {
                         version = plugin.version;
                     }
