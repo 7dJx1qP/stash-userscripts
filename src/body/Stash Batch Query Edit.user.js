@@ -35,6 +35,7 @@
             const includePerformers = document.querySelector('input[name="query-edit-include-performers"]:checked').value;
             const includeTitle = document.getElementById('query-edit-include-title').checked;
             const applyBlacklist = document.getElementById('query-edit-apply-blacklist').checked;
+            const useStashID = document.getElementById('query-edit-use-stashid').checked;
 
             const videoExtensionRegexes = videoExtensions.map(s => [new RegExp(`.${s}$`, "gi"), '']);
             const blacklist = [];
@@ -56,16 +57,22 @@
             }, s)
 
             const queryData = [];
-            if (data.date && includeDate) queryData.push(data.date);
-            if (data.studio && includeStudio) queryData.push(filterBlacklist(data.studio.name, blacklist));
-            if (data.performers && includePerformers !== 'none') {
-                for (const performer of data.performers) {
-                    if (includePerformers === 'all' || (includePerformers === 'female-only' && performer.gender.toUpperCase() === 'FEMALE')) {
-                        queryData.push(filterBlacklist(performer.name, blacklist));
+            const stashId = data.stash_ids[0]?.stash_id;
+            if (useStashID && stashId) {
+                queryData.push(stashId);
+            }
+            else {
+                if (data.date && includeDate) queryData.push(data.date);
+                if (data.studio && includeStudio) queryData.push(filterBlacklist(data.studio.name, blacklist));
+                if (data.performers && includePerformers !== 'none') {
+                    for (const performer of data.performers) {
+                        if (includePerformers === 'all' || (includePerformers === 'female-only' && performer.gender.toUpperCase() === 'FEMALE')) {
+                            queryData.push(filterBlacklist(performer.name, blacklist));
+                        }
                     }
                 }
+                if (data.title && includeTitle) queryData.push(filterBlacklist(data.title, videoExtensionRegexes.concat(blacklist)));
             }
-            if (data.title && includeTitle) queryData.push(filterBlacklist(data.title, videoExtensionRegexes.concat(blacklist)));
 
             const queryValue = queryData.join(' ');
             updateTextInput(queryInput, queryValue);
@@ -186,6 +193,13 @@
             <label title="" for="query-edit-apply-blacklist" class="form-check-label">Apply Blacklist</label>
         </div>
         <small class="form-text">Toggle whether blacklist is applied to query.</small>
+    </div>
+    <div class="align-items-center form-group">
+        <div class="form-check">
+            <input type="checkbox" id="query-edit-use-stashid" class="form-check-input" data-default="false">
+            <label title="" for="query-edit-use-stashid" class="form-check-label">Use StashID</label>
+        </div>
+        <small class="form-text">Toggle whether query is set to StashID if scene has one.</small>
     </div>
 </div>
 </div>

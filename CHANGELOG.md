@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.16.0 Stash Userscripts Bundle
+### 0.6.0 Stash Batch Query Edit
+#### Added
+- Add `Use StashID` configuration option to set query to scene's stashid if it has one
+
 ## 0.15.9 Stash Userscripts Bundle
 ### 0.2.1 Stash Set Stashbox Favorite Performers
 #### Changed
