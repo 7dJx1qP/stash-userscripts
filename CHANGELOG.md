@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.18.0 Stash Userscripts Bundle
+### 0.1.0 Stash Scene Tagger Draft Submit
+#### Added
+- Add userscript
+
 ## 0.17.1 Stash Userscripts Bundle
 ### 0.1.1 Stash StashID Icon
 #### Added

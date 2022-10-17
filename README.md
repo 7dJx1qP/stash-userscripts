@@ -29,6 +29,7 @@ Pick and choose which userscript to install in the table below or install just `
 | Stash Performer URL Searchbox  | Adds a performer URL search textbox to performers page for quicker searching by performer URL |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20URL%20Searchbox.user.js?raw=1)  |
 | Stash Scene Tagger Additions  |  Adds scene duration, filepath, and url to tagger view in the collapsible scene details sections. Adds shift-click to collapsible scene details buttons to open/close all. |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Additions.user.js?raw=1)  |
 | Stash Scene Tagger Colorizer  | In Scene Tagger, colorize scrape results. Matching fields are green, missing fields are yellow, and mismatching fields are red  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Colorizer.user.js?raw=1)  |
+| Stash Scene Tagger Draft Submit  | Adds button to Scene Tagger to submit draft to stashdb |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Draft%20Submit.user.js?raw=1)  |
 | Stash Scene Tagger Linkify  | Turn all scene tagger result text referencing stash or stashbox studio and performer names into clickable links |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Linkify.user.js?raw=1)  |
 | Stash Set Stashbox Favorite Performers  | Sync Stashbox favorite performers whenever a stash performer is favorited or unfavorited. Also adds button to performers page to sync all |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Set%20Stashbox%20Favorite%20Performers.user.js?raw=1)  |
 | Stash StashID Icon  | Adds checkmark icon to performer and studio cards that have a stashid |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20StashID%20Icon.user.js?raw=1)  |
@@ -101,6 +102,10 @@ Pick and choose which userscript to install in the table below or install just `
 ![Config](images/Stash%20Scene%20Tagger%20Colorizer/config.png?raw=true "Config")
 
 ![Scenes tagger](images/Stash%20Scene%20Tagger%20Colorizer/scenes-tagger.png?raw=true "Scenes tagger")
+
+## Stash Scene Tagger Draft Submit
+
+![Scenes tagger](images/Stash%20Scene%20Tagger%20Draft%20Submit/scenes-tagger.png?raw=true "Scenes tagger")
 
 ## Stash Scene Tagger Linkify
 
