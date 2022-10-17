@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.29.1
+// version 0.30.0
 
 (function () {
     'use strict';
@@ -186,7 +186,9 @@
                         this.getPluginVersion(evt.detail);
                     }
                     this.processRemoteScenes(evt.detail);
+                    this.processScene(evt.detail);
                     this.processScenes(evt.detail);
+                    this.processStudios(evt.detail);
                     this.processPerformers(evt.detail);
                     this.processApiKey(evt.detail);
                     this.dispatchEvent(new CustomEvent('stash:response', { 'detail': evt.detail }));
@@ -204,6 +206,7 @@
                 this.settingsId = 'userscript-settings';
                 this.remoteScenes = {};
                 this.scenes = {};
+                this.studios = {};
                 this.performers = {};
                 this.userscripts = [];
             }
@@ -792,10 +795,22 @@
                     }
                 }
             }
+            processScene(data) {
+                if (data.data.findScene) {
+                    this.scenes[data.data.findScene.id] = data.data.findScene;
+                }
+            }
             processScenes(data) {
                 if (data.data.findScenes?.scenes) {
                     for (const scene of data.data.findScenes.scenes) {
                         this.scenes[scene.id] = scene;
+                    }
+                }
+            }
+            processStudios(data) {
+                if (data.data.findStudios?.studios) {
+                    for (const studio of data.data.findStudios.studios) {
+                        this.studios[studio.id] = studio;
                     }
                 }
             }

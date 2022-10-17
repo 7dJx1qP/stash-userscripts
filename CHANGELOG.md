@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.17.0 Stash Userscripts Bundle
+### 0.1.0 Stash StashID Icon
+#### Added
+- Add userscript
+
 ## 0.16.0 Stash Userscripts Bundle
 ### 0.6.0 Stash Batch Query Edit
 #### Added

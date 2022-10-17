@@ -31,6 +31,7 @@ Pick and choose which userscript to install in the table below or install just `
 | Stash Scene Tagger Colorizer  | In Scene Tagger, colorize scrape results. Matching fields are green, missing fields are yellow, and mismatching fields are red  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Colorizer.user.js?raw=1)  |
 | Stash Scene Tagger Linkify  | Turn all scene tagger result text referencing stash or stashbox studio and performer names into clickable links |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Linkify.user.js?raw=1)  |
 | Stash Set Stashbox Favorite Performers  | Sync Stashbox favorite performers whenever a stash performer is favorited or unfavorited. Also adds button to performers page to sync all |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Set%20Stashbox%20Favorite%20Performers.user.js?raw=1)  |
+| Stash StashID Icon  | Adds checkmark icon to performer and studio cards that have a stashid |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20StashID%20Icon.user.js?raw=1)  |
 | Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry. Also displays studio stashids on studio page without having to click edit to view |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20StashID%20Input.user.js?raw=1)  |
 | Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Stats.user.js?raw=1)  |
 | Stash Studio Image And Parent On Create | In Scene Tagger, sets studio image and parent studio from StashDB when a studio is created  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Studio%20Image%20And%20Parent%20On%20Create.user.js?raw=1)  |
@@ -114,6 +115,14 @@ Pick and choose which userscript to install in the table below or install just `
 ![System settings](images/Stash%20Set%20Stashbox%20Favorite%20Performers/system-settings.png?raw=true "System settings")
 
 ![Performers page](images/Stash%20Set%20Stashbox%20Favorite%20Performers/performers-page.png?raw=true "Performers page")
+
+## Stash StashID Icon
+
+![Performer page](images/Stash%20StashID%20Icon/performer-page.png?raw=true "Performer page")
+
+![Studio page](images/Stash%20StashID%20Icon/studio-page.png?raw=true "Studio page")
+
+![Studio page](images/Stash%20StashID%20Icon/scene-page.png?raw=true "Scene page")
 
 ## Stash StashID Input
 
