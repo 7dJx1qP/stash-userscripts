@@ -2,7 +2,7 @@
 // @name        Stash StashID Icon
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds checkmark icon to performer and studio cards that have a stashid
-// @version     0.1.0
+// @version     0.1.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -118,6 +118,12 @@
     stash.addEventListener('page:studios', function () {
         waitForElementClass("studio-card", function () {
             addStudioStashIDIcons(stash.studios);
+        });
+    });
+
+    stash.addEventListener('page:studio:performers', function () {
+        waitForElementClass("performer-card", function () {
+            addPerformerStashIDIcons(stash.performers);
         });
     });
 })();

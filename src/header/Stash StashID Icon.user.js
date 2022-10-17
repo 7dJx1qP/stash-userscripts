@@ -2,7 +2,7 @@
 // @name        Stash StashID Icon
 // @namespace   %NAMESPACE%
 // @description Adds checkmark icon to performer and studio cards that have a stashid
-// @version     0.1.0
+// @version     0.1.1
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

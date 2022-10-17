@@ -108,4 +108,10 @@
             addStudioStashIDIcons(stash.studios);
         });
     });
+
+    stash.addEventListener('page:studio:performers', function () {
+        waitForElementClass("performer-card", function () {
+            addPerformerStashIDIcons(stash.performers);
+        });
+    });
 })();
