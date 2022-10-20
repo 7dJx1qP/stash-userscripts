@@ -45,14 +45,16 @@
     function addPerformerStashIDIcons(performerDatas) {
         for (const performerCard of document.querySelectorAll('.performer-card')) {
             const performerLink = performerCard.querySelector('.thumbnail-section > a');
-            const performerUrl = performerLink.href;
-            const performerId = performerUrl.split('/').pop();
-            const performerData = performerDatas[performerId];
-            if (performerData?.stash_ids.length) {
-                const el = createElementFromHTML(`<div class="peformer-stashid-icon" title="Has StashID">`);
-                el.appendChild(createCheckmarkElement());
-
-                performerLink.appendChild(el);
+            if (performerLink) {
+                const performerUrl = performerLink.href;
+                const performerId = performerUrl.split('/').pop();
+                const performerData = performerDatas[performerId];
+                if (performerData?.stash_ids.length) {
+                    const el = createElementFromHTML(`<div class="peformer-stashid-icon" title="Has StashID">`);
+                    el.appendChild(createCheckmarkElement());
+    
+                    performerLink.appendChild(el);
+                }
             }
         }
     }
