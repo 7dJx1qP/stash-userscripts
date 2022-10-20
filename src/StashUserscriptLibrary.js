@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.31.0
+// version 0.32.0
 
 (function () {
     'use strict';
@@ -199,6 +199,8 @@
                         this.dispatchEvent(new CustomEvent('stash:pluginVersion', { 'detail': evt.detail }));
                     }
                 });
+                this.version = [0, 0, 0];
+                this.getVersion();
                 this.pluginVersion = null;
                 this.getPlugins().then(plugins => this.getPluginVersion(plugins));
                 this.visiblePluginTasks = ['Userscript Functions'];
@@ -209,6 +211,31 @@
                 this.studios = {};
                 this.performers = {};
                 this.userscripts = [];
+            }
+            async getVersion() {
+                const reqData = {
+                    "operationName": "",
+                    "variables": {},
+                    "query": `query version {
+    version {
+        version
+    }
+}
+`
+                };
+                const data = await this.callGQL(reqData);
+                const versionString = data.data.version.version;
+                this.version = versionString.substring(1).split('.').map(o => parseInt(o));
+            }
+            compareVersion(minVersion) {
+                let [currMajor, currMinor, currPatch = 0] = this.version;
+                let [minMajor, minMinor, minPatch = 0] = minVersion.split('.').map(i => parseInt(i));
+                if (currMajor > minMajor) return 1;
+                if (currMajor < minMajor) return -1;
+                if (currMinor > minMinor) return 1;
+                if (currMinor < minMinor) return -1;
+                return 0;
+
             }
             comparePluginVersion(minPluginVersion) {
                 if (!this.pluginVersion) return -1;
