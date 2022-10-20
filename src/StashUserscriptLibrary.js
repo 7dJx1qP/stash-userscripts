@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.30.0
+// version 0.31.0
 
 (function () {
     'use strict';
@@ -16,7 +16,7 @@
             const response = await originalFetch(resource, config);
             // response interceptor here
             const contentType = response.headers.get("content-type");
-            if (contentType && contentType.indexOf("application/json") !== -1) {
+            if (contentType && contentType.indexOf("application/json") !== -1 && resource.endsWith('/graphql')) {
                 try {
                     const data = await response.clone().json();
                     stashListener.dispatchEvent(new CustomEvent('response', { 'detail': data }));
