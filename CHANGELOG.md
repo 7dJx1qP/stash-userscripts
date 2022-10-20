@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.19.1 Stash Userscripts Bundle
+### 0.2.1 Stash Open Media Player
+#### Fixed
+- Fix error when opening filepaths containing %'s or #'s with VLC
+
 ## 0.19.0 Stash Userscripts Bundle
 ### 0.3.0 Stash Performer Tagger Additions
 #### Fixed

@@ -13,7 +13,12 @@
     const MIN_REQUIRED_PLUGIN_VERSION = '0.4.0';
 
     function openMediaPlayerTask(path) {
-        stash.runPluginTask("userscript_functions", "Open in Media Player", {"key":"path", "value":{"str": decodeURI(path)}});
+        // fixes decodeURI breaking on %'s because they are not encoded
+        const encodedPctPath = path.replace(/%([^\d].)/, "%25$1");
+        // decode encoded path but then encode % and # otherwise VLC breaks
+        const encodedPath = decodeURI(encodedPctPath).replaceAll('%', '%25').replaceAll('#', '%23');
+
+        stash.runPluginTask("userscript_functions", "Open in Media Player", {"key":"path", "value":{"str": encodedPath}});
     }
 
     // scene filepath open with Media Player
