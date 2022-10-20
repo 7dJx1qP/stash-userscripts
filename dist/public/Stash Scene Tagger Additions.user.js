@@ -2,7 +2,7 @@
 // @name        Stash Scene Tagger Additions
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds scene duration and filepath to tagger view.
-// @version     0.2.0
+// @version     0.3.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -81,9 +81,10 @@
             });
             originalSceneDetails.firstChild.firstChild.appendChild(pathNode);
         }
-        
-        if (!originalSceneDetails.firstChild.firstChild.querySelector('.scene-duration') && data.file.duration) {
-            const durationNode = createElementFromHTML(`<span class="scene-duration">Duration: ${formatDuration(data.file.duration)}</span>`);
+
+        const duration = stash.compareVersion("0.17.0") >= 0 ? data.files[0].duration : data.file.duration;
+        if (!originalSceneDetails.firstChild.firstChild.querySelector('.scene-duration') && duration) {
+            const durationNode = createElementFromHTML(`<span class="scene-duration">Duration: ${formatDuration(duration)}</span>`);
             durationNode.style.display = includeDuration ? 'block' : 'none';
             durationNode.style.fontWeight = 500;
             durationNode.style.color = '#fff';

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.19.0 Stash Userscripts Bundle
+### 0.3.0 Stash Performer Tagger Additions
+#### Fixed
+- Fix duration display to work with stash v0.17.0 files refactor update
+
+### 0.1.2 Stash StashID Icon
+#### Fixed
+- Fix error when switching to performer tagger view
+
 ## 0.18.0 Stash Userscripts Bundle
 ### 0.1.0 Stash Scene Tagger Draft Submit
 #### Added
