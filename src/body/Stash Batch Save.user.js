@@ -39,7 +39,9 @@
 
     function processSceneUpdate(evt) {
         if (running && evt.detail.data?.sceneUpdate?.id === sceneId) {
-            run();
+            setTimeout(() => {
+                run();
+            }, 0)
         }
     }
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.19.2 Stash Userscripts Bundle
+### 0.5.2 Stash Batch Save
+#### Fixed
+- Fix half of saved fingerprints missing from "Submit Fingerprints"
+
 ## 0.19.1 Stash Userscripts Bundle
 ### 0.2.1 Stash Open Media Player
 #### Fixed

@@ -2,7 +2,7 @@
 // @name        Stash Batch Save
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a batch save button to scenes tagger
-// @version     0.5.1
+// @version     0.5.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -50,7 +50,9 @@
 
     function processSceneUpdate(evt) {
         if (running && evt.detail.data?.sceneUpdate?.id === sceneId) {
-            run();
+            setTimeout(() => {
+                run();
+            }, 0)
         }
     }
 
