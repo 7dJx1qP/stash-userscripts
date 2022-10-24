@@ -9,7 +9,7 @@
 // @grant       unsafeWindow
 // @grant       GM_getResourceText
 // @grant       GM_addStyle
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
 // @require     https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.js
 // ==/UserScript==
 
@@ -37,7 +37,6 @@
 
     stash.addEventListener('page:tag:scenes', function () {
         waitForElementId('tag-tabs-tab-scenes', function () {
-            console.log('tag page x');
             const cropBtnContainerId = "crop-btn-container";
             if (!document.getElementById(cropBtnContainerId)) {
                 const tagId = window.location.pathname.replace('/tags/', '').split('/')[0];
