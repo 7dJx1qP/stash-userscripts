@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.20.0 Stash Userscripts Bundle
+### 0.1.0 Stash Tag Image Cropper
+#### Added
+- Add userscript
+
 ## 0.19.2 Stash Userscripts Bundle
 ### 0.5.2 Stash Batch Save
 #### Fixed

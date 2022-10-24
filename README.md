@@ -36,6 +36,7 @@ Pick and choose which userscript to install in the table below or install just `
 | Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry. Also displays studio stashids on studio page without having to click edit to view |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20StashID%20Input.user.js?raw=1)  |
 | Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Stats.user.js?raw=1)  |
 | Stash Studio Image And Parent On Create | In Scene Tagger, sets studio image and parent studio from StashDB when a studio is created  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Studio%20Image%20And%20Parent%20On%20Create.user.js?raw=1)  |
+| Stash Tag Image Cropper  |  Adds ability to crop tag image from tag page  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Tag%20Image%20Cropper.user.js?raw=1)  |
 
 # Screenshots
 
@@ -142,6 +143,10 @@ Pick and choose which userscript to install in the table below or install just `
 ## Stash Studio Image And Parent On Create
 
 ![Scenes tagger](images/Stash%20Studio%20Image%20And%20Parent%20On%20Create/scenes-tagger.png?raw=true "Scenes tagger")
+
+## Stash Tag Image Cropper
+
+![Cropper](images/Stash%20Tag%20Image%20Cropper/tag-image-cropper.png?raw=true "Cropper")
 
 # Userscript Functions Plugin
 
