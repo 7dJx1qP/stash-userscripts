@@ -35,6 +35,8 @@
                 cropBtnContainer.setAttribute("id", cropBtnContainerId);
                 image.parentElement.parentElement.appendChild(cropBtnContainer);
     
+                const cropInfo = document.createElement('p');
+
                 const imageUrl = getElementByXpath("//div[contains(@class, 'performer-image-container')]//img[@class='performer']/@src").nodeValue;
                 const cropStart = document.createElement('button');
                 cropStart.setAttribute("id", "crop-start");
@@ -56,6 +58,9 @@
                         zoomOnWheel: false,
                         ready() {
                             cropAccept.style.display = 'inline-block';
+                        },
+                        crop(e) {
+                            cropInfo.innerText = `X: ${Math.round(e.detail.x)}, Y: ${Math.round(e.detail.y)}, Width: ${Math.round(e.detail.width)}px, Height: ${Math.round(e.detail.height)}px`;
                         }
                     });
                 });
@@ -70,6 +75,7 @@
                     cropStart.style.display = 'inline-block';
                     cropAccept.style.display = 'none';
                     cropCancel.style.display = 'none';
+                    cropInfo.innerText = '';
     
                     const reqData = {
                         "operationName": "PerformerUpdate",
@@ -100,12 +106,15 @@
                     cropStart.style.display = 'inline-block';
                     cropAccept.style.display = 'none';
                     cropCancel.style.display = 'none';
+                    cropInfo.innerText = '';
     
                     cropper.destroy();
                 });
                 cropBtnContainer.appendChild(cropCancel);
                 cropAccept.style.display = 'none';
                 cropCancel.style.display = 'none';
+
+                cropBtnContainer.appendChild(cropInfo);
             }
         });
     });

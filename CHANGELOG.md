@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.20.1 Stash Userscripts Bundle
+### 0.2.2 Stash Performer Image Cropper
+#### Added
+- Add x,y,w,h crop box info
+
+### 0.1.1 Stash Tag Image Cropper
+#### Added
+- Add x,y,w,h crop box info
+
 ## 0.20.0 Stash Userscripts Bundle
 ### 0.1.0 Stash Tag Image Cropper
 #### Added
