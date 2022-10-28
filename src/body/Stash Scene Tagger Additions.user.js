@@ -55,18 +55,23 @@
             originalSceneDetails.firstChild.firstChild.appendChild(sceneUrlNode);
         }
 
-        if (!originalSceneDetails.firstChild.firstChild.querySelector('.scene-path') && data.path) {
-            const pathNode = createElementFromHTML(`<a href="#" class="scene-path">${data.path}</a>`);
-            pathNode.style.display = includePath ? 'block' : 'none';
-            pathNode.style.fontWeight = 500;
-            pathNode.style.color = '#fff';
-            pathNode.addEventListener('click', evt => {
-                evt.preventDefault();
-                if (stash.pluginVersion) {
-                    openMediaPlayerTask(data.path);
+        const paths = stash.compareVersion("0.17.0") >= 0 ? data.files.map(file => file.path) : [data.path];
+        if (!originalSceneDetails.firstChild.firstChild.querySelector('.scene-path')) {
+            for (const path of paths) {
+                if (path) {
+                    const pathNode = createElementFromHTML(`<a href="#" class="scene-path">${path}</a>`);
+                    pathNode.style.display = includePath ? 'block' : 'none';
+                    pathNode.style.fontWeight = 500;
+                    pathNode.style.color = '#fff';
+                    pathNode.addEventListener('click', evt => {
+                        evt.preventDefault();
+                        if (stash.pluginVersion) {
+                            openMediaPlayerTask(path);
+                        }
+                    });
+                    originalSceneDetails.firstChild.firstChild.appendChild(pathNode);
                 }
-            });
-            originalSceneDetails.firstChild.firstChild.appendChild(pathNode);
+            }
         }
 
         const duration = stash.compareVersion("0.17.0") >= 0 ? data.files[0].duration : data.file.duration;

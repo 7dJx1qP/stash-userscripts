@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.20.2 Stash Userscripts Bundle
+### 0.3.1 Stash Performer Tagger Additions
+#### Fixed
+- Fix filepath display to work with stash v0.17.0 files refactor update
+
 ## 0.20.1 Stash Userscripts Bundle
 ### 0.2.2 Stash Performer Image Cropper
 #### Added
