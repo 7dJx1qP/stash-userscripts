@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.21.0 Stash Userscripts Bundle
+### 0.1.0 Stash Markdown
+#### Added
+- Add userscript
+
 ## 0.20.2 Stash Userscripts Bundle
 ### 0.3.1 Stash Performer Tagger Additions
 #### Fixed

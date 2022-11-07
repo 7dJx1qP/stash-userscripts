@@ -20,6 +20,7 @@ Pick and choose which userscript to install in the table below or install just `
 | Stash Batch Result Toggle  | In Scene Tagger, adds button to toggle all stashdb scene match result fields. Saves clicks when you only want to save a few metadata fields. Instead of turning off every field, you batch toggle them off, then toggle on the ones you want  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Batch%20Result%20Toggle.user.js?raw=1)  |
 | Stash Batch Save  | In Scene Tagger, adds button to batch save all scenes. Opens a confirmation popup with clicked  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Batch%20Save.user.js?raw=1)  |
 | Stash Batch Search  | In Scene Tagger, adds button to batch search all scenes  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Batch%20Search.user.js?raw=1)  |
+| Stash Markdown  | Adds markdown parsing to tag description fields  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Markdown.user.js?raw=1)  |
 | Stash New Performer Filter Button  | Adds button to performers page to switch to a filter by new performers tagger view  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20New%20Performer%20Filter%20Button.user.js?raw=1)  |
 | Stash Open Media Player  | Open filepath link on scene page 'File Info' tab in an external media player when clicked  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Open%20Media%20Player.user.js?raw=1)  |
 | Stash Performer Audit Task Button  |  Adds a button to the performers page to check for duplicate performer urls. Task output shown in stash logs  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20Audit%20Task%20Button.user.js?raw=1)  |
@@ -59,6 +60,10 @@ Pick and choose which userscript to install in the table below or install just `
 ## Stash Batch Search
 
 ![Scenes tagger](images/Stash%20Batch%20Search/scenes-tagger.png?raw=true "Scenes tagger")
+
+## Stash Markdown
+
+![Tag description](images/Stash%20Markdown/tag-description.png?raw=true "Tag description")
 
 ## Stash New Performer Filter Button
 

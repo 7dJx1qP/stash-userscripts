@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.32.0
+// version 0.33.0
 
 (function () {
     'use strict';
@@ -650,6 +650,11 @@
                 else if (this.matchUrl(location, /\/tags\/\d+/)) {
                     this.log.debug('[Navigation] Tag Page');
                     this.dispatchEvent(new Event('page:tag'));
+                }
+                // tags any page
+                if (this.matchUrl(location, /\/tags\/\d+/)) {
+                    this.log.debug('[Navigation] Tag Page - Any');
+                    this.dispatchEvent(new Event('page:tag:any'));
                 }
                 // tags wall
                 else if (this.matchUrl(location, /\/tags\?/)) {

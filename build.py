@@ -58,6 +58,7 @@ def build():
 // @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.js
 // @require     https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
+// @require     https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.2/marked.min.js
 // @require     {locallibfile}
 //
 // **************************************************************************************************
@@ -87,6 +88,7 @@ def build():
 // @grant       GM.setValue
 // @require     https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.js
 // @require     https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
+// @require     https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.2/marked.min.js
 // @require     {distlibfile}
 //
 // **************************************************************************************************
