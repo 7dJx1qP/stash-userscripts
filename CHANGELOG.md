@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.21.1 Stash Userscripts Bundle
+### 0.1.1 Stash Markdown
+#### Fixed
+- Fix missing marked dependency in individual script
+
 ## 0.21.0 Stash Userscripts Bundle
 ### 0.1.0 Stash Markdown
 #### Added
