@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        Stash Markdown
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
-// @description Adds markdown parsing to tag description, studio and performer detail fields.
-// @version     0.1.1
+// @description Adds markdown parsing to tag description, studio and performer detail fields
+// @version     0.2.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
