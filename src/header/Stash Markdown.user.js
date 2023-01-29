@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        Stash Markdown
 // @namespace   %NAMESPACE%
-// @description Adds markdown parsing to tag description fields
-// @version     0.1.1
+// @description Adds markdown parsing to tag description, studio and performer detail fields
+// @version     0.2.0
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow
