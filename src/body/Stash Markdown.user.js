@@ -33,13 +33,13 @@
     });
 
     stash.addEventListener('page:performer:details', function () {
-        waitForElementByXpath("//dt[text()='Details']/following-sibling::dd[1]", function (xpath, el) {
+        waitForElementByXpath("//dl[@class='details-list']/dt[text()='Details']/following-sibling::dd[1]", function (xpath, el) {
             processMarkdown(el);
         });
     })
 
     function studioPageHandler() {
-        waitForElementByXpath("//dl[contains(@class, 'details-list')]/dd[2]", function (xpath, el) {
+        waitForElementByXpath("//dl[@class='details-list']/dt[text()='Details']/following-sibling::dd[1]", function (xpath, el) {
             processMarkdown(el);
         });
     }
