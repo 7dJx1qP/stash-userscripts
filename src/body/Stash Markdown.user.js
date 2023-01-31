@@ -31,4 +31,25 @@
             }
         });
     });
+
+    stash.addEventListener('page:performer:details', function () {
+        waitForElementByXpath("//dl[@class='details-list']/dt[text()='Details']/following-sibling::dd[1]", function (xpath, el) {
+            processMarkdown(el);
+        });
+    })
+
+    function studioPageHandler() {
+        waitForElementByXpath("//dl[@class='details-list']/dt[text()='Details']/following-sibling::dd[1]", function (xpath, el) {
+            processMarkdown(el);
+        });
+    }
+
+    // Studio details is visible regardless of chosen tab.
+    stash.addEventListener('page:studio:galleries', studioPageHandler);
+    stash.addEventListener('page:studio:images', studioPageHandler);
+    stash.addEventListener('page:studio:performers', studioPageHandler);
+    stash.addEventListener('page:studio:movies', studioPageHandler);
+    stash.addEventListener('page:studio:childstudios', studioPageHandler);
+    stash.addEventListener('page:studio:scenes', studioPageHandler);
+    stash.addEventListener('page:studio', studioPageHandler);
 })();
