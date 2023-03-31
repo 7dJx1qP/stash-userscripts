@@ -270,7 +270,7 @@
                 }
 
                 try {
-                    const res = await unsafeWindow.fetch('/graphql', options);
+                    const res = await unsafeWindow.fetch(document.querySelector("head > base").href+'graphql', options);
                     this.log.debug(res);
                     return res.json();
                 }
