@@ -1,5 +1,5 @@
 // Stash Userscript Library
-// Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
+// Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenever a page navigation change is detected
 // version 0.33.0
 
 (function () {
@@ -901,7 +901,8 @@
 
                 const metadataNode = searchResultItem.querySelector('.scene-metadata');
                 const titleNode = metadataNode.querySelector('h4 .optional-field .optional-field-content');
-                const dateNode = metadataNode.querySelector('h5 .optional-field .optional-field-content');
+                const studioCodeNode = metadataNode.querySelectorAll('h5 .optional-field .optional-field-content')[0];
+                const dateNode = metadataNode.querySelectorAll('h5 .optional-field .optional-field-content')[1];
 
                 const entityNodes = searchResultItem.querySelectorAll('.entity-name');
                 let studioNode = null;
@@ -957,6 +958,7 @@
                     detailsNode,
                     imageNode,
                     titleNode,
+                    studioCodeNode,
                     dateNode,
                     studioNode,
                     performerNodes,
