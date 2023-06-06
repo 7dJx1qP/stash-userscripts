@@ -901,8 +901,20 @@
 
                 const metadataNode = searchResultItem.querySelector('.scene-metadata');
                 const titleNode = metadataNode.querySelector('h4 .optional-field .optional-field-content');
-                const studioCodeNode = metadataNode.querySelectorAll('h5 .optional-field .optional-field-content')[0];
-                const dateNode = metadataNode.querySelectorAll('h5 .optional-field .optional-field-content')[1];
+
+                const h5OptionalFields = metadataNode.querySelectorAll('h5 .optional-field .optional-field-content')
+                let studioCodeNode = null;
+                let dateNode = null;
+                if(h5OptionalFields.length == 2){
+                    studioCodeNode = h5OptionalFields[0];
+                    dateNode =  h5OptionalFields[1];
+                }else if(h5OptionalFields.length == 1){
+                    if(h5OptionalFields[0].textContent.match(/\d{4}-\d{2}-\d{2}/)){
+                        dateNode = h5OptionalFields[0];
+                    }else{
+                        studioCodeNode = h5OptionalFields[0];
+                    }
+                }
 
                 const entityNodes = searchResultItem.querySelectorAll('.entity-name');
                 let studioNode = null;
