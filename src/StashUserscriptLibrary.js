@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenever a page navigation change is detected
-// version 0.33.0
+// version 0.33.1
 
 (function () {
     'use strict';
