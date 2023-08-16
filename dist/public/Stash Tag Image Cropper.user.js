@@ -2,7 +2,7 @@
 // @name        Stash Tag Image Cropper
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds an image cropper to tag page
-// @version     0.1.1
+// @version     0.1.2
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
@@ -40,7 +40,7 @@
             const cropBtnContainerId = "crop-btn-container";
             if (!document.getElementById(cropBtnContainerId)) {
                 const tagId = window.location.pathname.replace('/tags/', '').split('/')[0];
-                const image = getElementByXpath("//div[contains(@class, 'logo-container')]//img[@class='logo']");
+                const image = getElementByXpath("//div[contains(@class, 'detail-container')]//img[@class='logo']");
                 image.parentElement.addEventListener('click', (evt) => {
                     if (cropping) {
                         evt.preventDefault();
@@ -54,7 +54,7 @@
 
                 const cropInfo = document.createElement('p');
 
-                const imageUrl = getElementByXpath("//div[contains(@class, 'logo-container')]//img[@class='logo']/@src").nodeValue;
+                const imageUrl = getElementByXpath("//div[contains(@class, 'detail-container')]//img[@class='logo']/@src").nodeValue;
                 const cropStart = document.createElement('button');
                 cropStart.setAttribute("id", "crop-start");
                 cropStart.classList.add('btn', 'btn-primary');

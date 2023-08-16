@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.21.2 Stash Userscripts Bundle
+### 0.1.2 Stash Tag Image Cropper
+#### Fixed
+- Fix script to work with stash v0.22.0 ui details refactor
+
 ## 0.21.1 Stash Userscripts Bundle
 ### 0.1.1 Stash Markdown
 #### Fixed
