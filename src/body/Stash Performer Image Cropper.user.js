@@ -20,11 +20,11 @@
     let cropper = null;
 
     stash.addEventListener('page:performer', function () {
-        waitForElementId('performer-details-tab-details', function () {
+        waitForElementId('performer-edit', function () {
             const cropBtnContainerId = "crop-btn-container";
             if (!document.getElementById(cropBtnContainerId)) {
                 const performerId = window.location.pathname.replace('/performers/', '').split('/')[0];
-                const image = getElementByXpath("//div[contains(@class, 'performer-image-container')]//img[@class='performer']");
+                const image = getElementByXpath("//div[contains(@class, 'detail-header-image')]//img[@class='performer']");
                 image.parentElement.addEventListener('click', (evt) => {
                     if (cropping) {
                         evt.preventDefault();
@@ -33,11 +33,13 @@
                 })
                 const cropBtnContainer = document.createElement('div');
                 cropBtnContainer.setAttribute("id", cropBtnContainerId);
+                cropBtnContainer.style.marginLeft = '10px';
                 image.parentElement.parentElement.appendChild(cropBtnContainer);
-    
+                image.parentElement.parentElement.style.flexFlow = 'column';
+
                 const cropInfo = document.createElement('p');
 
-                const imageUrl = getElementByXpath("//div[contains(@class, 'performer-image-container')]//img[@class='performer']/@src").nodeValue;
+                const imageUrl = getElementByXpath("//div[contains(@class, 'detail-header-image')]//img[@class='performer']/@src").nodeValue;
                 const cropStart = document.createElement('button');
                 cropStart.setAttribute("id", "crop-start");
                 cropStart.classList.add('btn', 'btn-primary');
