@@ -30,7 +30,6 @@
 
     function run() {
         if (!running) return;
-        removeFPQueue()
         const button = buttons.pop();
         stash.setProgress((maxCount - buttons.length) / maxCount * 100);
         if (button) {
@@ -75,6 +74,7 @@
 
     function start() {
         if (!confirm("Are you sure you want to batch save?")) return;
+        hideSubmitFPButton()
         btn.innerHTML = stopLabel;
         btn.classList.remove('btn-primary');
         btn.classList.add('btn-danger');
@@ -84,6 +84,7 @@
         for (const button of document.querySelectorAll('.btn.btn-primary')) {
             if (button.innerText === 'Save') {
                 buttons.push(button);
+                hideSubmitFPButton()
             }
         }
         maxCount = buttons.length;
@@ -99,6 +100,7 @@
         stash.setProgress(0);
         sceneId = null;
         stash.removeEventListener('stash:response', processSceneUpdate);
+        setTimeout(removeFPQueue, 500)
     }
 
     stash.addEventListener('tagger:mutations:header', evt => {
@@ -117,11 +119,17 @@
         btn.style.display = saveButton ? 'inline-block' : 'none';
     }
 
+    const hideSubmitFPButton = () => {
+        const submitBtn = document.querySelector(".tagger-container-header>div>div.d-flex>button.ml-1")
+        if (submitBtn) submitBtn.style.display = "none"
+    }
+
     function removeFPQueue() {
       const DBNAME = "localforage"
       const STORENAME = "keyvaluepairs"
       const KEYNAME = "tagger"
-      
+      // hide submit button
+      hideSubmitFPButton()
       const getIDBData = (transaction) => new Promise ((resolve, reject) => {
         const result = transaction
           .objectStore(STORENAME)
