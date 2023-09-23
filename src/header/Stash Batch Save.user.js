@@ -8,4 +8,4 @@
 // @grant       unsafeWindow
 // @require     %LIBRARYPATH%
 // @require     %FILEPATH%
-// ==/UserScript==o
+// ==/UserScript==
