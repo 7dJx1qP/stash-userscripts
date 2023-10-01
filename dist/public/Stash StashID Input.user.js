@@ -121,13 +121,13 @@ fragment StudioData on Studio {
 
     function toUrl(string) {
         let url;
-        
+
         try {
             url = new URL(string);
         } catch (_) {
             return null;
         }
-    
+
         if (url.protocol === "http:" || url.protocol === "https:") return url;
         return null;
     }
@@ -196,9 +196,12 @@ fragment StudioData on Studio {
     }
 
     stash.addEventListener('page:performer:details', function () {
-        waitForElementId('performer-details-tabpane-details', async function (elementId, el) {
+        waitForElementId('performer-page', async function (elementId, el) {
             if (!document.getElementById('update-stashids-endpoint')) {
-                const detailsList = el.querySelector('.details-list');
+                const detailsPane = el.querySelector('.performer-head .col');
+                const detailsList = document.createElement('div');
+                detailsList.classList.add('row');
+                detailsPane.appendChild(detailsList);
                 const stashboxInputContainer = document.createElement('dt');
                 const stashboxInput = document.createElement('select');
                 stashboxInput.setAttribute('id', 'update-stashids-endpoint');
@@ -223,6 +226,7 @@ fragment StudioData on Studio {
                 stashIdInput.classList.add('query-text-field', 'bg-secondary', 'text-white', 'border-secondary', 'form-control');
                 stashIdInput.setAttribute('id', 'update-stashids');
                 stashIdInput.setAttribute('placeholder', 'Add StashID…');
+                stashIdInput.style.width="100%";
                 stashIdInput.addEventListener('change', () => {
                     const url = toUrl(stashIdInput.value);
                     let newEndpoint;
@@ -274,7 +278,7 @@ fragment StudioData on Studio {
     });
 
     stash.addEventListener('page:studio:scenes', function () {
-        waitForElementByXpath("//div[contains(@class, 'studio-details')]", async function (xpath, el) {
+        waitForElementByXpath("//div[contains(@class, 'studio-head')]", async function (xpath, el) {
             if (!document.getElementById('studio-stashids')) {
                 const container = document.createElement('div');
                 container.setAttribute('id', 'studio-stashids');
