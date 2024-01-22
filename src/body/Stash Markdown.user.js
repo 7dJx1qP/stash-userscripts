@@ -19,7 +19,9 @@
     }
 
     stash.addEventListener('page:tag:any', function () {
-        waitForElementByXpath("//div[contains(@class, 'logo-container')]/p", function (xpath, el) {
+        waitForElementByXpath("//span[contains(@class, 'detail-item-value') and contains(@class, 'description')]", function (xpath, el) {
+            el.style.display = 'block';
+            el.style.whiteSpace = 'initial';
             processMarkdown(el);
         });
     });

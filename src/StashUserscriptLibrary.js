@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.33.0
+// version 0.34.0
 
 (function () {
     'use strict';
@@ -16,7 +16,7 @@
             const response = await originalFetch(resource, config);
             // response interceptor here
             const contentType = response.headers.get("content-type");
-            if (contentType && contentType.indexOf("application/json") !== -1 && resource.endsWith('/graphql')) {
+            if (contentType && contentType.indexOf("application/json") !== -1 && typeof resource === "string" && resource.endsWith('/graphql')) {
                 try {
                     const data = await response.clone().json();
                     stashListener.dispatchEvent(new CustomEvent('response', { 'detail': data }));
@@ -886,14 +886,22 @@
                 const remoteData = this.remoteScenes[remoteId];
 
                 const sceneDetailNodes = searchResultItem.querySelectorAll('.scene-details .optional-field .optional-field-content');
-                let urlNode = null;
+                let urlNodes = [];
                 let detailsNode = null;
                 for (const sceneDetailNode of sceneDetailNodes) {
-                    if (remoteData?.url === sceneDetailNode.innerText) {
-                        urlNode = sceneDetailNode;
-                    }
-                    else if (remoteData?.details === sceneDetailNode.textContent) {
-                        detailsNode = sceneDetailNode;
+                    for (const sceneDetailNodeChild of sceneDetailNode.childNodes) {
+                        let bIsUrlNode = false;
+                        if (remoteData?.urls) {
+                            for (const remoteDataUrl of remoteData?.urls) {
+                                if (remoteDataUrl === sceneDetailNodeChild.innerText) {
+                                    urlNodes.push(sceneDetailNodeChild);
+                                    bIsUrlNode = true;
+                                }
+                            }
+                        }
+                        if (!bIsUrlNode && remoteData?.details === sceneDetailNodeChild.textContent) {
+                            detailsNode = sceneDetailNodeChild;
+                        }
                     }
                 }
 
@@ -922,13 +930,14 @@
                     const entityNode = matchNode.parentElement.querySelector('.entity-name');
 
                     const matchName = matchNode.querySelector('.optional-field-content b').innerText;
+                    const matchStoredId = matchNode.querySelector('a').href.split('/').pop();
                     const remoteName = entityNode.querySelector('b').innerText;
 
                     let data;
                     if (entityNode.innerText.startsWith('Performer:')) {
                         matchType = 'performer';
                         if (remoteData) {
-                            data = remoteData.performers.find(performer => performer.name === remoteName);
+                            data = remoteData.performers.find(performer => performer.stored_id === matchStoredId);
                         }
                     }
                     else if (entityNode.innerText.startsWith('Studio:')) {
@@ -953,7 +962,7 @@
                     remoteId,
                     remoteUrl,
                     remoteData,
-                    urlNode,
+                    urlNodes,
                     detailsNode,
                     imageNode,
                     titleNode,

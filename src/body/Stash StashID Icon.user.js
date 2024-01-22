@@ -15,11 +15,8 @@
     GM_addStyle(`
     .peformer-stashid-icon {
         position: absolute;
-        top: 10px;
-        right: 5px;
-    }
-    .favorite ~ .peformer-stashid-icon {
-        right: 42px;
+        bottom: .8rem;
+        left: .8rem;
     }
     .studio-stashid-icon {
         position: absolute;
@@ -53,7 +50,7 @@
                     const el = createElementFromHTML(`<div class="peformer-stashid-icon" title="Has StashID">`);
                     el.appendChild(createCheckmarkElement());
     
-                    performerLink.appendChild(el);
+                    performerLink.parentElement.appendChild(el);
                 }
             }
         }

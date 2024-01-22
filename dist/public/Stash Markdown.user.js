@@ -2,7 +2,7 @@
 // @name        Stash Markdown
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds markdown parsing to tag description fields
-// @version     0.1.1
+// @version     0.2.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -31,7 +31,9 @@
     }
 
     stash.addEventListener('page:tag:any', function () {
-        waitForElementByXpath("//div[contains(@class, 'logo-container')]/p", function (xpath, el) {
+        waitForElementByXpath("//span[contains(@class, 'detail-item-value') and contains(@class, 'description')]", function (xpath, el) {
+            el.style.display = 'block';
+            el.style.whiteSpace = 'initial';
             processMarkdown(el);
         });
     });

@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.6.0 Userscript Functions Plugin
+### Fixed
+- Updated plugin to work with Stash v0.24.3
+
+## 0.22.0 Stash Userscripts Bundle
+#### Fixed
+- Updated userscripts to work with Stash v0.24.3
+### 0.5.0 Stash Batch Result Toggle
+### 0.2.0 Stash Markdown
+### 0.3.0 Stash Performer Image Cropper
+### 0.5.0 Stash Scene Tagger Colorizer
+### 0.3.0 Stash Set Stashbox Favorite Performers
+### 0.2.0 Stash StashID Icon
+### 0.5.0 Stash StashID Input
+### 0.3.0 Stash Stats
+### 0.2.0 Stash Tag Image Cropper
+
+#### Removed
+- Removed obsolete userscripts
+### Stash Scene Tagger Linkify
+### Stash Studio Image And Parent On Create
+
 ## 0.21.1 Stash Userscripts Bundle
 ### 0.1.1 Stash Markdown
 #### Fixed

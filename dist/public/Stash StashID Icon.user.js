@@ -2,7 +2,7 @@
 // @name        Stash StashID Icon
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds checkmark icon to performer and studio cards that have a stashid
-// @version     0.1.2
+// @version     0.2.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -27,11 +27,8 @@
     GM_addStyle(`
     .peformer-stashid-icon {
         position: absolute;
-        top: 10px;
-        right: 5px;
-    }
-    .favorite ~ .peformer-stashid-icon {
-        right: 42px;
+        bottom: .8rem;
+        left: .8rem;
     }
     .studio-stashid-icon {
         position: absolute;
@@ -65,7 +62,7 @@
                     const el = createElementFromHTML(`<div class="peformer-stashid-icon" title="Has StashID">`);
                     el.appendChild(createCheckmarkElement());
     
-                    performerLink.appendChild(el);
+                    performerLink.parentElement.appendChild(el);
                 }
             }
         }

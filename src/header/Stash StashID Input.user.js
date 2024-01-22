@@ -2,7 +2,7 @@
 // @name        Stash StashID Input
 // @namespace   %NAMESPACE%
 // @description Adds input for entering new stash id to performer details page and studio page
-// @version     0.4.0
+// @version     0.5.0
 // @author      7dJx1qP
 // @match       %MATCHURL%
 // @grant       unsafeWindow

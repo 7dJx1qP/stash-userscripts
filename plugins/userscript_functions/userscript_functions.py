@@ -20,12 +20,14 @@ name = json_input['args']['name']
 
 configpath = os.path.join(pathlib.Path(__file__).parent.resolve(), 'config.ini')
 
-def get_database_path():
+def get_database_config():
     client = StashInterface(json_input["server_connection"])
-    result = client.callGraphQL("""query Configuration { configuration { general { databasePath } } }""")
+    result = client.callGraphQL("""query Configuration { configuration { general { databasePath, blobsPath, blobsStorage } } }""")
     database_path = result["configuration"]["general"]["databasePath"]
+    blobs_path = result["configuration"]["general"]["blobsPath"]
+    blobs_storage = result["configuration"]["general"]["blobsStorage"]
     log.debug(f"databasePath: {database_path}")
-    return database_path
+    return database_path, blobs_path, blobs_storage
 
 if name == 'explorer':
     path = json_input['args']['path']
@@ -46,7 +48,7 @@ elif name == 'update_studio':
     log.debug(f"{name}: Done.")
 elif name == 'audit_performer_urls':
     try:
-        db = StashDatabase(get_database_path())
+        db = StashDatabase(*get_database_config())
     except Exception as e:
         log.error(str(e))
         sys.exit(0)
@@ -74,7 +76,7 @@ elif name == 'get_config_value':
 elif name == 'favorite_performers_sync':
     endpoint = json_input['args']['endpoint']
     try:
-        db = StashDatabase(get_database_path())
+        db = StashDatabase(*get_database_config())
     except Exception as e:
         log.error(str(e))
         sys.exit(0)

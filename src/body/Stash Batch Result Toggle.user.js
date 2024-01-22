@@ -56,7 +56,7 @@
             remoteId,
             remoteUrl,
             remoteData,
-            urlNode: matchUrlNode,
+            urlNodes: matchUrlNodes,
             detailsNode,
             imageNode,
             titleNode,
@@ -84,7 +84,7 @@
         options.push(['date', includeDate, dateNode, resolveToggle(dateNode)]);
         options.push(['cover', includeCover, imageNode, resolveToggle(imageNode)]);
         options.push(['stashid', includeStashID, remoteUrlNode, resolveToggle(remoteUrlNode)]);
-        options.push(['url', includeURL, matchUrlNode, resolveToggle(matchUrlNode)]);
+        options.push(['url', includeURL, matchUrlNodes[0]?.parentElement, resolveToggle(matchUrlNodes[0]?.parentElement)]);
         options.push(['details', includeDetails, detailsNode, resolveToggle(detailsNode)]);
         options.push(['studio', includeStudio, studioMatchNode, resolveToggle(studioMatchNode)]);
         options = options.concat(performerMatchNodes.map(o => ['performer', includePerformers, o, resolveToggle(o)]));

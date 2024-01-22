@@ -15,16 +15,18 @@
 
     const css = GM_getResourceText("IMPORTED_CSS");
     GM_addStyle(css);
+    GM_addStyle(".cropper-view-box img { transition: none; }");
+    GM_addStyle(".detail-header-image { flex-direction: column; }");
 
     let cropping = false;
     let cropper = null;
 
     stash.addEventListener('page:performer', function () {
-        waitForElementId('performer-details-tab-details', function () {
+        waitForElementClass('detail-container', function () {
             const cropBtnContainerId = "crop-btn-container";
             if (!document.getElementById(cropBtnContainerId)) {
                 const performerId = window.location.pathname.replace('/performers/', '').split('/')[0];
-                const image = getElementByXpath("//div[contains(@class, 'performer-image-container')]//img[@class='performer']");
+                const image = getElementByXpath("//div[contains(@class, 'detail-header-image')]//img[@class='performer']");
                 image.parentElement.addEventListener('click', (evt) => {
                     if (cropping) {
                         evt.preventDefault();
@@ -37,7 +39,7 @@
     
                 const cropInfo = document.createElement('p');
 
-                const imageUrl = getElementByXpath("//div[contains(@class, 'performer-image-container')]//img[@class='performer']/@src").nodeValue;
+                const imageUrl = getElementByXpath("//div[contains(@class, 'detail-header-image')]//img[@class='performer']/@src").nodeValue;
                 const cropStart = document.createElement('button');
                 cropStart.setAttribute("id", "crop-start");
                 cropStart.classList.add('btn', 'btn-primary');

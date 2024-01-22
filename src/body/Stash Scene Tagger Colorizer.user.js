@@ -160,7 +160,7 @@
             remoteId,
             remoteUrl,
             remoteData,
-            urlNode: matchUrlNode,
+            urlNodes: matchUrlNodes,
             detailsNode,
             imageNode,
             titleNode,
@@ -216,10 +216,20 @@
             }
         }
 
-        if (includeURL && matchUrlNode) {
-            matchUrlNode.firstChild.style.color = COLORS.yellow;
-            if (data?.url) {
-                matchUrlNode.firstChild.style.color = matchUrlNode.innerText === data.url ? COLORS.green : COLORS.red;
+        if (includeURL && matchUrlNodes.length) {
+            for (const matchUrlNode of matchUrlNodes) {
+                matchUrlNode.firstChild.style.color = COLORS.yellow;
+            }
+            if (data?.urls) {
+                for (const matchUrlNode of matchUrlNodes) {
+                    for (const url of data.urls) {
+                        matchUrlNode.firstChild.style.color = COLORS.red;
+                        if (matchUrlNode.innerText === url) {
+                            matchUrlNode.firstChild.style.color = COLORS.green;
+                            break;
+                        }
+                    }
+                }
             }
         }
 
@@ -231,7 +241,7 @@
             matchNode,
             data: matchData
         } of matches) {
-            const subNode = matchNode.querySelector('b');
+            const subNode = matchNode.querySelector('b a');
             const nodeToColor = subNode.firstChild.nodeType === Node.TEXT_NODE ? subNode : subNode.firstChild;
             let matchColor = COLORS.yellow;
             if (matchType === 'performer') {

@@ -31,12 +31,10 @@ Pick and choose which userscript to install in the table below or install just `
 | Stash Scene Tagger Additions  |  Adds scene duration, filepath, and url to tagger view in the collapsible scene details sections. Adds shift-click to collapsible scene details buttons to open/close all. |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Additions.user.js?raw=1)  |
 | Stash Scene Tagger Colorizer  | In Scene Tagger, colorize scrape results. Matching fields are green, missing fields are yellow, and mismatching fields are red  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Colorizer.user.js?raw=1)  |
 | Stash Scene Tagger Draft Submit  | Adds button to Scene Tagger to submit draft to stashdb |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Draft%20Submit.user.js?raw=1)  |
-| Stash Scene Tagger Linkify  | Turn all scene tagger result text referencing stash or stashbox studio and performer names into clickable links |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Scene%20Tagger%20Linkify.user.js?raw=1)  |
 | Stash Set Stashbox Favorite Performers  | Sync Stashbox favorite performers whenever a stash performer is favorited or unfavorited. Also adds button to performers page to sync all |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Set%20Stashbox%20Favorite%20Performers.user.js?raw=1)  |
 | Stash StashID Icon  | Adds checkmark icon to performer and studio cards that have a stashid |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20StashID%20Icon.user.js?raw=1)  |
 | Stash StashID Input  | Adds input textboxes to performer detail and studio detail pages for stashid entry. Also displays studio stashids on studio page without having to click edit to view |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20StashID%20Input.user.js?raw=1)  |
 | Stash Stats  | Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Stats.user.js?raw=1)  |
-| Stash Studio Image And Parent On Create | In Scene Tagger, sets studio image and parent studio from StashDB when a studio is created  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Studio%20Image%20And%20Parent%20On%20Create.user.js?raw=1)  |
 | Stash Tag Image Cropper  |  Adds ability to crop tag image from tag page  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Tag%20Image%20Cropper.user.js?raw=1)  |
 
 # Screenshots
@@ -113,12 +111,6 @@ Pick and choose which userscript to install in the table below or install just `
 
 ![Scenes tagger](images/Stash%20Scene%20Tagger%20Draft%20Submit/scenes-tagger.png?raw=true "Scenes tagger")
 
-## Stash Scene Tagger Linkify
-
-![Config](images/Stash%20Scene%20Tagger%20Linkify/config.png?raw=true "Config")
-
-![Scenes tagger](images/Stash%20Scene%20Tagger%20Linkify/scenes-tagger.png?raw=true "Scenes tagger")
-
 ## Stash Set Stashbox Favorite Performers
 
 ![Plugin tasks](images/Stash%20Set%20Stashbox%20Favorite%20Performers/plugin-tasks.png?raw=true "Plugin tasks")
@@ -144,10 +136,6 @@ Pick and choose which userscript to install in the table below or install just `
 ## Stash Stats
 
 ![Stats page](images/Stash%20Stats/stats-page.png?raw=true "Stats page")
-
-## Stash Studio Image And Parent On Create
-
-![Scenes tagger](images/Stash%20Studio%20Image%20And%20Parent%20On%20Create/scenes-tagger.png?raw=true "Scenes tagger")
 
 ## Stash Tag Image Cropper
 

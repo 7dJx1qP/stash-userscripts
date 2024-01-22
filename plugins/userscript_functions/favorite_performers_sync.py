@@ -176,6 +176,7 @@ FROM performers a
 JOIN performer_stash_ids b
 ON a.id = b.performer_id
 WHERE a.favorite = 1""")])
+    log.info(f'Stashbox endpoint {endpoint}')
     log.info(f'Stash {len(stash_ids)} favorite performers')
     log.info(f'Fetching Stashbox favorite performers...')
     stashbox_stash_ids, performercounts = get_favorite_performers_from_stashbox(endpoint)

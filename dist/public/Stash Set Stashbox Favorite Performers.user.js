@@ -2,7 +2,7 @@
 // @name        Stash Set Stashbox Favorite Performers
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Set Stashbox favorite performers according to stash favorites. Requires userscript_functions stash plugin
-// @version     0.2.1
+// @version     0.3.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -25,7 +25,7 @@
         updateTextInput,
     } = unsafeWindow.stash;
 
-    const MIN_REQUIRED_PLUGIN_VERSION = '0.5.0';
+    const MIN_REQUIRED_PLUGIN_VERSION = '0.6.0';
 
     const TASK_NAME = 'Set Stashbox Favorite Performers';
     stash.visiblePluginTasks.push(TASK_NAME);
@@ -39,11 +39,13 @@
             alert('No Stashbox configured.');
         }
         for (const { endpoint } of data.data.configuration.general.stashBoxes) {
+            if (endpoint !== 'https://stashdb.org/graphql') continue;
             await stash.runPluginTask("userscript_functions", "Set Stashbox Favorite Performers", [{"key":"endpoint", "value":{"str": endpoint}}]);
         }
     }
 
     async function runSetStashBoxFavoritePerformerTask(endpoint, stashId, favorite) {
+        if (endpoint !== 'https://stashdb.org/graphql') return;
         return stash.runPluginTask("userscript_functions", "Set Stashbox Favorite Performer", [{"key":"endpoint", "value":{"str": endpoint}}, {"key":"stash_id", "value":{"str": stashId}}, {"key":"favorite", "value":{"b": favorite}}]);
     }
 
