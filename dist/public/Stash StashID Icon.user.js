@@ -7,7 +7,7 @@
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
 // @grant       GM_addStyle
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
 (function () {
