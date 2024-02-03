@@ -21,6 +21,7 @@ Pick and choose which userscript to install in the table below or install just `
 | Stash Batch Save  | In Scene Tagger, adds button to batch save all scenes. Opens a confirmation popup with clicked  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Batch%20Save.user.js?raw=1)  |
 | Stash Batch Search  | In Scene Tagger, adds button to batch search all scenes  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Batch%20Search.user.js?raw=1)  |
 | Stash Markdown  | Adds markdown parsing to tag description fields  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Markdown.user.js?raw=1)  |
+| Stash Markers Autoscroll  | Automatically scrolls markers page  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20Markers%20Autoscroll.user.js?raw=1)  |
 | Stash New Performer Filter Button  | Adds button to performers page to switch to a filter by new performers tagger view  |:x:|  [INSTALL USERSCRIPT](dist/public/Stash%20New%20Performer%20Filter%20Button.user.js?raw=1)  |
 | Stash Open Media Player  | Open filepath link on scene page 'File Info' tab in an external media player when clicked  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Open%20Media%20Player.user.js?raw=1)  |
 | Stash Performer Audit Task Button  |  Adds a button to the performers page to check for duplicate performer urls. Task output shown in stash logs  |:heavy_check_mark:|  [INSTALL USERSCRIPT](dist/public/Stash%20Performer%20Audit%20Task%20Button.user.js?raw=1)  |
@@ -62,6 +63,12 @@ Pick and choose which userscript to install in the table below or install just `
 ## Stash Markdown
 
 ![Tag description](images/Stash%20Markdown/tag-description.png?raw=true "Tag description")
+
+## Stash Markers Autoscroll
+
+![Scroll settings](images/Stash%20Markers%20Autoscroll/scroll-settings.png?raw=true "Scroll settings")
+
+Set scroll size and marker playback speed.
 
 ## Stash New Performer Filter Button
 
@@ -106,6 +113,8 @@ Pick and choose which userscript to install in the table below or install just `
 ![Config](images/Stash%20Scene%20Tagger%20Colorizer/config.png?raw=true "Config")
 
 ![Scenes tagger](images/Stash%20Scene%20Tagger%20Colorizer/scenes-tagger.png?raw=true "Scenes tagger")
+
+![Tag colors](images/Stash%20Scene%20Tagger%20Colorizer/tag-colors.png?raw=true "Tag colors")
 
 ## Stash Scene Tagger Draft Submit
 

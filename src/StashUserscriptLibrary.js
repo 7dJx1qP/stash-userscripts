@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.34.0
+// version 0.35.0
 
 (function () {
     'use strict';
@@ -13,6 +13,7 @@
         unsafeWindow.fetch = async (...args) => {
             let [resource, config ] = args;
             // request interceptor here
+            stashListener.dispatchEvent(new CustomEvent('request', { 'detail': config }));
             const response = await originalFetch(resource, config);
             // response interceptor here
             const contentType = response.headers.get("content-type");
@@ -192,6 +193,9 @@
                     this.processPerformers(evt.detail);
                     this.processApiKey(evt.detail);
                     this.dispatchEvent(new CustomEvent('stash:response', { 'detail': evt.detail }));
+                });
+                stashListener.addEventListener('request', (evt) => {
+                    this.dispatchEvent(new CustomEvent('stash:request', { 'detail': evt.detail }));
                 });
                 stashListener.addEventListener('pluginVersion', (evt) => {
                     if (this.pluginVersion !== evt.detail) {
@@ -770,6 +774,9 @@
                                 else if (node.tagName === 'DIV' && node?.classList?.contains('d-flex') && node?.classList?.contains('flex-column')) { // scene stashid, url, details
                                     this.dispatchEvent(new CustomEvent('tagger:mutation:add:detailscontainer', { 'detail': { node, mutation } }));
                                 }
+                                else if (node.tagName === 'DIV' && node?.classList?.contains('react-select__multi-value')) {
+                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:remotetag', { 'detail': { node, mutation } }));
+                                }
                                 else {
                                     this.dispatchEvent(new CustomEvent('tagger:mutation:add:other', { 'detail': { node, mutation } }));
                                 }
@@ -867,6 +874,7 @@
                 const name = nameNode.innerText;
                 const queryInput = searchItem.querySelector('input.text-input');
                 const performerNodes = searchItem.querySelectorAll('.performer-tag-container');
+                const tagNodes = searchItem.querySelectorAll('.original-scene-details div.col.col-lg-6 > div > span.tag-item.badge.badge-secondary');
 
                 return {
                     urlNode,
@@ -876,7 +884,8 @@
                     nameNode,
                     name,
                     queryInput,
-                    performerNodes
+                    performerNodes,
+                    tagNodes
                 }
             }
             parseSearchResultItem(searchResultItem) {
@@ -957,6 +966,9 @@
                     });
                 }
 
+                const tagNodes = searchResultItem.querySelectorAll('div.col-lg-6 div.mt-2 div div.form-group.row div.col-xl-12.col-sm-9 .react-select__multi-value');
+                const unmatchedTagNodes = searchResultItem.querySelectorAll('div.col-lg-6 div.mt-2 span.tag-item.badge.badge-secondary');
+
                 return {
                     remoteUrlNode,
                     remoteId,
@@ -969,7 +981,9 @@
                     dateNode,
                     studioNode,
                     performerNodes,
-                    matches
+                    matches,
+                    tagNodes,
+                    unmatchedTagNodes
                 }
             }
         }

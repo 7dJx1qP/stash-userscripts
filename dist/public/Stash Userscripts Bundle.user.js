@@ -2,7 +2,7 @@
 // @name        Stash Userscripts Bundle
 // @namespace     https://github.com/7dJx1qP/stash-userscripts
 // @description Stash Userscripts Bundle
-// @version     0.22.0
+// @version     0.23.0
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @resource    IMPORTED_CSS https://raw.githubusercontent.com/fengyuanchen/cropperjs/main/dist/cropper.min.css
@@ -26,6 +26,7 @@
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Batch Save.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Batch Search.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Markdown.user.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Markers Autoscroll.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash New Performer Filter Button.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Open Media Player.user.js
 // @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src/body\Stash Performer Audit Task Button.user.js

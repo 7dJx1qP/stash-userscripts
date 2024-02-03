@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.23.0 Stash Userscripts Bundle
+### 0.1.0 Stash Markers Autoscroll
+#### Added
+- Add userscript
+### 0.6.0 Stash Scene Tagger Colorizer
+#### Changed
+- Added tag coloring
+
 ## 0.6.0 Userscript Functions Plugin
 ### Fixed
 - Updated plugin to work with Stash v0.24.3

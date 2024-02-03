@@ -152,7 +152,8 @@
             nameNode,
             name,
             queryInput,
-            performerNodes
+            performerNodes,
+            tagNodes
         } = stash.parseSearchItem(searchItem);
 
         const {
@@ -167,7 +168,9 @@
             dateNode,
             studioNode,
             performerNodes: matchPerformerNodes,
-            matches
+            matches,
+            tagNodes: matchTagNodes,
+            unmatchedTagNodes
         } = stash.parseSearchResultItem(searchResultItem);
 
         const includeTitle = document.getElementById('colorize-title').checked;
@@ -177,6 +180,7 @@
         const includeDetails = document.getElementById('colorize-details').checked;
         const includeStudio = document.getElementById('colorize-studio').checked;
         const includePerformers = document.getElementById('colorize-performers').checked;
+        const includeTags = document.getElementById('colorize-tags').checked;
 
         if (includeTitle && titleNode) {
             titleNode.firstChild.style.color = COLORS.yellow;
@@ -262,6 +266,27 @@
             }
         }
 
+        if (includeTags) {
+            for (const tagNode of tagNodes) {
+                tagNode.style.backgroundColor = COLORS.red;
+                for (const remoteTag of remoteData.tags) {
+                    const tag = data.tags.find(o => o.id === remoteTag.stored_id);
+                    if (tag?.name === tagNode.innerText) {
+                        tagNode.style.backgroundColor = COLORS.green;
+                    }
+                }
+            }
+            for (const tagNode of matchTagNodes) {
+                tagNode.style.backgroundColor = COLORS.yellow;
+                for (const tag of data.tags) {
+                    if (tag.name === tagNode.innerText) {
+                        const remoteTag = remoteData.tags.find(o => o.stored_id === tag.id);
+                        tagNode.style.backgroundColor = remoteTag ? COLORS.green : COLORS.red;
+                    }
+                }
+            }
+        }
+
     }
 
     const colorizeConfigId = 'colorize-config';
@@ -316,6 +341,12 @@
             <label title="" for="colorize-performers" class="form-check-label">Performers</label>
         </div>
     </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="colorize-tags" class="form-check-input" data-default="true">
+            <label title="" for="colorize-tags" class="form-check-label">Tags</label>
+        </div>
+    </div>
     <div class="align-items-center form-group col-md-12">
         <div class="row">
             <label title="" for="colorize-color-green" class="col-sm-2 col-form-label">Match Color</label>
@@ -368,6 +399,7 @@
 
     stash.addEventListener('tagger:mutation:add:remoteperformer', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:remotestudio', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
+    stash.addEventListener('tagger:mutation:add:remotetag', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:local', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:container', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
     stash.addEventListener('tagger:mutation:add:subcontainer', evt => colorizeSearchItem(getClosestAncestor(evt.detail.node, '.search-item')));
