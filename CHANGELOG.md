@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.24.0 Stash Userscripts Bundle
+### 0.6.0 Stash Batch Result Toggle
+#### Changed
+- Added director and studio code toggling
+### 0.7.0 Stash Scene Tagger Colorizer
+#### Changed
+- Added director and studio code coloring
+
 ## 0.23.0 Stash Userscripts Bundle
 ### 0.1.0 Stash Markers Autoscroll
 #### Added
