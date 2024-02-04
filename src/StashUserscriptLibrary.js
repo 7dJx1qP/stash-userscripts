@@ -1,6 +1,6 @@
 // Stash Userscript Library
 // Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.35.0
+// version 0.36.0
 
 (function () {
     'use strict';
@@ -918,7 +918,20 @@
 
                 const metadataNode = searchResultItem.querySelector('.scene-metadata');
                 const titleNode = metadataNode.querySelector('h4 .optional-field .optional-field-content');
-                const dateNode = metadataNode.querySelector('h5 .optional-field .optional-field-content');
+                let dateNode;
+                let studioCodeNode;
+                let directorNode;
+                for (const node of searchResultItem.querySelectorAll('h5 .optional-field .optional-field-content')) {
+                    if (node.innerText === remoteData.date) {
+                        dateNode = node;
+                    }
+                    else if (node.innerText === remoteData.code) {
+                        studioCodeNode = node;
+                    }
+                    else if (node.innerText === 'Director: ' + remoteData.director) {
+                        directorNode = node;
+                    }
+                }
 
                 const entityNodes = searchResultItem.querySelectorAll('.entity-name');
                 let studioNode = null;
@@ -983,7 +996,9 @@
                     performerNodes,
                     matches,
                     tagNodes,
-                    unmatchedTagNodes
+                    unmatchedTagNodes,
+                    studioCodeNode,
+                    directorNode
                 }
             }
         }

@@ -170,7 +170,9 @@
             performerNodes: matchPerformerNodes,
             matches,
             tagNodes: matchTagNodes,
-            unmatchedTagNodes
+            unmatchedTagNodes,
+            studioCodeNode,
+            directorNode
         } = stash.parseSearchResultItem(searchResultItem);
 
         const includeTitle = document.getElementById('colorize-title').checked;
@@ -181,6 +183,8 @@
         const includeStudio = document.getElementById('colorize-studio').checked;
         const includePerformers = document.getElementById('colorize-performers').checked;
         const includeTags = document.getElementById('colorize-tags').checked;
+        const includeStudioCode = document.getElementById('colorize-studio-code').checked;
+        const includeDirector = document.getElementById('colorize-director').checked;
 
         if (includeTitle && titleNode) {
             titleNode.firstChild.style.color = COLORS.yellow;
@@ -287,6 +291,20 @@
             }
         }
 
+        if (includeStudioCode && studioCodeNode) {
+            studioCodeNode.style.color = COLORS.yellow;
+            if (data?.code) {
+                studioCodeNode.style.color = studioCodeNode.textContent === data.code ? COLORS.green : COLORS.red;
+            }
+        }
+
+        if (includeDirector && directorNode) {
+            directorNode.style.color = COLORS.yellow;
+            if (data?.director) {
+                directorNode.style.color = directorNode.textContent === 'Director: ' + data.director ? COLORS.green : COLORS.red;
+            }
+        }
+
     }
 
     const colorizeConfigId = 'colorize-config';
@@ -345,6 +363,18 @@
         <div class="form-check">
             <input type="checkbox" id="colorize-tags" class="form-check-input" data-default="true">
             <label title="" for="colorize-tags" class="form-check-label">Tags</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="colorize-studio-code" class="form-check-input" data-default="true">
+            <label title="" for="colorize-studio-code" class="form-check-label">Studio Code</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="colorize-director" class="form-check-input" data-default="true">
+            <label title="" for="colorize-director" class="form-check-label">Director</label>
         </div>
     </div>
     <div class="align-items-center form-group col-md-12">

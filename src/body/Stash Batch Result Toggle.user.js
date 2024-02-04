@@ -63,7 +63,11 @@
             dateNode,
             studioNode,
             performerNodes: matchPerformerNodes,
-            matches
+            matches,
+            tagNodes,
+            unmatchedTagNodes,
+            studioCodeNode,
+            directorNode
         } = stash.parseSearchResultItem(searchResultItem);
 
         const studioMatchNode = matches.find(o => o.matchType === 'studio')?.matchNode;
@@ -77,6 +81,8 @@
         const includeDetails = document.getElementById('result-toggle-details').checked;
         const includeStudio = document.getElementById('result-toggle-studio').checked;
         const includePerformers = document.getElementById('result-toggle-performers').checked;
+        const includeStudioCode = document.getElementById('result-toggle-studio-code').checked;
+        const includeDirector = document.getElementById('result-toggle-director').checked;
 
         let options = [];
 
@@ -88,6 +94,8 @@
         options.push(['details', includeDetails, detailsNode, resolveToggle(detailsNode)]);
         options.push(['studio', includeStudio, studioMatchNode, resolveToggle(studioMatchNode)]);
         options = options.concat(performerMatchNodes.map(o => ['performer', includePerformers, o, resolveToggle(o)]));
+        options.push(['studio-code', includeStudioCode, studioCodeNode, resolveToggle(studioCodeNode)]);
+        options.push(['director', includeDirector, directorNode, resolveToggle(directorNode)]);
 
         for (const [optionType, optionValue, optionNode, { button, state }] of options) {
             let wantedState = optionValue;
@@ -285,6 +293,18 @@
         <div class="form-check">
             <input type="checkbox" id="result-toggle-performers" class="form-check-input" data-default="true">
             <label title="" for="result-toggle-performers" class="form-check-label">Performers</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="result-toggle-studio-code" class="form-check-input" data-default="true">
+            <label title="" for="result-toggle-studio-code" class="form-check-label">Studio Code</label>
+        </div>
+    </div>
+    <div class="align-items-center form-group col-md-6">
+        <div class="form-check">
+            <input type="checkbox" id="result-toggle-director" class="form-check-input" data-default="true">
+            <label title="" for="result-toggle-director" class="form-check-label">Director</label>
         </div>
     </div>
 </div>
