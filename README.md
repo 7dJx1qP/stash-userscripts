@@ -1,5 +1,7 @@
 # Stash Userscripts
 
+## ** NOTE ** All these userscripts have been migrated to plugins https://github.com/7dJx1qP/stash-plugins
+
 ## [INSTALL USERSCRIPT - ALL SCRIPTS IN ONE BUNDLE](dist/public/Stash%20Userscripts%20Bundle.user.js?raw=1)
 
 Installation requires a browser extension such as [Violentmonkey](https://violentmonkey.github.io/) / [Tampermonkey](https://www.tampermonkey.net/) / [Greasemonkey](https://www.greasespot.net/).
