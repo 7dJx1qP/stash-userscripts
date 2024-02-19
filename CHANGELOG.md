@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.24.1 Stash Userscripts Bundle
+### 0.3.1 Stash Stats
+#### Fixed
+- Fix showing unmatched instead of matched stats
+
 ## 0.24.0 Stash Userscripts Bundle
 ### 0.6.0 Stash Batch Result Toggle
 #### Changed

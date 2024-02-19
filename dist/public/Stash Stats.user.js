@@ -2,7 +2,7 @@
 // @name        Stash Stats
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Add stats to stats page
-// @version     0.3.0
+// @version     0.3.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
@@ -45,7 +45,7 @@
                     "stash_id_endpoint": {
                         "endpoint": "",
                         "stash_id": "",
-                        "modifier": "IS_NULL"
+                        "modifier": "NOT_NULL"
                     }
                 }
             },
@@ -73,7 +73,7 @@
                     "stash_id_endpoint": {
                         "endpoint": "",
                         "stash_id": "",
-                        "modifier": "IS_NULL"
+                        "modifier": "NOT_NULL"
                     }
                 }
             },
@@ -99,7 +99,7 @@
                     "stash_id_endpoint": {
                         "endpoint": "",
                         "stash_id": "",
-                        "modifier": "IS_NULL"
+                        "modifier": "NOT_NULL"
                     }
                 }
             },

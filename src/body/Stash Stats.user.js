@@ -34,7 +34,7 @@
                     "stash_id_endpoint": {
                         "endpoint": "",
                         "stash_id": "",
-                        "modifier": "IS_NULL"
+                        "modifier": "NOT_NULL"
                     }
                 }
             },
@@ -62,7 +62,7 @@
                     "stash_id_endpoint": {
                         "endpoint": "",
                         "stash_id": "",
-                        "modifier": "IS_NULL"
+                        "modifier": "NOT_NULL"
                     }
                 }
             },
@@ -88,7 +88,7 @@
                     "stash_id_endpoint": {
                         "endpoint": "",
                         "stash_id": "",
-                        "modifier": "IS_NULL"
+                        "modifier": "NOT_NULL"
                     }
                 }
             },
