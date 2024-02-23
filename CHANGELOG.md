@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.24.2 Stash Userscripts Bundle
+### 0.5.3 Stash Batch Save
+#### Added
+- Add remove button to prevent saving
+
 ## 0.24.1 Stash Userscripts Bundle
 ### 0.3.1 Stash Stats
 #### Fixed
