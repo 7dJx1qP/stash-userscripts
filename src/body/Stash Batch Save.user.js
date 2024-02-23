@@ -8,8 +8,10 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
+        getElementsByXpath,
         getClosestAncestor,
         sortElementChildren,
+        createElementFromHTML,
     } = unsafeWindow.stash;
 
     let running = false;
@@ -107,52 +109,39 @@
 
     stash.addEventListener('tagger:mutations:searchitems', checkSaveButtonDisplay);
 
-    // Code for div remover
-    function addRemoveButtons() {
-        const divs = document.querySelectorAll(".mt-3.search-item");
-        divs.forEach((div) => {
-            if (div.querySelector(".tagger-remover")) return;
-            const divContainer = document.createElement("div");
-            divContainer.setAttribute("class", "mt-2 text-right");
-            const removeBtn = document.createElement("button");
-            removeBtn.innerText = "Remove";
-            removeBtn.setAttribute("class", "tagger-remover btn btn-danger");
-            removeBtn.addEventListener("click", () => {
-                div.parentNode.removeChild(div);
+    async function initRemoveButtons() {
+        const nodes = getElementsByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']");
+        const buttons = [];
+        let node = null;
+        while (node = nodes.iterateNext()) {
+            buttons.push(node);
+        }
+        for (const button of buttons) {
+            const searchItem = getClosestAncestor(button, '.search-item');
+
+            const removeButtonExists = searchItem.querySelector('.tagger-remover');
+            if (removeButtonExists) {
+                continue;
+            }
+
+            const removeEl = createElementFromHTML('<div class="mt-2 text-right tagger-remover"><button class="btn btn-danger">Remove</button></div>');
+            const removeButton = removeEl.querySelector('button');
+            button.parentElement.parentElement.appendChild(removeEl);
+            removeButton.addEventListener('click', async () => {
+                searchItem.parentElement.removeChild(searchItem);
             });
-            divContainer.appendChild(removeBtn);
-            const innerDiv = div.querySelector(".col-md-6.my-1>div:not([class])");
-            innerDiv.appendChild(divContainer);
-        });
-    }
-    async function runDivRemover() {
-        await waitForElementByXpath(
-            "//div[contains(@class, 'tagger-container mx-md-auto')]",
-            () => addRemoveButtons()
-        );
+        }
     }
 
-    const updateElements = runDivRemover
-    stash.addEventListener("tagger:searchitem", () => {
-        console.log("Loaded");
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                Array.from(mutation.addedNodes).forEach((addedNode) => {
-                    if (addedNode.matches && addedNode.matches(".mt-3.search-item")) {
-                        setTimeout(function () {
-                            updateElements();
-                        }, 2000);
-                    }
-                });
-            });
-        });
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-        });
+    stash.addEventListener('page:studio:scenes', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initRemoveButtons);
     });
 
-    stash.addEventListener("tagger:searchitem", function () {
-        runDivRemover();
+    stash.addEventListener('page:performer:scenes', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initRemoveButtons);
+    });
+
+    stash.addEventListener('page:scenes', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initRemoveButtons);
     });
 })();
