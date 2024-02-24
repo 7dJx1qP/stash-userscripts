@@ -2,14 +2,14 @@
 // @name        Stash Batch Save
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds a batch save button to scenes tagger
-// @version     0.5.2
+// @version     0.5.3
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     const {
@@ -19,9 +19,16 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
+        getElementsByXpath,
         getClosestAncestor,
         sortElementChildren,
+        createElementFromHTML,
     } = unsafeWindow.stash;
+
+    document.body.appendChild(document.createElement('style')).textContent = `
+    .search-item > div.row:first-child > div.col-md-6.my-1 > div:first-child { display: flex; flex-direction: column; }
+    .tagger-remove { order: 10; }
+    `;
 
     let running = false;
     const buttons = [];
@@ -34,6 +41,13 @@
         stash.setProgress((maxCount - buttons.length) / maxCount * 100);
         if (button) {
             const searchItem = getClosestAncestor(button, '.search-item');
+            if (searchItem.classList.contains('d-none')) {
+                setTimeout(() => {
+                    run();
+                }, 0);
+                return;
+            }
+
             const { id } = stash.parseSearchItem(searchItem);
             sceneId = id;
             if (!button.disabled) {
@@ -52,7 +66,7 @@
         if (running && evt.detail.data?.sceneUpdate?.id === sceneId) {
             setTimeout(() => {
                 run();
-            }, 0)
+            }, 0);
         }
     }
 
@@ -118,4 +132,39 @@
 
     stash.addEventListener('tagger:mutations:searchitems', checkSaveButtonDisplay);
 
+    async function initRemoveButtons() {
+        const nodes = getElementsByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']");
+        const buttons = [];
+        let node = null;
+        while (node = nodes.iterateNext()) {
+            buttons.push(node);
+        }
+        for (const button of buttons) {
+            const searchItem = getClosestAncestor(button, '.search-item');
+
+            const removeButtonExists = searchItem.querySelector('.tagger-remove');
+            if (removeButtonExists) {
+                continue;
+            }
+
+            const removeEl = createElementFromHTML('<div class="mt-2 text-right tagger-remove"><button class="btn btn-danger">Remove</button></div>');
+            const removeButton = removeEl.querySelector('button');
+            button.parentElement.parentElement.appendChild(removeEl);
+            removeButton.addEventListener('click', async () => {
+                searchItem.classList.add('d-none');
+            });
+        }
+    }
+
+    stash.addEventListener('page:studio:scenes', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initRemoveButtons);
+    });
+
+    stash.addEventListener('page:performer:scenes', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initRemoveButtons);
+    });
+
+    stash.addEventListener('page:scenes', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initRemoveButtons);
+    });
 })();

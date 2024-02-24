@@ -2,11 +2,11 @@
 // @name        Stash Scene Tagger Draft Submit
 // @namespace   https://github.com/7dJx1qP/stash-userscripts
 // @description Adds button to Scene Tagger to submit draft to stashdb
-// @version     0.1.0
+// @version     0.1.1
 // @author      7dJx1qP
 // @match       http://localhost:9999/*
 // @grant       unsafeWindow
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/master/src\StashUserscriptLibrary.js
+// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
 // ==/UserScript==
 
 (function () {
@@ -24,6 +24,11 @@
         insertAfter,
         createElementFromHTML,
     } = unsafeWindow.stash;
+
+    document.body.appendChild(document.createElement('style')).textContent = `
+    .search-item > div.row:first-child > div.col-md-6.my-1 > div:first-child { display: flex; flex-direction: column; }
+    .submit-draft { order: 5; }
+    `;
 
     async function submitDraft(sceneId, stashBoxIndex) {
         const reqData = {
