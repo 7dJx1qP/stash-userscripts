@@ -14,6 +14,11 @@
         createElementFromHTML,
     } = unsafeWindow.stash;
 
+    document.body.appendChild(document.createElement('style')).textContent = `
+    .search-item > div.row:first-child > div.col-md-6.my-1 > div:first-child { display: flex; flex-direction: column; }
+    .submit-draft { order: 5; }
+    `;
+
     async function submitDraft(sceneId, stashBoxIndex) {
         const reqData = {
             "variables": {

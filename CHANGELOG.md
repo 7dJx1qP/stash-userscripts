@@ -4,6 +4,11 @@
 ### 0.5.3 Stash Batch Save
 #### Added
 - Add remove button to prevent saving
+#### Changed
+- Add css to set order of submit draft and batch save remove buttons
+### 0.1.1 Stash Scene Tagger Draft Submit
+#### Changed
+- Add css to set order of submit draft and batch save remove buttons
 
 ## 0.24.1 Stash Userscripts Bundle
 ### 0.3.1 Stash Stats

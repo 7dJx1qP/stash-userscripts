@@ -14,6 +14,11 @@
         createElementFromHTML,
     } = unsafeWindow.stash;
 
+    document.body.appendChild(document.createElement('style')).textContent = `
+    .search-item > div.row:first-child > div.col-md-6.my-1 > div:first-child { display: flex; flex-direction: column; }
+    .tagger-remove { order: 10; }
+    `;
+
     let running = false;
     const buttons = [];
     let maxCount = 0;
@@ -25,6 +30,13 @@
         stash.setProgress((maxCount - buttons.length) / maxCount * 100);
         if (button) {
             const searchItem = getClosestAncestor(button, '.search-item');
+            if (searchItem.classList.contains('d-none')) {
+                setTimeout(() => {
+                    run();
+                }, 0);
+                return;
+            }
+
             const { id } = stash.parseSearchItem(searchItem);
             sceneId = id;
             if (!button.disabled) {
@@ -43,7 +55,7 @@
         if (running && evt.detail.data?.sceneUpdate?.id === sceneId) {
             setTimeout(() => {
                 run();
-            }, 0)
+            }, 0);
         }
     }
 
@@ -119,16 +131,16 @@
         for (const button of buttons) {
             const searchItem = getClosestAncestor(button, '.search-item');
 
-            const removeButtonExists = searchItem.querySelector('.tagger-remover');
+            const removeButtonExists = searchItem.querySelector('.tagger-remove');
             if (removeButtonExists) {
                 continue;
             }
 
-            const removeEl = createElementFromHTML('<div class="mt-2 text-right tagger-remover"><button class="btn btn-danger">Remove</button></div>');
+            const removeEl = createElementFromHTML('<div class="mt-2 text-right tagger-remove"><button class="btn btn-danger">Remove</button></div>');
             const removeButton = removeEl.querySelector('button');
             button.parentElement.parentElement.appendChild(removeEl);
             removeButton.addEventListener('click', async () => {
-                searchItem.parentElement.removeChild(searchItem);
+                searchItem.classList.add('d-none');
             });
         }
     }
